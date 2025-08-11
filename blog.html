@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - 刘浩阳</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">刘浩阳</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">项目作品</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link active">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resume.html" class="nav-link">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>我的博客</h1>
+                    <p>分享技术见解、学习心得和生活感悟</p>
+                    <div class="breadcrumb">
+                        <a href="index.html">首页</a> / <span>博客</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-section">
+            <div class="container">
+                <div class="blog-layout">
+                    <div class="blog-content">
+                        <div class="blog-filters">
+                            <button class="filter-btn active" data-category="all">全部</button>
+                            <button class="filter-btn" data-category="tech">技术</button>
+                            <button class="filter-btn" data-category="tutorial">教程</button>
+                            <button class="filter-btn" data-category="life">生活</button>
+                            <button class="filter-btn" data-category="thoughts">思考</button>
+                        </div>
+
+                        <div class="blog-posts">
+                            <article class="blog-post" data-category="tech">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/4F46E5/FFFFFF?text=React+Hooks" alt="React Hooks深度解析">
+                                    <div class="post-category">技术</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年3月15日</span>
+                                        <span class="post-read-time">5分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">React Hooks深度解析：从入门到精通</a></h2>
+                                    <p class="post-excerpt">
+                                        深入探讨React Hooks的工作原理，包括useState、useEffect、useContext等核心Hooks的使用场景和最佳实践。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">前端开发</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 1,234</span>
+                                            <span>💬 18</span>
+                                            <span>❤️ 45</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="blog-post" data-category="tutorial">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/8B5CF6/FFFFFF?text=CSS+Grid" alt="CSS Grid布局完全指南">
+                                    <div class="post-category">教程</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年3月10日</span>
+                                        <span class="post-read-time">8分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">CSS Grid布局完全指南</a></h2>
+                                    <p class="post-excerpt">
+                                        从基础到高级，全面掌握CSS Grid布局系统。通过实际案例学习如何创建复杂的响应式网格布局。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">CSS</span>
+                                        <span class="tag">布局</span>
+                                        <span class="tag">响应式设计</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 892</span>
+                                            <span>💬 12</span>
+                                            <span>❤️ 38</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="blog-post" data-category="thoughts">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/10B981/FFFFFF?text=Career+Growth" alt="技术人的职业成长思考">
+                                    <div class="post-category">思考</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年3月5日</span>
+                                        <span class="post-read-time">6分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">技术人的职业成长思考</a></h2>
+                                    <p class="post-excerpt">
+                                        分享我对技术人员职业发展的一些思考，包括技术深度vs广度的选择，如何平衡工作与学习等话题。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">职业发展</span>
+                                        <span class="tag">思考</span>
+                                        <span class="tag">成长</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 1,567</span>
+                                            <span>💬 24</span>
+                                            <span>❤️ 67</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="blog-post" data-category="tech">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/F59E0B/FFFFFF?text=Performance" alt="前端性能优化实战">
+                                    <div class="post-category">技术</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年2月28日</span>
+                                        <span class="post-read-time">10分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">前端性能优化实战指南</a></h2>
+                                    <p class="post-excerpt">
+                                        从代码分割到图片优化，从缓存策略到懒加载，全面介绍前端性能优化的各种技巧和最佳实践。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">性能优化</span>
+                                        <span class="tag">前端</span>
+                                        <span class="tag">实战</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 2,103</span>
+                                            <span>💬 31</span>
+                                            <span>❤️ 89</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="blog-post" data-category="life">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/EF4444/FFFFFF?text=Work+Life+Balance" alt="工作与生活的平衡艺术">
+                                    <div class="post-category">生活</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年2月20日</span>
+                                        <span class="post-read-time">4分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">工作与生活的平衡艺术</a></h2>
+                                    <p class="post-excerpt">
+                                        作为一名程序员，如何在高强度的工作中保持生活的质量？分享我的一些心得和实践经验。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">生活方式</span>
+                                        <span class="tag">工作</span>
+                                        <span class="tag">平衡</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 756</span>
+                                            <span>💬 15</span>
+                                            <span>❤️ 42</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="blog-post" data-category="tutorial">
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/600x300/06B6D4/FFFFFF?text=Git+Workflow" alt="Git工作流最佳实践">
+                                    <div class="post-category">教程</div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">2024年2月15日</span>
+                                        <span class="post-read-time">7分钟阅读</span>
+                                    </div>
+                                    <h2><a href="#" class="post-title">Git工作流最佳实践</a></h2>
+                                    <p class="post-excerpt">
+                                        详细介绍Git Flow、GitHub Flow等常见工作流程，以及如何选择适合团队的Git工作流策略。
+                                    </p>
+                                    <div class="post-tags">
+                                        <span class="tag">Git</span>
+                                        <span class="tag">版本控制</span>
+                                        <span class="tag">团队协作</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="#" class="read-more">阅读全文</a>
+                                        <div class="post-stats">
+                                            <span>👁️ 1,345</span>
+                                            <span>💬 22</span>
+                                            <span>❤️ 56</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="pagination">
+                            <button class="pagination-btn" disabled>上一页</button>
+                            <div class="pagination-numbers">
+                                <button class="pagination-number active">1</button>
+                                <button class="pagination-number">2</button>
+                                <button class="pagination-number">3</button>
+                                <span class="pagination-ellipsis">...</span>
+                                <button class="pagination-number">8</button>
+                            </div>
+                            <button class="pagination-btn">下一页</button>
+                        </div>
+                    </div>
+
+                    <aside class="blog-sidebar">
+                        <div class="sidebar-widget">
+                            <h3>关于博客</h3>
+                            <p>这里分享我在技术学习和工作中的心得体会，希望能够帮助到更多的开发者朋友。</p>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>热门文章</h3>
+                            <ul class="popular-posts">
+                                <li>
+                                    <a href="#">React Hooks深度解析</a>
+                                    <span class="post-views">1,234 阅读</span>
+                                </li>
+                                <li>
+                                    <a href="#">前端性能优化实战指南</a>
+                                    <span class="post-views">2,103 阅读</span>
+                                </li>
+                                <li>
+                                    <a href="#">技术人的职业成长思考</a>
+                                    <span class="post-views">1,567 阅读</span>
+                                </li>
+                                <li>
+                                    <a href="#">Git工作流最佳实践</a>
+                                    <span class="post-views">1,345 阅读</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>标签云</h3>
+                            <div class="tag-cloud">
+                                <a href="#" class="cloud-tag">React</a>
+                                <a href="#" class="cloud-tag">JavaScript</a>
+                                <a href="#" class="cloud-tag">CSS</a>
+                                <a href="#" class="cloud-tag">前端开发</a>
+                                <a href="#" class="cloud-tag">性能优化</a>
+                                <a href="#" class="cloud-tag">Git</a>
+                                <a href="#" class="cloud-tag">职业发展</a>
+                                <a href="#" class="cloud-tag">教程</a>
+                                <a href="#" class="cloud-tag">思考</a>
+                                <a href="#" class="cloud-tag">工作流</a>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>归档</h3>
+                            <ul class="archive-list">
+                                <li><a href="#">2024年3月 (3)</a></li>
+                                <li><a href="#">2024年2月 (3)</a></li>
+                                <li><a href="#">2024年1月 (2)</a></li>
+                                <li><a href="#">2023年12月 (4)</a></li>
+                                <li><a href="#">2023年11月 (2)</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>订阅博客</h3>
+                            <form class="subscribe-form">
+                                <input type="email" placeholder="输入您的邮箱" required>
+                                <button type="submit" class="btn btn-primary">订阅</button>
+                            </form>
+                            <p class="subscribe-note">订阅后会在第一时间收到新文章通知</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 刘浩阳. 保留所有权利.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

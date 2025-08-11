@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘浩阳 - 个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">刘浩阳</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">项目作品</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resume.html" class="nav-link">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>你好，我是<span class="highlight">刘浩阳</span></h1>
+                <p class="hero-description">
+                    一名热爱技术与创新的开发者，专注于前端开发和用户体验设计
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">查看作品</a>
+                    <a href="#contact" class="btn btn-secondary">联系我</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=LHY" alt="刘浩阳">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>关于我</h2>
+                <p>了解我的背景和技能</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>我是一名充满激情的开发者，致力于创造优秀的数字体验。我相信技术的力量能够改变世界，并通过代码来实现创意和想法。</p>
+                    <div class="skills">
+                        <h3>技能专长</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Vue.js</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">UI/UX设计</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>项目作品</h2>
+                <p>我的一些精选项目</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250/6366F1/FFFFFF?text=Project+1" alt="项目1">
+                    </div>
+                    <div class="project-content">
+                        <h3>项目名称 1</h3>
+                        <p>这是一个示例项目的描述，展示了我在前端开发方面的能力。</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">CSS3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-sm">演示</a>
+                            <a href="#" class="btn btn-sm btn-outline">代码</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250/8B5CF6/FFFFFF?text=Project+2" alt="项目2">
+                    </div>
+                    <div class="project-content">
+                        <h3>项目名称 2</h3>
+                        <p>另一个展示我技术能力的项目，使用了现代化的开发技术栈。</p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-sm">演示</a>
+                            <a href="#" class="btn btn-sm btn-outline">代码</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250/10B981/FFFFFF?text=Project+3" alt="项目3">
+                    </div>
+                    <div class="project-content">
+                        <h3>项目名称 3</h3>
+                        <p>一个全栈应用项目，展示了我在后端开发方面的技能。</p>
+                        <div class="project-tags">
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-sm">演示</a>
+                            <a href="#" class="btn btn-sm btn-outline">代码</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>联系我</h2>
+                <p>让我们一起创造amazing的东西</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h3>邮箱</h3>
+                            <p>your.email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🐙</div>
+                        <div class="contact-text">
+                            <h3>GitHub</h3>
+                            <p>github.com/yourusername</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-text">
+                            <h3>LinkedIn</h3>
+                            <p>linkedin.com/in/yourprofile</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">消息</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">发送消息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 刘浩阳. 保留所有权利.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

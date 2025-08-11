@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简历 - 刘浩阳</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">刘浩阳</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">项目作品</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resume.html" class="nav-link active">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>个人简历</h1>
+                    <p>全栈开发工程师 | 前端技术专家</p>
+                    <div class="breadcrumb">
+                        <a href="index.html">首页</a> / <span>简历</span>
+                    </div>
+                    <div class="resume-actions">
+                        <button class="btn btn-primary" onclick="window.print()">打印简历</button>
+                        <a href="#" class="btn btn-secondary">下载PDF</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-section">
+            <div class="container">
+                <div class="resume-layout">
+                    <div class="resume-sidebar">
+                        <div class="resume-photo">
+                            <img src="https://via.placeholder.com/200x200/4F46E5/FFFFFF?text=LHY" alt="刘浩阳">
+                        </div>
+
+                        <div class="resume-contact">
+                            <h3>联系方式</h3>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>liuhaoyang@example.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <span>+86 138-0000-0000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>北京市，中国</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🐙</span>
+                                <a href="#">github.com/liuhaoyang</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">💼</span>
+                                <a href="#">linkedin.com/in/liuhaoyang</a>
+                            </div>
+                        </div>
+
+                        <div class="resume-skills">
+                            <h3>技能专长</h3>
+                            <div class="skill-category">
+                                <h4>前端技术</h4>
+                                <div class="skill-item">
+                                    <span>HTML/CSS</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="95%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>JavaScript</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>React</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="88%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Vue.js</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>后端技术</h4>
+                                <div class="skill-item">
+                                    <span>Node.js</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Python</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>MySQL</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>工具与其他</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Git</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">AWS</span>
+                                    <span class="skill-tag">Figma</span>
+                                    <span class="skill-tag">Webpack</span>
+                                    <span class="skill-tag">Jest</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-languages">
+                            <h3>语言能力</h3>
+                            <div class="language-item">
+                                <span>中文</span>
+                                <span class="language-level">母语</span>
+                            </div>
+                            <div class="language-item">
+                                <span>英语</span>
+                                <span class="language-level">流利</span>
+                            </div>
+                            <div class="language-item">
+                                <span>日语</span>
+                                <span class="language-level">初级</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-main">
+                        <div class="resume-summary">
+                            <h2>个人简介</h2>
+                            <p>
+                                具有5年以上前端开发经验的全栈工程师，专注于React、Vue.js等现代前端框架。
+                                热衷于学习新技术，具备良好的团队协作能力和项目管理经验。曾主导多个大型Web应用的开发，
+                                对用户体验和性能优化有深入理解。
+                            </p>
+                        </div>
+
+                        <div class="resume-experience">
+                            <h2>工作经历</h2>
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3>高级前端工程师</h3>
+                                    <span class="company">字节跳动</span>
+                                    <span class="period">2022.06 - 至今</span>
+                                </div>
+                                <div class="experience-location">北京</div>
+                                <ul class="experience-duties">
+                                    <li>负责抖音Web端核心功能开发，服务千万级用户</li>
+                                    <li>主导前端架构升级，将老项目迁移到React 18，提升30%性能</li>
+                                    <li>建立完善的组件库和设计系统，提高团队开发效率40%</li>
+                                    <li>指导初级开发工程师，制定团队技术规范和最佳实践</li>
+                                    <li>参与产品设计评审，从技术角度提供可行性分析</li>
+                                </ul>
+                            </div>
+
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3>前端工程师</h3>
+                                    <span class="company">腾讯科技</span>
+                                    <span class="period">2020.03 - 2022.05</span>
+                                </div>
+                                <div class="experience-location">深圳</div>
+                                <ul class="experience-duties">
+                                    <li>参与微信小程序平台前端开发，优化用户交互体验</li>
+                                    <li>使用Vue.js开发企业级管理后台，支持复杂业务逻辑</li>
+                                    <li>实施前端性能监控方案，页面加载速度提升50%</li>
+                                    <li>协助建立前端CI/CD流程，实现自动化部署</li>
+                                    <li>参与跨团队协作项目，与后端、设计师密切配合</li>
+                                </ul>
+                            </div>
+
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3>Web开发工程师</h3>
+                                    <span class="company">美团</span>
+                                    <span class="period">2019.07 - 2020.02</span>
+                                </div>
+                                <div class="experience-location">北京</div>
+                                <ul class="experience-duties">
+                                    <li>开发美团外卖商家端Web应用，处理高并发场景</li>
+                                    <li>使用React技术栈构建响应式界面，适配多种设备</li>
+                                    <li>优化前端打包策略，减少50%的首屏加载时间</li>
+                                    <li>参与代码评审，保证代码质量和项目稳定性</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="resume-projects">
+                            <h2>项目经验</h2>
+                            <div class="project-item">
+                                <div class="project-header">
+                                    <h3>企业级数据可视化平台</h3>
+                                    <span class="project-period">2023.01 - 2023.08</span>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">TypeScript</span>
+                                    <span class="tech-tag">D3.js</span>
+                                    <span class="tech-tag">Ant Design</span>
+                                </div>
+                                <ul class="project-achievements">
+                                    <li>设计并实现了灵活的图表配置系统，支持20+种图表类型</li>
+                                    <li>优化大数据量渲染性能，支持10万+数据点实时展示</li>
+                                    <li>实现拖拽式仪表板编辑器，提升用户操作体验</li>
+                                    <li>集成多种数据源，支持实时数据更新和历史数据查询</li>
+                                </ul>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-header">
+                                    <h3>多端统一的电商平台</h3>
+                                    <span class="project-period">2022.03 - 2022.12</span>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Vue 3</span>
+                                    <span class="tech-tag">Nuxt.js</span>
+                                    <span class="tech-tag">Tailwind CSS</span>
+                                    <span class="tech-tag">Node.js</span>
+                                </div>
+                                <ul class="project-achievements">
+                                    <li>构建SSR架构，提升SEO效果和首屏加载速度</li>
+                                    <li>实现购物车、订单管理等核心电商功能</li>
+                                    <li>集成第三方支付系统，支持多种支付方式</li>
+                                    <li>建立完善的错误监控和日志系统</li>
+                                </ul>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-header">
+                                    <h3>实时协作文档编辑器</h3>
+                                    <span class="project-period">2021.09 - 2022.02</span>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">WebSocket</span>
+                                    <span class="tech-tag">Monaco Editor</span>
+                                    <span class="tech-tag">Redis</span>
+                                </div>
+                                <ul class="project-achievements">
+                                    <li>实现实时多人协作编辑，支持冲突解决算法</li>
+                                    <li>集成语法高亮和智能提示功能</li>
+                                    <li>设计版本控制系统，支持文档历史回溯</li>
+                                    <li>优化网络传输，减少90%的数据同步延迟</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="resume-education">
+                            <h2>教育背景</h2>
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <h3>计算机科学与技术 学士学位</h3>
+                                    <span class="school">清华大学</span>
+                                    <span class="period">2015.09 - 2019.06</span>
+                                </div>
+                                <div class="education-location">北京</div>
+                                <ul class="education-details">
+                                    <li>主修课程：数据结构与算法、操作系统、数据库系统、软件工程</li>
+                                    <li>GPA: 3.8/4.0，连续三年获得学院奖学金</li>
+                                    <li>参与ACM程序设计竞赛，获得省级三等奖</li>
+                                    <li>担任计算机协会技术部部长，组织多场技术分享会</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="resume-certifications">
+                            <h2>证书与荣誉</h2>
+                            <div class="certification-grid">
+                                <div class="certification-item">
+                                    <h3>AWS认证开发者</h3>
+                                    <span class="cert-date">2023.05</span>
+                                </div>
+                                <div class="certification-item">
+                                    <h3>年度最佳员工</h3>
+                                    <span class="cert-date">2023.12</span>
+                                </div>
+                                <div class="certification-item">
+                                    <h3>前端架构师认证</h3>
+                                    <span class="cert-date">2022.08</span>
+                                </div>
+                                <div class="certification-item">
+                                    <h3>敏捷开发认证</h3>
+                                    <span class="cert-date">2021.11</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-interests">
+                            <h2>兴趣爱好</h2>
+                            <div class="interests-list">
+                                <div class="interest-item">
+                                    <span class="interest-icon">🎸</span>
+                                    <span>音乐创作</span>
+                                </div>
+                                <div class="interest-item">
+                                    <span class="interest-icon">📚</span>
+                                    <span>技术阅读</span>
+                                </div>
+                                <div class="interest-item">
+                                    <span class="interest-icon">🏃‍♂️</span>
+                                    <span>跑步健身</span>
+                                </div>
+                                <div class="interest-item">
+                                    <span class="interest-icon">📷</span>
+                                    <span>摄影旅行</span>
+                                </div>
+                                <div class="interest-item">
+                                    <span class="interest-icon">🎮</span>
+                                    <span>游戏开发</span>
+                                </div>
+                                <div class="interest-item">
+                                    <span class="interest-icon">🎨</span>
+                                    <span>UI设计</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 刘浩阳. 保留所有权利.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
