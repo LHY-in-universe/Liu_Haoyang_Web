@@ -650,7 +650,10 @@ const initializeLanguageSwitcher = () => {
         'blog.html': { zh: 'blog.html', en: 'blog-en.html' },
         'blog-en.html': { zh: 'blog.html', en: 'blog-en.html' },
         'resume.html': { zh: 'resume.html', en: 'resume-en.html' },
-        'resume-en.html': { zh: 'resume.html', en: 'resume-en.html' }
+        'resume-en.html': { zh: 'resume.html', en: 'resume-en.html' },
+        'react-hooks-deep-dive.html': { zh: 'react-hooks-deep-dive.html', en: 'react-hooks-deep-dive-en.html' },
+        'react-hooks-deep-dive-en.html': { zh: 'react-hooks-deep-dive.html', en: 'react-hooks-deep-dive-en.html' },
+        'frontend-performance-guide.html': { zh: 'frontend-performance-guide.html', en: '../blog-en.html' }
     };
     
     // Set active language button based on current page
@@ -668,15 +671,31 @@ const initializeLanguageSwitcher = () => {
     languageBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetLang = btn.dataset.lang;
-            const mapping = languageMapping[currentPage] || languageMapping['index.html'];
-            const targetPage = mapping[targetLang];
+            let targetPage;
+            
+            // Check if we have explicit mapping
+            if (languageMapping[currentPage]) {
+                targetPage = languageMapping[currentPage][targetLang];
+            } else {
+                // For article pages not in the mapping, use pattern matching
+                if (currentPage.endsWith('-en.html') && targetLang === 'zh') {
+                    // Remove -en from English article
+                    targetPage = currentPage.replace('-en.html', '.html');
+                } else if (!currentPage.endsWith('-en.html') && targetLang === 'en') {
+                    // Add -en to Chinese article
+                    targetPage = currentPage.replace('.html', '-en.html');
+                } else {
+                    // Same language, no change needed
+                    targetPage = currentPage;
+                }
+            }
             
             if (targetPage && targetPage !== currentPage) {
                 // Store current hash for navigation
                 const currentHash = window.location.hash;
                 
                 // Navigate to the corresponding page in target language
-                if (currentHash && !currentHash.startsWith('#') === false) {
+                if (currentHash && currentHash.startsWith('#')) {
                     window.location.href = targetPage + currentHash;
                 } else {
                     window.location.href = targetPage;
