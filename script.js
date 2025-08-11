@@ -200,14 +200,16 @@ if (contactForm) {
         const email = formData.get('email');
         const message = formData.get('message');
         
-        // Basic validation
+        // Basic validation with localized messages
+        const currentLang = getCurrentLanguage();
+        
         if (!name || !email || !message) {
-            showMessage('请填写所有必填字段', 'error');
+            showMessage(getLocalizedMessage('required_fields', currentLang), 'error');
             return;
         }
         
         if (!isValidEmail(email)) {
-            showMessage('请输入有效的邮箱地址', 'error');
+            showMessage(getLocalizedMessage('invalid_email', currentLang), 'error');
             return;
         }
         
@@ -215,12 +217,12 @@ if (contactForm) {
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         
-        submitButton.textContent = '发送中...';
+        submitButton.textContent = getLocalizedMessage('sending', currentLang);
         submitButton.disabled = true;
         
         // Simulate API call
         setTimeout(() => {
-            showMessage('消息发送成功！我会尽快回复您。', 'success');
+            showMessage(getLocalizedMessage('contact_success', currentLang), 'success');
             contactForm.reset();
             submitButton.textContent = originalText;
             submitButton.disabled = false;
@@ -467,14 +469,15 @@ function initializeBlogSubscription() {
         
         const emailInput = subscribeForm.querySelector('input[type="email"]');
         const email = emailInput.value.trim();
+        const currentLang = getCurrentLanguage();
         
         if (!email) {
-            showMessage('请输入邮箱地址', 'error');
+            showMessage(getLocalizedMessage('required_fields', currentLang), 'error');
             return;
         }
         
         if (!isValidEmail(email)) {
-            showMessage('请输入有效的邮箱地址', 'error');
+            showMessage(getLocalizedMessage('invalid_email', currentLang), 'error');
             return;
         }
         
@@ -482,11 +485,11 @@ function initializeBlogSubscription() {
         const submitButton = subscribeForm.querySelector('button');
         const originalText = submitButton.textContent;
         
-        submitButton.textContent = '订阅中...';
+        submitButton.textContent = getLocalizedMessage('subscribing', currentLang);
         submitButton.disabled = true;
         
         setTimeout(() => {
-            showMessage('订阅成功！感谢您的关注。', 'success');
+            showMessage(getLocalizedMessage('subscribe_success', currentLang) + email, 'success');
             emailInput.value = '';
             submitButton.textContent = originalText;
             submitButton.disabled = false;

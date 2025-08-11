@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Hooks深度解析：从入门到精通 - 刘浩洋</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">刘浩洋</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">项目作品</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../blog.html" class="nav-link active">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resume.html" class="nav-link">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
+                <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>React Hooks深度解析：从入门到精通</h1>
+                    <p>深入探讨React Hooks的工作原理和最佳实践</p>
+                    <div class="breadcrumb">
+                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>React Hooks深度解析</span>
+                    </div>
+                    <div class="article-meta" style="margin-top: 1.5rem; text-align: center;">
+                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2024年3月15日</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 5分钟阅读</span>
+                        <span style="color: var(--text-light);">👁️ 1,234 阅读</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="article-section" style="padding: 4rem 0; background: var(--bg-white);">
+            <div class="container">
+                <div class="article-layout" style="display: grid; grid-template-columns: 3fr 1fr; gap: 3rem;">
+                    <article class="article-content" style="background: var(--bg-white); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
+                        <div class="article-tags" style="margin-bottom: 2rem;">
+                            <span class="tag">React</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">前端开发</span>
+                        </div>
+
+                        <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
+                            <h2>什么是React Hooks？</h2>
+                            <p>React Hooks是React 16.8引入的新特性，它让你可以在函数组件中使用state和其他React特性。Hooks的出现彻底改变了React开发的方式，让函数式编程在React中成为可能。</p>
+
+                            <h2>核心Hooks详解</h2>
+                            
+                            <h3>1. useState</h3>
+                            <p>useState是最常用的Hook，它让函数组件拥有内部状态的能力。</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;你点击了 {count} 次&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        点击
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+                            <h3>2. useEffect</h3>
+                            <p>useEffect让你在函数组件中执行副作用操作，它结合了componentDidMount、componentDidUpdate和componentWillUnmount的功能。</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>import React, { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetchUser(userId).then(setUser);
+  }, [userId]); // 依赖数组
+
+  return user ? &lt;div&gt;{user.name}&lt;/div&gt; : &lt;div&gt;加载中...&lt;/div&gt;;
+}</code></pre>
+
+                            <h3>3. useContext</h3>
+                            <p>useContext让你可以订阅React context而不用嵌套组件。它接收一个context对象并返回该context的当前值。</p>
+
+                            <h2>自定义Hooks</h2>
+                            <p>自定义Hook是一个函数，其名称以"use"开头，函数内部可以调用其他的Hook。通过自定义Hook，你可以将组件逻辑提取到可重用的函数中。</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}</code></pre>
+
+                            <h2>Hooks规则</h2>
+                            <p>使用Hooks时必须遵循两个规则：</p>
+                            <ol>
+                                <li><strong>只在最顶层调用Hook</strong>：不要在循环、条件或嵌套函数中调用Hook</li>
+                                <li><strong>只在React函数中调用Hook</strong>：不要在普通的JavaScript函数中调用Hook</li>
+                            </ol>
+
+                            <h2>性能优化</h2>
+                            <p>React提供了几个用于性能优化的Hook：</p>
+                            <ul>
+                                <li><strong>useMemo</strong>：缓存计算结果</li>
+                                <li><strong>useCallback</strong>：缓存函数</li>
+                                <li><strong>React.memo</strong>：优化组件重新渲染</li>
+                            </ul>
+
+                            <h2>总结</h2>
+                            <p>React Hooks是现代React开发的核心，它们让函数组件具有了强大的能力，同时保持了代码的简洁性和可读性。掌握Hooks的使用方法和最佳实践，对于成为一名优秀的React开发者至关重要。</p>
+                        </div>
+
+                        <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                                <div class="article-stats">
+                                    <span style="margin-right: 1rem;">👁️ 1,234</span>
+                                    <span style="margin-right: 1rem;">💬 18</span>
+                                    <span>❤️ 45</span>
+                                </div>
+                                <div class="article-share">
+                                    <span style="color: var(--text-light); margin-right: 1rem;">分享：</span>
+                                    <button class="btn btn-sm btn-outline">微信</button>
+                                    <button class="btn btn-sm btn-outline" style="margin-left: 0.5rem;">微博</button>
+                                </div>
+                            </div>
+                            
+                            <div class="article-nav" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <a href="css-grid-guide.html" class="btn btn-outline">← 上一篇: CSS Grid布局指南</a>
+                                <a href="frontend-performance-guide.html" class="btn btn-outline" style="text-align: right;">下一篇: 前端性能优化 →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <aside class="article-sidebar">
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                            <h3>目录</h3>
+                            <nav class="article-toc">
+                                <ul style="list-style: none; padding: 0;">
+                                    <li><a href="#hooks-intro" style="color: var(--text-dark); text-decoration: none; line-height: 2;">什么是React Hooks？</a></li>
+                                    <li><a href="#core-hooks" style="color: var(--text-dark); text-decoration: none; line-height: 2;">核心Hooks详解</a></li>
+                                    <li><a href="#custom-hooks" style="color: var(--text-dark); text-decoration: none; line-height: 2;">自定义Hooks</a></li>
+                                    <li><a href="#hooks-rules" style="color: var(--text-dark); text-decoration: none; line-height: 2;">Hooks规则</a></li>
+                                    <li><a href="#performance" style="color: var(--text-dark); text-decoration: none; line-height: 2;">性能优化</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                            <h3>相关文章</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem;">
+                                    <a href="frontend-performance-guide.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">前端性能优化实战指南</a>
+                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">全面介绍前端性能优化技巧</p>
+                                </li>
+                                <li style="margin-bottom: 1rem;">
+                                    <a href="css-grid-guide.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">CSS Grid布局完全指南</a>
+                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">掌握现代CSS布局技术</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem;">
+                            <h3>返回导航</h3>
+                            <div class="quick-nav">
+                                <a href="../blog.html" class="quick-nav-item">
+                                    <span class="nav-icon">📝</span>
+                                    <span>博客首页</span>
+                                </a>
+                                <a href="../index.html" class="quick-nav-item">
+                                    <span class="nav-icon">🏠</span>
+                                    <span>返回主页</span>
+                                </a>
+                                <a href="../resume.html" class="quick-nav-item">
+                                    <span class="nav-icon">📋</span>
+                                    <span>个人简历</span>
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 刘浩洋. 保留所有权利.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

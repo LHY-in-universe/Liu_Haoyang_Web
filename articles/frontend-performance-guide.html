@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端性能优化实战指南 - 刘浩洋</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">刘浩洋</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">项目作品</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../blog.html" class="nav-link active">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resume.html" class="nav-link">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
+                <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>前端性能优化实战指南</h1>
+                    <p>从代码分割到图片优化，全方位提升网站性能</p>
+                    <div class="breadcrumb">
+                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>前端性能优化实战指南</span>
+                    </div>
+                    <div class="article-meta" style="margin-top: 1.5rem; text-align: center;">
+                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2024年2月28日</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 10分钟阅读</span>
+                        <span style="color: var(--text-light);">👁️ 2,103 阅读</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="article-section" style="padding: 4rem 0; background: var(--bg-white);">
+            <div class="container">
+                <div class="article-layout" style="display: grid; grid-template-columns: 3fr 1fr; gap: 3rem;">
+                    <article class="article-content" style="background: var(--bg-white); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
+                        <div class="article-tags" style="margin-bottom: 2rem;">
+                            <span class="tag">性能优化</span>
+                            <span class="tag">前端</span>
+                            <span class="tag">实战</span>
+                        </div>
+
+                        <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
+                            <h2>为什么性能优化如此重要？</h2>
+                            <p>在现代Web开发中，性能优化不仅影响用户体验，还直接关系到业务成功。研究表明，页面加载时间每增加1秒，转化率就会下降7%。因此，掌握前端性能优化技巧对开发者来说至关重要。</p>
+
+                            <h2>1. 代码分割与懒加载</h2>
+                            <p>代码分割是提升首屏加载性能的重要手段，通过将代码拆分成多个小的bundle，实现按需加载。</p>
+                            
+                            <h3>动态导入</h3>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用动态导入实现路由级别的代码分割
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+      &lt;LazyComponent /&gt;
+    &lt;/Suspense&gt;
+  );
+}</code></pre>
+
+                            <h3>Webpack代码分割</h3>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// webpack.config.js
+module.exports = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+};</code></pre>
+
+                            <h2>2. 图片优化策略</h2>
+                            <p>图片通常是网页中最大的资源，优化图片可以显著提升页面加载速度。</p>
+
+                            <h3>选择合适的图片格式</h3>
+                            <ul>
+                                <li><strong>WebP</strong>：现代浏览器的首选，压缩率高</li>
+                                <li><strong>AVIF</strong>：下一代图片格式，压缩率更高</li>
+                                <li><strong>JPEG</strong>：适合照片类图片</li>
+                                <li><strong>PNG</strong>：适合图标和简单图形</li>
+                            </ul>
+
+                            <h3>响应式图片</h3>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;picture&gt;
+  &lt;source srcset="image.avif" type="image/avif"&gt;
+  &lt;source srcset="image.webp" type="image/webp"&gt;
+  &lt;img 
+    src="image.jpg" 
+    alt="描述文字"
+    loading="lazy"
+    decoding="async"
+  &gt;
+&lt;/picture&gt;</code></pre>
+
+                            <h2>3. CSS优化技巧</h2>
+                            
+                            <h3>关键CSS内联</h3>
+                            <p>将首屏必要的CSS内联到HTML中，避免阻塞渲染：</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;style&gt;
+  /* 关键CSS - 首屏样式 */
+  .header { background: #fff; height: 60px; }
+  .hero { min-height: 400px; }
+&lt;/style&gt;
+
+&lt;link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;</code></pre>
+
+                            <h3>CSS压缩与合并</h3>
+                            <p>使用工具自动压缩CSS，移除未使用的样式：</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用PurgeCSS移除未使用的CSS
+const purgecss = require('@fullhuman/postcss-purgecss');
+
+module.exports = {
+  plugins: [
+    purgecss({
+      content: ['./src/**/*.html', './src/**/*.js'],
+    }),
+  ],
+};</code></pre>
+
+                            <h2>4. JavaScript性能优化</h2>
+
+                            <h3>防抖与节流</h3>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 防抖函数
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// 节流函数
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      return func.apply(this, args);
+    }
+  };
+}</code></pre>
+
+                            <h3>虚拟滚动</h3>
+                            <p>对于大量数据的列表，使用虚拟滚动只渲染可见区域的元素：</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>function VirtualList({ items, itemHeight = 50 }) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const containerHeight = 400;
+  
+  const startIndex = Math.floor(scrollTop / itemHeight);
+  const endIndex = Math.min(
+    startIndex + Math.ceil(containerHeight / itemHeight),
+    items.length - 1
+  );
+  
+  const visibleItems = items.slice(startIndex, endIndex + 1);
+  
+  return (
+    &lt;div 
+      style={{ height: containerHeight, overflow: 'auto' }}
+      onScroll={(e) => setScrollTop(e.target.scrollTop)}
+    &gt;
+      &lt;div style={{ height: items.length * itemHeight, position: 'relative' }}&gt;
+        {visibleItems.map((item, index) => (
+          &lt;div
+            key={startIndex + index}
+            style={{
+              position: 'absolute',
+              top: (startIndex + index) * itemHeight,
+              height: itemHeight
+            }}
+          &gt;
+            {item}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+                            <h2>5. 缓存策略</h2>
+
+                            <h3>HTTP缓存</h3>
+                            <p>合理配置HTTP缓存头，提升资源加载速度：</p>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 服务器端设置缓存头
+app.use('/static', express.static('public', {
+  maxAge: '1y', // 静态资源缓存1年
+  etag: true,
+  lastModified: true
+}));
+
+// 对于HTML文件，使用协商缓存
+app.get('*.html', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('ETag', generateETag(content));
+});</code></pre>
+
+                            <h3>Service Worker缓存</h3>
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// sw.js
+const CACHE_NAME = 'my-cache-v1';
+const urlsToCache = [
+  '/',
+  '/styles.css',
+  '/script.js',
+  '/offline.html'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
+  );
+});</code></pre>
+
+                            <h2>6. 性能监控</h2>
+                            <p>建立性能监控体系，持续跟踪和优化性能指标：</p>
+                            
+                            <h3>Core Web Vitals</h3>
+                            <ul>
+                                <li><strong>LCP (Largest Contentful Paint)</strong>：最大内容绘制时间</li>
+                                <li><strong>FID (First Input Delay)</strong>：首次输入延迟</li>
+                                <li><strong>CLS (Cumulative Layout Shift)</strong>：累积布局偏移</li>
+                            </ul>
+
+                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用Web Vitals库监控性能
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  // 发送到分析工具
+  gtag('event', metric.name, {
+    value: Math.round(metric.value),
+    event_label: metric.id,
+  });
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getFCP(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);</code></pre>
+
+                            <h2>总结</h2>
+                            <p>前端性能优化是一个系统性工程，需要从多个维度入手：</p>
+                            <ol>
+                                <li>合理的代码分割和懒加载策略</li>
+                                <li>图片优化和现代格式的使用</li>
+                                <li>CSS和JavaScript的精细化优化</li>
+                                <li>有效的缓存策略</li>
+                                <li>持续的性能监控</li>
+                            </ol>
+                            <p>只有将这些技巧综合应用，才能构建出真正高性能的Web应用。记住，性能优化是一个持续的过程，需要根据具体项目情况进行调整和优化。</p>
+                        </div>
+
+                        <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                                <div class="article-stats">
+                                    <span style="margin-right: 1rem;">👁️ 2,103</span>
+                                    <span style="margin-right: 1rem;">💬 31</span>
+                                    <span>❤️ 89</span>
+                                </div>
+                                <div class="article-share">
+                                    <span style="color: var(--text-light); margin-right: 1rem;">分享：</span>
+                                    <button class="btn btn-sm btn-outline">微信</button>
+                                    <button class="btn btn-sm btn-outline" style="margin-left: 0.5rem;">微博</button>
+                                </div>
+                            </div>
+                            
+                            <div class="article-nav" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <a href="react-hooks-deep-dive.html" class="btn btn-outline">← 上一篇: React Hooks深度解析</a>
+                                <a href="git-workflow.html" class="btn btn-outline" style="text-align: right;">下一篇: Git工作流最佳实践 →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <aside class="article-sidebar">
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                            <h3>目录</h3>
+                            <nav class="article-toc">
+                                <ul style="list-style: none; padding: 0;">
+                                    <li><a href="#importance" style="color: var(--text-dark); text-decoration: none; line-height: 2;">为什么性能优化重要</a></li>
+                                    <li><a href="#code-splitting" style="color: var(--text-dark); text-decoration: none; line-height: 2;">代码分割与懒加载</a></li>
+                                    <li><a href="#image-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">图片优化策略</a></li>
+                                    <li><a href="#css-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">CSS优化技巧</a></li>
+                                    <li><a href="#js-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">JavaScript性能优化</a></li>
+                                    <li><a href="#cache" style="color: var(--text-dark); text-decoration: none; line-height: 2;">缓存策略</a></li>
+                                    <li><a href="#monitoring" style="color: var(--text-dark); text-decoration: none; line-height: 2;">性能监控</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                            <h3>相关文章</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem;">
+                                    <a href="react-hooks-deep-dive.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">React Hooks深度解析</a>
+                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">从入门到精通掌握Hooks</p>
+                                </li>
+                                <li style="margin-bottom: 1rem;">
+                                    <a href="css-grid-guide.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">CSS Grid布局完全指南</a>
+                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">掌握现代CSS布局技术</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem;">
+                            <h3>返回导航</h3>
+                            <div class="quick-nav">
+                                <a href="../blog.html" class="quick-nav-item">
+                                    <span class="nav-icon">📝</span>
+                                    <span>博客首页</span>
+                                </a>
+                                <a href="../index.html" class="quick-nav-item">
+                                    <span class="nav-icon">🏠</span>
+                                    <span>返回主页</span>
+                                </a>
+                                <a href="../resume.html" class="quick-nav-item">
+                                    <span class="nav-icon">📋</span>
+                                    <span>个人简历</span>
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 刘浩洋. 保留所有权利.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
