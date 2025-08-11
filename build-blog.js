@@ -14,11 +14,18 @@ const CONFIG = {
     postsDir: './posts',
     articlesDir: './articles', 
     templatesDir: './templates',
+    imagesDir: './images',
     blogPages: {
         zh: './blog.html',
         en: './blog-en.html'
     },
-    outputEncoding: 'utf8'
+    outputEncoding: 'utf8',
+    imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.avif'],
+    supportedImageSizes: {
+        thumbnail: { width: 600, height: 300 },
+        cover: { width: 1200, height: 630 },
+        content: { maxWidth: 1200 }
+    }
 };
 
 // 工具函数
@@ -135,6 +142,77 @@ const utils = {
         const words = content.split(/\s+/).length;
         const minutes = Math.ceil(words / wordsPerMinute);
         return minutes;
+    },
+
+    // 检查图片是否存在
+    checkImageExists: (imagePath) => {
+        try {
+            return fs.existsSync(imagePath);
+        } catch (error) {
+            return false;
+        }
+    },
+
+    // 获取图片信息
+    getImageInfo: (imagePath) => {
+        if (!utils.checkImageExists(imagePath)) {
+            return null;
+        }
+        
+        const stats = fs.statSync(imagePath);
+        const ext = path.extname(imagePath).toLowerCase();
+        
+        return {
+            path: imagePath,
+            size: stats.size,
+            extension: ext,
+            isSupported: CONFIG.imageExtensions.includes(ext),
+            lastModified: stats.mtime
+        };
+    },
+
+    // 处理图片路径
+    processImagePath: (imagePath, articleSlug) => {
+        // 如果是绝对路径或HTTP链接，直接返回
+        if (imagePath.startsWith('http') || imagePath.startsWith('//')) {
+            return imagePath;
+        }
+
+        // 处理相对路径
+        if (imagePath.startsWith('../images/')) {
+            const fullPath = imagePath.replace('../', './');
+            return {
+                src: imagePath, // 保持相对路径用于HTML
+                fullPath: fullPath, // 用于检查文件是否存在
+                exists: utils.checkImageExists(fullPath)
+            };
+        }
+
+        // 如果只是图片文件名，假设在对应的posts目录下
+        if (!imagePath.includes('/')) {
+            const postsImagePath = `./images/posts/${articleSlug}/${imagePath}`;
+            return {
+                src: `../images/posts/${articleSlug}/${imagePath}`,
+                fullPath: postsImagePath,
+                exists: utils.checkImageExists(postsImagePath)
+            };
+        }
+
+        return {
+            src: imagePath,
+            fullPath: imagePath,
+            exists: utils.checkImageExists(imagePath)
+        };
+    },
+
+    // 创建图片目录
+    createImageDirectory: (articleSlug) => {
+        const imageDir = path.join(CONFIG.imagesDir, 'posts', articleSlug);
+        if (!fs.existsSync(imageDir)) {
+            fs.mkdirSync(imageDir, { recursive: true });
+            console.log(`📁 创建图片目录: ${imageDir}`);
+        }
+        return imageDir;
     }
 };
 
@@ -173,7 +251,9 @@ class MarkdownProcessor {
             readTime: 0,
             views: Math.floor(Math.random() * 2000) + 100,
             comments: Math.floor(Math.random() * 50) + 1,
-            likes: Math.floor(Math.random() * 100) + 5
+            likes: Math.floor(Math.random() * 100) + 5,
+            cover: '',
+            thumbnail: ''
         };
 
         // 合并元数据
@@ -183,15 +263,106 @@ class MarkdownProcessor {
         articleData.excerpt = articleData.excerpt || utils.generateExcerpt(markdownContent);
         articleData.readTime = utils.calculateReadTime(markdownContent);
 
+        // 创建文章对应的图片目录
+        utils.createImageDirectory(articleData.slug);
+
+        // 处理Markdown内容中的图片
+        const processedContent = this.processImagesInMarkdown(markdownContent, articleData.slug);
+        
         // 转换Markdown为HTML
-        const htmlContent = marked(markdownContent);
+        const htmlContent = marked(processedContent);
+
+        // 检查和处理封面图片
+        this.processCoverImages(articleData);
 
         return {
             ...articleData,
             fileName,
             htmlContent,
-            filePath
+            filePath,
+            processedContent
         };
+    }
+
+    // 处理Markdown中的图片
+    processImagesInMarkdown(content, articleSlug) {
+        // 匹配Markdown图片语法: ![alt](path "title")
+        const imageRegex = /!\[([^\]]*)\]\(([^)]+)(?:\s+"([^"]*)")?\)/g;
+        const missingImages = [];
+        
+        const processedContent = content.replace(imageRegex, (match, alt, imagePath, title) => {
+            const imageInfo = utils.processImagePath(imagePath.trim(), articleSlug);
+            
+            if (typeof imageInfo === 'string') {
+                // 外部链接，直接返回
+                return match;
+            }
+            
+            // 检查图片是否存在
+            if (!imageInfo.exists) {
+                missingImages.push({
+                    original: imagePath,
+                    expected: imageInfo.fullPath,
+                    alt: alt
+                });
+                console.warn(`⚠️  图片不存在: ${imageInfo.fullPath}`);
+            }
+            
+            // 分析alt文本中的特殊标记
+            const altLower = alt.toLowerCase();
+            let imgClass = 'article-image';
+            let figureClass = 'image-figure';
+            
+            if (altLower.includes('center')) imgClass += ' center-image';
+            if (altLower.includes('small')) imgClass += ' small-image';
+            if (altLower.includes('large')) imgClass += ' large-image';
+            if (altLower.includes('float-left')) imgClass += ' float-left';
+            if (altLower.includes('float-right')) imgClass += ' float-right';
+            
+            // 生成优化的HTML
+            const titleAttr = title ? ` title="${title}"` : '';
+            const loadingAttr = ' loading="lazy"';
+            const classAttr = ` class="${imgClass}"`;
+            const decoding = ' decoding="async"';
+            
+            // 如果有标题，包装在figure元素中
+            if (title) {
+                return `<figure class="${figureClass}">
+    <img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}>
+    <figcaption>${title}</figcaption>
+</figure>`;
+            }
+            
+            return `<img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}>`;
+        });
+
+        // 如果有缺失的图片，提供帮助信息
+        if (missingImages.length > 0) {
+            console.log(`\n📸 文章 "${articleSlug}" 中发现 ${missingImages.length} 个缺失的图片:`);
+            missingImages.forEach(img => {
+                console.log(`   • ${img.alt}: ${img.expected}`);
+            });
+            console.log(`\n💡 提示: 将图片放入对应目录，或使用完整的相对路径引用`);
+        }
+
+        return processedContent;
+    }
+
+    // 处理封面图片
+    processCoverImages(articleData) {
+        if (articleData.cover) {
+            const coverInfo = utils.processImagePath(articleData.cover, articleData.slug);
+            if (typeof coverInfo === 'object' && !coverInfo.exists) {
+                console.warn(`⚠️  封面图片不存在: ${coverInfo.fullPath}`);
+            }
+        }
+
+        if (articleData.thumbnail) {
+            const thumbInfo = utils.processImagePath(articleData.thumbnail, articleData.slug);
+            if (typeof thumbInfo === 'object' && !thumbInfo.exists) {
+                console.warn(`⚠️  缩略图不存在: ${thumbInfo.fullPath}`);
+            }
+        }
     }
 
     // 批量处理Markdown文件
@@ -324,6 +495,104 @@ class HTMLGenerator {
                         <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
                             {{content}}
                         </div>
+                        
+                        <style>
+                            /* 基础图片样式 */
+                            .article-body .article-image {
+                                max-width: 100%;
+                                height: auto;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                margin: 1.5rem 0;
+                                display: block;
+                                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            }
+                            
+                            .article-body .article-image:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                            }
+                            
+                            /* 尺寸和位置类 */
+                            .article-body .center-image {
+                                margin: 1.5rem auto;
+                            }
+                            
+                            .article-body .small-image {
+                                max-width: 400px;
+                                margin: 1rem auto;
+                            }
+                            
+                            .article-body .large-image {
+                                width: 100%;
+                                max-width: none;
+                                margin: 2rem 0;
+                            }
+                            
+                            .article-body .float-left {
+                                float: left;
+                                margin: 0 1.5rem 1rem 0;
+                                max-width: 300px;
+                            }
+                            
+                            .article-body .float-right {
+                                float: right;
+                                margin: 0 0 1rem 1.5rem;
+                                max-width: 300px;
+                            }
+                            
+                            /* Figure和Caption样式 */
+                            .article-body .image-figure {
+                                margin: 2rem 0;
+                                text-align: center;
+                                background: var(--bg-white);
+                                border-radius: 12px;
+                                padding: 1rem;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                            }
+                            
+                            .article-body figcaption {
+                                margin-top: 0.75rem;
+                                font-size: 0.875rem;
+                                color: var(--text-light);
+                                font-style: italic;
+                                line-height: 1.4;
+                            }
+                            
+                            /* 响应式设计 */
+                            @media (max-width: 768px) {
+                                .article-body .article-image {
+                                    margin: 1rem 0;
+                                }
+                                
+                                .article-body .float-left,
+                                .article-body .float-right {
+                                    float: none;
+                                    margin: 1rem auto;
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .small-image {
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .image-figure {
+                                    margin: 1.5rem 0;
+                                    padding: 0.75rem;
+                                }
+                            }
+                            
+                            /* 图片加载状态 */
+                            .article-body .article-image[loading="lazy"] {
+                                opacity: 0;
+                                animation: fadeInImage 0.5s ease forwards;
+                            }
+                            
+                            @keyframes fadeInImage {
+                                from { opacity: 0; transform: translateY(10px); }
+                                to { opacity: 1; transform: translateY(0); }
+                            }
+                        </style>
 
                         <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">

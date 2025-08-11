@@ -10,7 +10,14 @@
     "serve": "python -m http.server 8000",
     "watch": "nodemon --watch posts --ext md --exec \"npm run build\"",
     "clean": "rm -rf articles/*.html && echo '清理完成'",
-    "help": "node build-blog.js help"
+    "help": "node build-blog.js help",
+    "image-scan": "node image-manager.js scan",
+    "image-check": "node image-manager.js check",
+    "image-cleanup": "node image-manager.js cleanup",
+    "image-create": "node image-manager.js create",
+    "image-move": "node image-manager.js move",
+    "image-help": "node image-manager.js help",
+    "image-optimize": "node image-manager.js optimize"
   },
   "keywords": [
     "blog",
@@ -22,10 +29,14 @@
   "author": "刘浩洋 <liuhaoyang@example.com>",
   "license": "MIT",
   "dependencies": {
-    "marked": "^9.1.6"
+    "marked": "^9.1.6",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "optionalDependencies": {
+    "sharp": "^0.32.6"
   },
   "repository": {
     "type": "git",
