@@ -64,7 +64,7 @@ Liu_Haoyang_Web/
 
 ### 1. 克隆项目
 ```bash
-git clone https://github.com/yourusername/Liu_Haoyang_Web.git
+git clone https://github.com/LHY-in-universe/Liu_Haoyang_Web.git
 cd Liu_Haoyang_Web
 ```
 
@@ -112,7 +112,7 @@ node manage-blog.js stats
 ### 自动部署（推荐）
 1. 推送代码到GitHub仓库的 `master` 分支
 2. GitHub Actions 会自动部署到 GitHub Pages
-3. 访问 `https://yourusername.github.io/Liu_Haoyang_Web`
+3. 访问 `https://LHY-in-universe.github.io/Liu_Haoyang_Web`
 
 ### 手动配置GitHub Pages
 1. 进入GitHub仓库设置 → Pages
@@ -160,9 +160,9 @@ node manage-blog.js stats
 
 ## 📞 联系方式
 
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **GitHub**: [@LHY-in-universe](https://github.com/LHY-in-universe)
 - **邮箱**: your.email@example.com
-- **网站**: https://yourusername.github.io/Liu_Haoyang_Web
+- **网站**: https://LHY-in-universe.github.io/Liu_Haoyang_Web
 
 ---
 

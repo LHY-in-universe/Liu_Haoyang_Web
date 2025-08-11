@@ -7,7 +7,7 @@ plugins:
 # Site settings
 title: "刘浩阳 - 个人网站"
 description: "刘浩阳的个人网站 - 展示我的项目作品和技术技能"
-url: "https://yourusername.github.io"
+url: "https://LHY-in-universe.github.io"
 baseurl: "/Liu_Haoyang_Web"
 
 # Build settings
