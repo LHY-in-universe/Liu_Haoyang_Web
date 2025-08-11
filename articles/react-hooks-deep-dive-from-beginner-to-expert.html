@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Hooks Deep Dive - From Beginner to Expert - Liu Haoyang</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index-en.html">Liu Haoyang</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index-en.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index-en.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index-en.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../blog-en.html" class="nav-link active">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resume-en.html" class="nav-link">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index-en.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn " data-lang="zh" title="切换到中文">中</button>
+                <button class="lang-btn active" data-lang="en" title="Switch to English">EN</button>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>React Hooks Deep Dive - From Beginner to Expert</h1>
+                    <p>A comprehensive guide to React Hooks, from basic concepts to advanced patterns and best practices.</p>
+                    <div class="breadcrumb">
+                        <a href="../index-en.html">Home</a> / <a href="../blog-en.html">Blog</a> / <span>React Hooks Deep Dive - From Beginner to Expert</span>
+                    </div>
+                    <div class="article-meta" style="margin-top: 1.5rem; text-align: center;">
+                        <span style="color: var(--text-light); margin-right: 2rem;">📅 August 11, 2024</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 7 min read</span>
+                        <span style="color: var(--text-light);">👁️ 1340 views</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="article-section" style="padding: 4rem 0; background: var(--bg-white);">
+            <div class="container">
+                <div class="article-layout" style="display: grid; grid-template-columns: 3fr 1fr; gap: 3rem;">
+                    <article class="article-content" style="background: var(--bg-white); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
+                        <div class="article-tags" style="margin-bottom: 2rem;">
+                            <span class="tag">React</span><span class="tag">Hooks</span><span class="tag">JavaScript</span><span class="tag">Frontend</span>
+                        </div>
+
+                        <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
+                            <h1>React Hooks Deep Dive: From Beginner to Expert</h1>
+<p><img src="https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=React+Hooks" alt="React Hooks"></p>
+<h2>Introduction</h2>
+<p>React Hooks, introduced in React 16.8, represent a revolutionary change in how we write React components. They allow us to use state and other React features in functional components, leading to more concise and reusable code.</p>
+<h2>What are React Hooks?</h2>
+<p>React Hooks are functions that let you &quot;hook into&quot; React state and lifecycle features from function components. They provide a more direct API to the React concepts you already know: props, state, context, refs, and lifecycle.</p>
+<h3>Key Benefits</h3>
+<ul>
+<li><strong>Simpler Code</strong>: Hooks eliminate the need for class components in most cases</li>
+<li><strong>Better Code Reuse</strong>: Custom hooks allow sharing stateful logic between components</li>
+<li><strong>Easier Testing</strong>: Functional components with hooks are easier to test</li>
+<li><strong>Better Performance</strong>: Hooks can help optimize re-renders</li>
+</ul>
+<h2>Core Hooks</h2>
+<h3>useState</h3>
+<p>The <code>useState</code> hook lets you add React state to function components.</p>
+<pre><code class="language-javascript">import React, { useState } from &#39;react&#39;;
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3>useEffect</h3>
+<p>The <code>useEffect</code> hook lets you perform side effects in function components.</p>
+<pre><code class="language-javascript">import React, { useState, useEffect } from &#39;react&#39;;
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() =&gt; {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3>useContext</h3>
+<p>The <code>useContext</code> hook lets you consume React context without nesting.</p>
+<pre><code class="language-javascript">import React, { useContext } from &#39;react&#39;;
+
+const ThemeContext = React.createContext();
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  return (
+    &lt;button style={{ background: theme.background }}&gt;
+      I am styled by theme context!
+    &lt;/button&gt;
+  );
+}
+</code></pre>
+<h2>Advanced Hooks</h2>
+<h3>useReducer</h3>
+<p>For complex state logic, <code>useReducer</code> is usually preferable to <code>useState</code>.</p>
+<pre><code class="language-javascript">import React, { useReducer } from &#39;react&#39;;
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case &#39;increment&#39;:
+      return { count: state.count + 1 };
+    case &#39;decrement&#39;:
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+  return (
+    &lt;&gt;
+      Count: {state.count}
+      &lt;button onClick={() =&gt; dispatch({ type: &#39;decrement&#39; })}&gt;-&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: &#39;increment&#39; })}&gt;+&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre>
+<h3>useCallback and useMemo</h3>
+<p>These hooks help optimize performance by memoizing values and functions.</p>
+<pre><code class="language-javascript">import React, { useState, useCallback, useMemo } from &#39;react&#39;;
+
+function ExpensiveComponent({ items, filter }) {
+  // Memoize expensive calculation
+  const filteredItems = useMemo(() =&gt; {
+    return items.filter(item =&gt; item.includes(filter));
+  }, [items, filter]);
+
+  // Memoize callback to prevent unnecessary re-renders
+  const handleClick = useCallback((id) =&gt; {
+    // Handle click logic
+  }, []);
+
+  return (
+    &lt;div&gt;
+      {filteredItems.map(item =&gt; (
+        &lt;div key={item} onClick={() =&gt; handleClick(item)}&gt;
+          {item}
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h2>Custom Hooks</h2>
+<p>Custom hooks are the real power of the hooks system. They let you extract component logic into reusable functions.</p>
+<pre><code class="language-javascript">import { useState, useEffect } from &#39;react&#39;;
+
+// Custom hook for API calls
+function useApi(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    const fetchData = async () =&gt; {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Usage
+function UserProfile({ userId }) {
+  const { data: user, loading, error } = useApi(`/api/users/${userId}`);
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div&gt;Error: {error.message}&lt;/div&gt;;
+  
+  return &lt;div&gt;Hello, {user.name}!&lt;/div&gt;;
+}
+</code></pre>
+<h2>Best Practices</h2>
+<h3>1. Rules of Hooks</h3>
+<ul>
+<li>Only call hooks at the top level of your React function</li>
+<li>Don&#39;t call hooks inside loops, conditions, or nested functions</li>
+<li>Only call hooks from React function components or custom hooks</li>
+</ul>
+<h3>2. Dependency Arrays</h3>
+<p>Always include all values from component scope that are used inside the effect in the dependencies array.</p>
+<pre><code class="language-javascript">// ❌ Bad - missing dependency
+useEffect(() =&gt; {
+  fetchUser(userId);
+}, []);
+
+// ✅ Good - includes all dependencies
+useEffect(() =&gt; {
+  fetchUser(userId);
+}, [userId]);
+</code></pre>
+<h3>3. Custom Hook Naming</h3>
+<p>Always start custom hook names with &quot;use&quot; to follow the convention.</p>
+<pre><code class="language-javascript">// ✅ Good
+function useLocalStorage(key) { ... }
+function useWindowSize() { ... }
+
+// ❌ Bad
+function localStorage(key) { ... }
+function windowSize() { ... }
+</code></pre>
+<h2>Common Patterns</h2>
+<h3>Data Fetching</h3>
+<pre><code class="language-javascript">function useUser(id) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    let cancelled = false;
+    
+    fetchUser(id).then(userData =&gt; {
+      if (!cancelled) {
+        setUser(userData);
+        setLoading(false);
+      }
+    });
+
+    return () =&gt; {
+      cancelled = true;
+    };
+  }, [id]);
+
+  return { user, loading };
+}
+</code></pre>
+<h3>Form Handling</h3>
+<pre><code class="language-javascript">function useForm(initialValues) {
+  const [values, setValues] = useState(initialValues);
+
+  const handleChange = useCallback((e) =&gt; {
+    setValues(prevValues =&gt; ({
+      ...prevValues,
+      [e.target.name]: e.target.value
+    }));
+  }, []);
+
+  const reset = useCallback(() =&gt; {
+    setValues(initialValues);
+  }, [initialValues]);
+
+  return { values, handleChange, reset };
+}
+</code></pre>
+<h2>Performance Optimization</h2>
+<h3>Avoiding Unnecessary Re-renders</h3>
+<pre><code class="language-javascript">import React, { memo, useCallback, useMemo } from &#39;react&#39;;
+
+const ExpensiveChild = memo(({ onClick, data }) =&gt; {
+  const processedData = useMemo(() =&gt; {
+    return data.map(item =&gt; ({ ...item, processed: true }));
+  }, [data]);
+
+  return (
+    &lt;div onClick={onClick}&gt;
+      {processedData.map(item =&gt; &lt;div key={item.id}&gt;{item.name}&lt;/div&gt;)}
+    &lt;/div&gt;
+  );
+});
+
+function Parent({ items }) {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() =&gt; {
+    // Handle click without causing re-render of ExpensiveChild
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Count: {count}
+      &lt;/button&gt;
+      &lt;ExpensiveChild onClick={handleClick} data={items} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h2>Testing Hooks</h2>
+<h3>Testing Custom Hooks</h3>
+<pre><code class="language-javascript">import { renderHook, act } from &#39;@testing-library/react-hooks&#39;;
+import useCounter from &#39;./useCounter&#39;;
+
+test(&#39;should increment counter&#39;, () =&gt; {
+  const { result } = renderHook(() =&gt; useCounter(0));
+
+  act(() =&gt; {
+    result.current.increment();
+  });
+
+  expect(result.current.count).toBe(1);
+});
+</code></pre>
+<h2>Common Pitfalls</h2>
+<h3>1. Stale Closures</h3>
+<pre><code class="language-javascript">// ❌ Problem - stale closure
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      setCount(count + 1); // This will always increment from 0
+    }, 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+
+// ✅ Solution - use functional update
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      setCount(prevCount =&gt; prevCount + 1);
+    }, 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+</code></pre>
+<h3>2. Infinite Re-renders</h3>
+<pre><code class="language-javascript">// ❌ Problem - missing dependencies
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() =&gt; {
+    fetchUser(userId).then(setUser);
+  }); // No dependency array causes infinite re-renders
+
+  return &lt;div&gt;{user?.name}&lt;/div&gt;;
+}
+
+// ✅ Solution - proper dependencies
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() =&gt; {
+    fetchUser(userId).then(setUser);
+  }, [userId]);
+
+  return &lt;div&gt;{user?.name}&lt;/div&gt;;
+}
+</code></pre>
+<h2>Migration from Class Components</h2>
+<h3>Before (Class Component)</h3>
+<pre><code class="language-javascript">class UserProfile extends React.Component {
+  state = {
+    user: null,
+    loading: true
+  };
+
+  async componentDidMount() {
+    const user = await fetchUser(this.props.userId);
+    this.setState({ user, loading: false });
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.userId !== this.props.userId) {
+      this.setState({ loading: true });
+      const user = await fetchUser(this.props.userId);
+      this.setState({ user, loading: false });
+    }
+  }
+
+  render() {
+    if (this.state.loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    return &lt;div&gt;Hello, {this.state.user.name}!&lt;/div&gt;;
+  }
+}
+</code></pre>
+<h3>After (Function Component with Hooks)</h3>
+<pre><code class="language-javascript">function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    let cancelled = false;
+    
+    const loadUser = async () =&gt; {
+      setLoading(true);
+      const userData = await fetchUser(userId);
+      if (!cancelled) {
+        setUser(userData);
+        setLoading(false);
+      }
+    };
+
+    loadUser();
+
+    return () =&gt; {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  return &lt;div&gt;Hello, {user.name}!&lt;/div&gt;;
+}
+</code></pre>
+<h2>Conclusion</h2>
+<p>React Hooks have transformed how we build React applications. They provide a more functional approach to component logic, better code reuse, and improved performance optimization opportunities.</p>
+<p>Key takeaways:</p>
+<ul>
+<li>Hooks simplify component logic and improve code reuse</li>
+<li>Follow the rules of hooks to avoid bugs</li>
+<li>Custom hooks are powerful for sharing stateful logic</li>
+<li>Proper dependency management is crucial for performance</li>
+<li>Hooks make testing easier and more intuitive</li>
+</ul>
+<p>As you continue your React journey, mastering hooks will significantly improve your development experience and the quality of your applications.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://reactjs.org/docs/hooks-intro.html">Official React Hooks Documentation</a></li>
+<li><a href="https://reactjs.org/docs/hooks-faq.html">React Hooks FAQ</a></li>
+<li><a href="https://reactjs.org/docs/hooks-custom.html">Custom Hooks</a></li>
+<li><a href="https://testing-library.com/docs/react-testing-library/intro/">React Testing Library</a></li>
+</ul>
+
+                        </div>
+                        
+                        <style>
+                            /* 基础图片样式 */
+                            .article-body .article-image {
+                                max-width: 100%;
+                                height: auto;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                margin: 1.5rem 0;
+                                display: block;
+                                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            }
+                            
+                            .article-body .article-image:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                            }
+                            
+                            /* 尺寸和位置类 */
+                            .article-body .center-image {
+                                margin: 1.5rem auto;
+                            }
+                            
+                            .article-body .small-image {
+                                max-width: 400px;
+                                margin: 1rem auto;
+                            }
+                            
+                            .article-body .large-image {
+                                width: 100%;
+                                max-width: none;
+                                margin: 2rem 0;
+                            }
+                            
+                            .article-body .float-left {
+                                float: left;
+                                margin: 0 1.5rem 1rem 0;
+                                max-width: 300px;
+                            }
+                            
+                            .article-body .float-right {
+                                float: right;
+                                margin: 0 0 1rem 1.5rem;
+                                max-width: 300px;
+                            }
+                            
+                            /* Figure和Caption样式 */
+                            .article-body .image-figure {
+                                margin: 2rem 0;
+                                text-align: center;
+                                background: var(--bg-white);
+                                border-radius: 12px;
+                                padding: 1rem;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                            }
+                            
+                            .article-body figcaption {
+                                margin-top: 0.75rem;
+                                font-size: 0.875rem;
+                                color: var(--text-light);
+                                font-style: italic;
+                                line-height: 1.4;
+                            }
+                            
+                            /* 响应式设计 */
+                            @media (max-width: 768px) {
+                                .article-body .article-image {
+                                    margin: 1rem 0;
+                                }
+                                
+                                .article-body .float-left,
+                                .article-body .float-right {
+                                    float: none;
+                                    margin: 1rem auto;
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .small-image {
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .image-figure {
+                                    margin: 1.5rem 0;
+                                    padding: 0.75rem;
+                                }
+                            }
+                            
+                            /* 图片加载状态 */
+                            .article-body .article-image[loading="lazy"] {
+                                opacity: 0;
+                                animation: fadeInImage 0.5s ease forwards;
+                            }
+                            
+                            @keyframes fadeInImage {
+                                from { opacity: 0; transform: translateY(10px); }
+                                to { opacity: 1; transform: translateY(0); }
+                            }
+                        </style>
+
+                        <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                                <div class="article-stats">
+                                    <span style="margin-right: 1rem;">👁️ 1340</span>
+                                    <span style="margin-right: 1rem;">💬 15</span>
+                                    <span>❤️ 6</span>
+                                </div>
+                                <div class="article-share">
+                                    <span style="color: var(--text-light); margin-right: 1rem;">Share:</span>
+                                    <button class="btn btn-sm btn-outline">Twitter</button>
+                                    <button class="btn btn-sm btn-outline" style="margin-left: 0.5rem;">LinkedIn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <aside class="article-sidebar">
+                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                            <h3>Back to Navigation</h3>
+                            <div class="quick-nav">
+                                <a href="../blog-en.html" class="quick-nav-item">
+                                    <span class="nav-icon">📝</span>
+                                    <span>Blog Home</span>
+                                </a>
+                                <a href="../index-en.html" class="quick-nav-item">
+                                    <span class="nav-icon">🏠</span>
+                                    <span>Back Home</span>
+                                </a>
+                                <a href="../resume-en.html" class="quick-nav-item">
+                                    <span class="nav-icon">📋</span>
+                                    <span>Resume</span>
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Liu Haoyang. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">🐙</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

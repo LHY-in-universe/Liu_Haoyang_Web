@@ -694,7 +694,7 @@ const initializeLanguageSwitcher = () => {
                 // Store current hash for navigation
                 const currentHash = window.location.hash;
                 
-                // Navigate to the corresponding page in target language
+                // Navigate to the target page
                 if (currentHash && currentHash.startsWith('#')) {
                     window.location.href = targetPage + currentHash;
                 } else {
