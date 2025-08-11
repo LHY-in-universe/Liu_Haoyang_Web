@@ -1350,3 +1350,123 @@ html {
         padding: 1rem;
     }
 }
+
+/* 新增导航样式 */
+.page-header-actions,
+.page-header-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quick-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quick-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-white);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.quick-nav-item:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-icon {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+}
+
+.resume-blog-links {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.resume-blog-links h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.blog-link-item {
+    margin-bottom: 1rem;
+}
+
+.blog-link-title {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.blog-link-title:hover {
+    opacity: 0.8;
+}
+
+.blog-link-desc {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.related-articles h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+}
+
+.related-articles ul {
+    list-style: none;
+    padding: 0;
+}
+
+.related-articles li {
+    margin-bottom: 0.5rem;
+}
+
+.related-articles a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+.related-articles a:hover {
+    color: var(--primary-color);
+}
+
+/* 响应式导航按钮 */
+@media (max-width: 768px) {
+    .page-header-actions,
+    .page-header-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .page-header-actions .btn,
+    .page-header-nav .btn {
+        width: 200px;
+        margin: 0 !important;
+        margin-bottom: 0.5rem !important;
+    }
+}

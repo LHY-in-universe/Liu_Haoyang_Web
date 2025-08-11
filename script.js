@@ -2,31 +2,98 @@
 const mobileMenu = document.getElementById('mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 
-mobileMenu.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    navMenu.classList.toggle('active');
+if (mobileMenu && navMenu) {
+    mobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
+
+// Close mobile menu when clicking on a nav link or outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && navMenu) {
+        // Close when clicking nav link
+        if (e.target.classList.contains('nav-link')) {
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+        // Close when clicking outside
+        else if (!e.target.closest('.nav-menu') && !e.target.closest('.nav-toggle') && navMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    }
 });
 
-// Close mobile menu when clicking on a nav link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
+// Close mobile menu with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && navMenu && navMenu.classList.contains('active')) {
         mobileMenu.classList.remove('active');
         navMenu.classList.remove('active');
-    });
+    }
 });
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+// Enhanced cross-page navigation handler
+const handleCrossPageNavigation = (e, href) => {
+    // Check if it's an anchor link on the same page
+    if (href.startsWith('#') && !href.includes('.html')) {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        // If we're on index.html and it's an anchor, smooth scroll
+        if (currentPage === 'index.html' || currentPage === '') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                // Close mobile menu if open
+                if (mobileMenu && navMenu) {
+                    mobileMenu.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+                
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update active navigation state
+                updateNavActiveState(href);
+            }
+        } else {
+            // If we're not on index.html, navigate to index.html with anchor
+            window.location.href = `index.html${href}`;
         }
-    });
+    } else if (href.includes('#') && href.includes('.html')) {
+        // Handle links like index.html#about
+        const [page, anchor] = href.split('#');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        if (currentPage === page) {
+            // Same page, just scroll to anchor
+            e.preventDefault();
+            const target = document.querySelector(`#${anchor}`);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        } else {
+            // Different page, navigate normally
+            window.location.href = href;
+        }
+    }
+    // For regular page links (blog.html, resume.html), let them navigate normally
+};
+
+// Enhanced smooth scrolling with cross-page support
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link) {
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+            handleCrossPageNavigation(e, href);
+        }
+    }
 });
 
 // Navbar scroll effect
@@ -47,28 +114,56 @@ window.addEventListener('scroll', () => {
     lastScrollY = currentScrollY;
 });
 
-// Active navigation link highlighting
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-link');
-
-window.addEventListener('scroll', () => {
-    let currentSection = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
-        
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute('id');
-        }
-    });
+// Navigation active state management
+const updateNavActiveState = (activeAnchor = null) => {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentHash = window.location.hash;
+    const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
+        const href = link.getAttribute('href');
+        
+        // Handle different page types
+        if (currentPage === 'index.html' || currentPage === '') {
+            // On homepage
+            if (href === 'index.html' || href === '#home') {
+                if (!currentHash || currentHash === '#home') {
+                    link.classList.add('active');
+                }
+            } else if (href.startsWith('#')) {
+                // Anchor links on homepage
+                if (href === currentHash || href === activeAnchor) {
+                    link.classList.add('active');
+                }
+            }
+        } else if (currentPage === 'blog.html' && href === 'blog.html') {
+            link.classList.add('active');
+        } else if (currentPage === 'resume.html' && href === 'resume.html') {
+            link.classList.add('active');
+        } else if (href.includes(currentPage)) {
             link.classList.add('active');
         }
     });
+};
+
+// Enhanced navigation highlighting on scroll (for homepage)
+const sections = document.querySelectorAll('section[id]');
+const navHighlightObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const sectionId = `#${entry.target.id}`;
+            updateNavActiveState(sectionId);
+        }
+    });
+}, {
+    threshold: 0.6,
+    rootMargin: '-50px 0px -50px 0px'
+});
+
+// Observe sections for navigation highlighting
+sections.forEach(section => {
+    navHighlightObserver.observe(section);
 });
 
 // Scroll animations
@@ -189,14 +284,37 @@ function typeWriter(element, text, speed = 100) {
     type();
 }
 
-// Initialize typing animation when page loads
-document.addEventListener('DOMContentLoaded', () => {
+// Page load initialization and anchor handling
+const handlePageLoad = () => {
+    const hash = window.location.hash;
+    if (hash) {
+        setTimeout(() => {
+            const target = document.querySelector(hash);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                updateNavActiveState(hash);
+            }
+        }, 100);
+    } else {
+        updateNavActiveState();
+    }
+    
+    // Initialize typing animation for hero section
     const heroTitle = document.querySelector('.hero-text h1');
     if (heroTitle) {
         const originalText = heroTitle.textContent;
         typeWriter(heroTitle, originalText, 50);
     }
-});
+};
+
+// Initialize typing animation when page loads
+document.addEventListener('DOMContentLoaded', handlePageLoad);
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', handlePageLoad);
 
 // Parallax effect for hero section
 window.addEventListener('scroll', () => {
@@ -446,6 +564,36 @@ function initializePagination() {
         });
     });
 }
+
+// Page transition effects
+const addPageTransitionEffects = () => {
+    // Add loading effect for page changes
+    document.addEventListener('beforeunload', function() {
+        document.body.style.opacity = '0.8';
+    });
+    
+    // Restore opacity on page load
+    window.addEventListener('load', function() {
+        document.body.style.opacity = '1';
+        document.body.style.transition = 'opacity 0.3s ease';
+    });
+};
+
+// Initialize page transitions
+addPageTransitionEffects();
+
+// Quick navigation hover effects
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.quick-nav-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+});
 
 // Initialize all features when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
