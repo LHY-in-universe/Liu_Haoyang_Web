@@ -635,6 +635,89 @@ function initializeTagCloud() {
     });
 }
 
+// Language switching functionality
+const initializeLanguageSwitcher = () => {
+    const languageBtns = document.querySelectorAll('.lang-btn');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Language mapping for pages
+    const languageMapping = {
+        'index.html': { zh: 'index.html', en: 'index-en.html' },
+        'index-en.html': { zh: 'index.html', en: 'index-en.html' },
+        'blog.html': { zh: 'blog.html', en: 'blog-en.html' },
+        'blog-en.html': { zh: 'blog.html', en: 'blog-en.html' },
+        'resume.html': { zh: 'resume.html', en: 'resume-en.html' },
+        'resume-en.html': { zh: 'resume.html', en: 'resume-en.html' }
+    };
+    
+    // Set active language button based on current page
+    languageBtns.forEach(btn => {
+        btn.classList.remove('active');
+        const lang = btn.dataset.lang;
+        
+        if ((lang === 'zh' && !currentPage.includes('-en')) || 
+            (lang === 'en' && currentPage.includes('-en'))) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Handle language switch
+    languageBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetLang = btn.dataset.lang;
+            const mapping = languageMapping[currentPage] || languageMapping['index.html'];
+            const targetPage = mapping[targetLang];
+            
+            if (targetPage && targetPage !== currentPage) {
+                // Store current hash for navigation
+                const currentHash = window.location.hash;
+                
+                // Navigate to the corresponding page in target language
+                if (currentHash && !currentHash.startsWith('#') === false) {
+                    window.location.href = targetPage + currentHash;
+                } else {
+                    window.location.href = targetPage;
+                }
+            }
+        });
+    });
+};
+
+// Initialize language switcher
+document.addEventListener('DOMContentLoaded', () => {
+    initializeLanguageSwitcher();
+});
+
+// Language-aware form messages
+const getLocalizedMessage = (key, lang = 'zh') => {
+    const messages = {
+        zh: {
+            'contact_success': '感谢您的留言！我会尽快回复您。',
+            'subscribe_success': '感谢订阅！确认邮件已发送至：',
+            'required_fields': '请填写所有必填字段',
+            'invalid_email': '请输入有效的邮箱地址',
+            'sending': '发送中...',
+            'subscribing': '订阅中...'
+        },
+        en: {
+            'contact_success': 'Thank you for your message! I will reply to you soon.',
+            'subscribe_success': 'Thank you for subscribing! Confirmation email sent to: ',
+            'required_fields': 'Please fill in all required fields',
+            'invalid_email': 'Please enter a valid email address',
+            'sending': 'Sending...',
+            'subscribing': 'Subscribing...'
+        }
+    };
+    
+    return messages[lang]?.[key] || messages['zh'][key];
+};
+
+// Update form handling to use localized messages
+const getCurrentLanguage = () => {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    return currentPage.includes('-en') ? 'en' : 'zh';
+};
+
 // Initialize tag cloud when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     initializeTagCloud();
