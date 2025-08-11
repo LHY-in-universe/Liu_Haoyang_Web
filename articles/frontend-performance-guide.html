@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>前端性能优化实战指南 - 刘浩洋</title>
+    <title>Frontend Performance Guide - 刘浩洋</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@
             </ul>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
-                <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
+                <button class="lang-btn " data-lang="en" title="Switch to English">EN</button>
             </div>
             <div class="nav-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -51,15 +51,15 @@
         <section class="page-header">
             <div class="container">
                 <div class="page-header-content">
-                    <h1>前端性能优化实战指南</h1>
-                    <p>从代码分割到图片优化，全方位提升网站性能</p>
+                    <h1>Frontend Performance Guide</h1>
+                    <p>前端性能优化实战指南 !Performance Optimization 前言 在当今快节奏的数字世界中，网站性能直接影响用户体验和业务成果。本文将分享前端性能优化的各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用。 性能优化的重要性 用户体验影响 - 加载速度：页面加载时间每增加1秒，转化率下降7% - 交互延迟：用户期望在100ms内看到响应 - 流畅度：60FPS的动画让用户感觉更流畅...</p>
                     <div class="breadcrumb">
-                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>前端性能优化实战指南</span>
+                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>Frontend Performance Guide</span>
                     </div>
                     <div class="article-meta" style="margin-top: 1.5rem; text-align: center;">
-                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2024年2月28日</span>
-                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 10分钟阅读</span>
-                        <span style="color: var(--text-light);">👁️ 2,103 阅读</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2025年 8月 11</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 6 分钟阅读</span>
+                        <span style="color: var(--text-light);">👁️ 1356 阅读</span>
                     </div>
                 </div>
             </div>
@@ -70,244 +70,624 @@
                 <div class="article-layout" style="display: grid; grid-template-columns: 3fr 1fr; gap: 3rem;">
                     <article class="article-content" style="background: var(--bg-white); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
                         <div class="article-tags" style="margin-bottom: 2rem;">
-                            <span class="tag">性能优化</span>
-                            <span class="tag">前端</span>
-                            <span class="tag">实战</span>
+                            <span class="tag">技术</span>
                         </div>
 
                         <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
-                            <h2>为什么性能优化如此重要？</h2>
-                            <p>在现代Web开发中，性能优化不仅影响用户体验，还直接关系到业务成功。研究表明，页面加载时间每增加1秒，转化率就会下降7%。因此，掌握前端性能优化技巧对开发者来说至关重要。</p>
+                            <h1>前端性能优化实战指南</h1>
+<p><img src="https://via.placeholder.com/800x400/F59E0B/FFFFFF?text=Performance+Optimization" alt="Performance Optimization"></p>
+<h2>前言</h2>
+<p>在当今快节奏的数字世界中，网站性能直接影响用户体验和业务成果。本文将分享前端性能优化的各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用。</p>
+<h2>性能优化的重要性</h2>
+<h3>用户体验影响</h3>
+<ul>
+<li><strong>加载速度</strong>：页面加载时间每增加1秒，转化率下降7%</li>
+<li><strong>交互延迟</strong>：用户期望在100ms内看到响应</li>
+<li><strong>流畅度</strong>：60FPS的动画让用户感觉更流畅</li>
+</ul>
+<h3>业务价值</h3>
+<ul>
+<li>提高转化率</li>
+<li>降低跳出率</li>
+<li>改善SEO排名</li>
+<li>减少服务器成本</li>
+</ul>
+<h2>性能测量指标</h2>
+<h3>Core Web Vitals</h3>
+<pre><code class="language-javascript">// Largest Contentful Paint (LCP)
+new PerformanceObserver((entryList) =&gt; {
+  for (const entry of entryList.getEntries()) {
+    console.log(&#39;LCP candidate:&#39;, entry.startTime, entry);
+  }
+}).observe({type: &#39;largest-contentful-paint&#39;, buffered: true});
 
-                            <h2>1. 代码分割与懒加载</h2>
-                            <p>代码分割是提升首屏加载性能的重要手段，通过将代码拆分成多个小的bundle，实现按需加载。</p>
-                            
-                            <h3>动态导入</h3>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用动态导入实现路由级别的代码分割
-const LazyComponent = React.lazy(() => import('./LazyComponent'));
+// First Input Delay (FID)
+new PerformanceObserver((entryList) =&gt; {
+  for (const entry of entryList.getEntries()) {
+    const FID = entry.processingStart - entry.startTime;
+    console.log(&#39;FID:&#39;, FID);
+  }
+}).observe({type: &#39;first-input&#39;, buffered: true});
+
+// Cumulative Layout Shift (CLS)
+let clsValue = 0;
+new PerformanceObserver((entryList) =&gt; {
+  for (const entry of entryList.getEntries()) {
+    if (!entry.hadRecentInput) {
+      clsValue += entry.value;
+      console.log(&#39;Current CLS value:&#39;, clsValue, entry);
+    }
+  }
+}).observe({type: &#39;layout-shift&#39;, buffered: true});
+</code></pre>
+<h2>资源加载优化</h2>
+<h3>1. 代码分割（Code Splitting）</h3>
+<h4>React 懒加载</h4>
+<pre><code class="language-javascript">import { lazy, Suspense } from &#39;react&#39;;
+
+const LazyComponent = lazy(() =&gt; import(&#39;./LazyComponent&#39;));
 
 function App() {
   return (
-    &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
-      &lt;LazyComponent /&gt;
-    &lt;/Suspense&gt;
+    &lt;div&gt;
+      &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+        &lt;LazyComponent /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
   );
-}</code></pre>
+}
+</code></pre>
+<h4>动态导入</h4>
+<pre><code class="language-javascript">// 条件加载
+async function loadFeature() {
+  if (shouldLoadFeature) {
+    const { feature } = await import(&#39;./advanced-feature&#39;);
+    feature.init();
+  }
+}
 
-                            <h3>Webpack代码分割</h3>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// webpack.config.js
+// 路由级别的代码分割
+const routes = [
+  {
+    path: &#39;/dashboard&#39;,
+    component: () =&gt; import(&#39;./pages/Dashboard&#39;)
+  },
+  {
+    path: &#39;/profile&#39;,
+    component: () =&gt; import(&#39;./pages/Profile&#39;)
+  }
+];
+</code></pre>
+<h3>2. 预加载策略</h3>
+<pre><code class="language-html">&lt;!-- DNS 预解析 --&gt;
+&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//example.com&quot;&gt;
+
+&lt;!-- 预连接 --&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+
+&lt;!-- 预加载关键资源 --&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;/critical.css&quot; as=&quot;style&quot;&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;/hero-image.jpg&quot; as=&quot;image&quot;&gt;
+
+&lt;!-- 预取下一页资源 --&gt;
+&lt;link rel=&quot;prefetch&quot; href=&quot;/next-page.js&quot;&gt;
+</code></pre>
+<h3>3. 资源压缩与优化</h3>
+<h4>Webpack 配置示例</h4>
+<pre><code class="language-javascript">const path = require(&#39;path&#39;);
+const TerserPlugin = require(&#39;terser-webpack-plugin&#39;);
+const CompressionPlugin = require(&#39;compression-webpack-plugin&#39;);
+
 module.exports = {
+  mode: &#39;production&#39;,
   optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
     splitChunks: {
-      chunks: 'all',
+      chunks: &#39;all&#39;,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
+          name: &#39;vendors&#39;,
+          chunks: &#39;all&#39;,
         },
       },
     },
   },
-};</code></pre>
-
-                            <h2>2. 图片优化策略</h2>
-                            <p>图片通常是网页中最大的资源，优化图片可以显著提升页面加载速度。</p>
-
-                            <h3>选择合适的图片格式</h3>
-                            <ul>
-                                <li><strong>WebP</strong>：现代浏览器的首选，压缩率高</li>
-                                <li><strong>AVIF</strong>：下一代图片格式，压缩率更高</li>
-                                <li><strong>JPEG</strong>：适合照片类图片</li>
-                                <li><strong>PNG</strong>：适合图标和简单图形</li>
-                            </ul>
-
-                            <h3>响应式图片</h3>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;picture&gt;
-  &lt;source srcset="image.avif" type="image/avif"&gt;
-  &lt;source srcset="image.webp" type="image/webp"&gt;
-  &lt;img 
-    src="image.jpg" 
-    alt="描述文字"
-    loading="lazy"
-    decoding="async"
-  &gt;
-&lt;/picture&gt;</code></pre>
-
-                            <h2>3. CSS优化技巧</h2>
-                            
-                            <h3>关键CSS内联</h3>
-                            <p>将首屏必要的CSS内联到HTML中，避免阻塞渲染：</p>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;style&gt;
-  /* 关键CSS - 首屏样式 */
-  .header { background: #fff; height: 60px; }
-  .hero { min-height: 400px; }
-&lt;/style&gt;
-
-&lt;link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;</code></pre>
-
-                            <h3>CSS压缩与合并</h3>
-                            <p>使用工具自动压缩CSS，移除未使用的样式：</p>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用PurgeCSS移除未使用的CSS
-const purgecss = require('@fullhuman/postcss-purgecss');
-
-module.exports = {
   plugins: [
-    purgecss({
-      content: ['./src/**/*.html', './src/**/*.js'],
+    new CompressionPlugin({
+      algorithm: &#39;gzip&#39;,
+      test: /\.(js|css|html|svg)$/,
+      threshold: 8192,
+      minRatio: 0.8,
     }),
   ],
-};</code></pre>
+};
+</code></pre>
+<h2>渲染性能优化</h2>
+<h3>1. 虚拟滚动</h3>
+<pre><code class="language-javascript">import { FixedSizeList as List } from &#39;react-window&#39;;
 
-                            <h2>4. JavaScript性能优化</h2>
+const Row = ({ index, style }) =&gt; (
+  &lt;div style={style}&gt;
+    Row {index}
+  &lt;/div&gt;
+);
 
-                            <h3>防抖与节流</h3>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 防抖函数
-function debounce(func, delay) {
-  let timeoutId;
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
+function VirtualizedList({ items }) {
+  return (
+    &lt;List
+      height={600}
+      itemCount={items.length}
+      itemSize={35}
+      width=&quot;100%&quot;
+    &gt;
+      {Row}
+    &lt;/List&gt;
+  );
+}
+</code></pre>
+<h3>2. 防抖和节流</h3>
+<pre><code class="language-javascript">// 防抖：延迟执行
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () =&gt; {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
   };
 }
 
-// 节流函数
-function throttle(func, delay) {
-  let lastCall = 0;
-  return function (...args) {
-    const now = Date.now();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      return func.apply(this, args);
+// 节流：限制执行频率
+function throttle(func, limit) {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() =&gt; inThrottle = false, limit);
     }
-  };
-}</code></pre>
+  }
+}
 
-                            <h3>虚拟滚动</h3>
-                            <p>对于大量数据的列表，使用虚拟滚动只渲染可见区域的元素：</p>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>function VirtualList({ items, itemHeight = 50 }) {
-  const [scrollTop, setScrollTop] = useState(0);
-  const containerHeight = 400;
-  
-  const startIndex = Math.floor(scrollTop / itemHeight);
-  const endIndex = Math.min(
-    startIndex + Math.ceil(containerHeight / itemHeight),
-    items.length - 1
-  );
-  
-  const visibleItems = items.slice(startIndex, endIndex + 1);
-  
-  return (
-    &lt;div 
-      style={{ height: containerHeight, overflow: 'auto' }}
-      onScroll={(e) => setScrollTop(e.target.scrollTop)}
-    &gt;
-      &lt;div style={{ height: items.length * itemHeight, position: 'relative' }}&gt;
-        {visibleItems.map((item, index) => (
-          &lt;div
-            key={startIndex + index}
-            style={{
-              position: 'absolute',
-              top: (startIndex + index) * itemHeight,
-              height: itemHeight
-            }}
-          &gt;
-            {item}
-          &lt;/div&gt;
-        ))}
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
+// 使用示例
+const handleScroll = throttle(() =&gt; {
+  console.log(&#39;Scroll event&#39;);
+}, 100);
 
-                            <h2>5. 缓存策略</h2>
-
-                            <h3>HTTP缓存</h3>
-                            <p>合理配置HTTP缓存头，提升资源加载速度：</p>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 服务器端设置缓存头
-app.use('/static', express.static('public', {
-  maxAge: '1y', // 静态资源缓存1年
-  etag: true,
-  lastModified: true
-}));
-
-// 对于HTML文件，使用协商缓存
-app.get('*.html', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('ETag', generateETag(content));
-});</code></pre>
-
-                            <h3>Service Worker缓存</h3>
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// sw.js
-const CACHE_NAME = 'my-cache-v1';
-const urlsToCache = [
-  '/',
-  '/styles.css',
-  '/script.js',
-  '/offline.html'
-];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
-  );
+const handleSearch = debounce((query) =&gt; {
+  searchAPI(query);
+}, 300);
+</code></pre>
+<h3>3. 图片优化</h3>
+<h4>响应式图片</h4>
+<pre><code class="language-html">&lt;picture&gt;
+  &lt;source media=&quot;(min-width: 800px)&quot; srcset=&quot;large.jpg&quot;&gt;
+  &lt;source media=&quot;(min-width: 400px)&quot; srcset=&quot;medium.jpg&quot;&gt;
+  &lt;img src=&quot;small.jpg&quot; alt=&quot;Responsive image&quot;&gt;
+&lt;/picture&gt;
+</code></pre>
+<h4>懒加载</h4>
+<pre><code class="language-javascript">// Intersection Observer 实现懒加载
+const imageObserver = new IntersectionObserver((entries) =&gt; {
+  entries.forEach(entry =&gt; {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.classList.remove(&#39;lazy&#39;);
+      imageObserver.unobserve(img);
+    }
+  });
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        return response || fetch(event.request);
-      })
-  );
-});</code></pre>
-
-                            <h2>6. 性能监控</h2>
-                            <p>建立性能监控体系，持续跟踪和优化性能指标：</p>
-                            
-                            <h3>Core Web Vitals</h3>
-                            <ul>
-                                <li><strong>LCP (Largest Contentful Paint)</strong>：最大内容绘制时间</li>
-                                <li><strong>FID (First Input Delay)</strong>：首次输入延迟</li>
-                                <li><strong>CLS (Cumulative Layout Shift)</strong>：累积布局偏移</li>
-                            </ul>
-
-                            <pre style="background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto;"><code>// 使用Web Vitals库监控性能
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
-
-function sendToAnalytics(metric) {
-  // 发送到分析工具
-  gtag('event', metric.name, {
-    value: Math.round(metric.value),
-    event_label: metric.id,
+document.querySelectorAll(&#39;img[data-src]&#39;).forEach(img =&gt; {
+  imageObserver.observe(img);
+});
+</code></pre>
+<h4>现代图片格式</h4>
+<pre><code class="language-javascript">// 检测 WebP 支持
+function supportsWebP() {
+  return new Promise((resolve) =&gt; {
+    const webP = new Image();
+    webP.onload = webP.onerror = () =&gt; {
+      resolve(webP.height === 2);
+    };
+    webP.src = &#39;data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA&#39;;
   });
 }
 
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getFCP(sendToAnalytics);
-getLCP(sendToAnalytics);
-getTTFB(sendToAnalytics);</code></pre>
+// 动态加载合适的图片格式
+async function loadOptimalImage(baseName) {
+  const supportsWebP = await supportsWebP();
+  const extension = supportsWebP ? &#39;.webp&#39; : &#39;.jpg&#39;;
+  return `${baseName}${extension}`;
+}
+</code></pre>
+<h2>缓存策略</h2>
+<h3>1. HTTP 缓存</h3>
+<pre><code class="language-javascript">// Service Worker 缓存策略
+self.addEventListener(&#39;fetch&#39;, event =&gt; {
+  if (event.request.destination === &#39;image&#39;) {
+    event.respondWith(
+      caches.open(&#39;images&#39;).then(cache =&gt; {
+        return cache.match(event.request).then(response =&gt; {
+          return response || fetch(event.request).then(fetchResponse =&gt; {
+            cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
+          });
+        });
+      })
+    );
+  }
+});
+</code></pre>
+<h3>2. 浏览器缓存</h3>
+<pre><code class="language-javascript">// 缓存API响应
+class APICache {
+  constructor() {
+    this.cache = new Map();
+    this.maxAge = 5 * 60 * 1000; // 5分钟
+  }
 
-                            <h2>总结</h2>
-                            <p>前端性能优化是一个系统性工程，需要从多个维度入手：</p>
-                            <ol>
-                                <li>合理的代码分割和懒加载策略</li>
-                                <li>图片优化和现代格式的使用</li>
-                                <li>CSS和JavaScript的精细化优化</li>
-                                <li>有效的缓存策略</li>
-                                <li>持续的性能监控</li>
-                            </ol>
-                            <p>只有将这些技巧综合应用，才能构建出真正高性能的Web应用。记住，性能优化是一个持续的过程，需要根据具体项目情况进行调整和优化。</p>
+  set(key, data) {
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now()
+    });
+  }
+
+  get(key) {
+    const item = this.cache.get(key);
+    if (!item) return null;
+
+    const age = Date.now() - item.timestamp;
+    if (age &gt; this.maxAge) {
+      this.cache.delete(key);
+      return null;
+    }
+
+    return item.data;
+  }
+}
+
+const apiCache = new APICache();
+
+async function fetchUserData(userId) {
+  const cacheKey = `user-${userId}`;
+  const cached = apiCache.get(cacheKey);
+  
+  if (cached) {
+    return cached;
+  }
+
+  const response = await fetch(`/api/users/${userId}`);
+  const data = await response.json();
+  
+  apiCache.set(cacheKey, data);
+  return data;
+}
+</code></pre>
+<h2>内存优化</h2>
+<h3>1. 避免内存泄漏</h3>
+<pre><code class="language-javascript">// 清理事件监听器
+class Component {
+  constructor() {
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener(&#39;scroll&#39;, this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(&#39;scroll&#39;, this.handleScroll);
+  }
+
+  handleScroll() {
+    // 处理滚动
+  }
+}
+
+// 清理定时器
+function useTimer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    const timer = setInterval(() =&gt; {
+      setCount(prev =&gt; prev + 1);
+    }, 1000);
+
+    return () =&gt; clearInterval(timer);
+  }, []);
+
+  return count;
+}
+</code></pre>
+<h3>2. 对象池模式</h3>
+<pre><code class="language-javascript">// 对象池减少垃圾回收
+class ObjectPool {
+  constructor(createFn, maxSize = 100) {
+    this.createFn = createFn;
+    this.pool = [];
+    this.maxSize = maxSize;
+  }
+
+  get() {
+    return this.pool.length &gt; 0 ? this.pool.pop() : this.createFn();
+  }
+
+  release(obj) {
+    if (this.pool.length &lt; this.maxSize) {
+      // 重置对象状态
+      this.resetObject(obj);
+      this.pool.push(obj);
+    }
+  }
+
+  resetObject(obj) {
+    // 清理对象属性
+    Object.keys(obj).forEach(key =&gt; {
+      delete obj[key];
+    });
+  }
+}
+</code></pre>
+<h2>网络优化</h2>
+<h3>1. HTTP/2 推送</h3>
+<pre><code class="language-javascript">// 服务端推送
+app.get(&#39;/&#39;, (req, res) =&gt; {
+  // 推送关键资源
+  res.push(&#39;/styles/critical.css&#39;);
+  res.push(&#39;/scripts/app.js&#39;);
+  
+  res.sendFile(&#39;index.html&#39;);
+});
+</code></pre>
+<h3>2. 资源合并与内联</h3>
+<pre><code class="language-html">&lt;!-- 内联关键CSS --&gt;
+&lt;style&gt;
+  .critical-above-fold {
+    /* 关键样式 */
+  }
+&lt;/style&gt;
+
+&lt;!-- 预加载非关键CSS --&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;/styles/non-critical.css&quot; as=&quot;style&quot; onload=&quot;this.onload=null;this.rel=&#39;stylesheet&#39;&quot;&gt;
+</code></pre>
+<h2>性能监控</h2>
+<h3>1. 性能监控代码</h3>
+<pre><code class="language-javascript">// 性能指标收集
+class PerformanceMonitor {
+  constructor() {
+    this.metrics = {};
+    this.collectMetrics();
+  }
+
+  collectMetrics() {
+    // 页面加载时间
+    window.addEventListener(&#39;load&#39;, () =&gt; {
+      const navigation = performance.getEntriesByType(&#39;navigation&#39;)[0];
+      this.metrics.pageLoadTime = navigation.loadEventEnd - navigation.fetchStart;
+      
+      // 首屏时间
+      this.metrics.firstContentfulPaint = this.getFirstContentfulPaint();
+      
+      // 发送数据
+      this.sendMetrics();
+    });
+  }
+
+  getFirstContentfulPaint() {
+    const entries = performance.getEntriesByType(&#39;paint&#39;);
+    const fcp = entries.find(entry =&gt; entry.name === &#39;first-contentful-paint&#39;);
+    return fcp ? fcp.startTime : null;
+  }
+
+  sendMetrics() {
+    // 发送到分析服务
+    navigator.sendBeacon(&#39;/analytics&#39;, JSON.stringify(this.metrics));
+  }
+}
+
+new PerformanceMonitor();
+</code></pre>
+<h3>2. 用户体验监控</h3>
+<pre><code class="language-javascript">// 监控用户交互延迟
+function measureInteractionDelay(callback) {
+  let startTime;
+
+  document.addEventListener(&#39;click&#39;, (e) =&gt; {
+    startTime = performance.now();
+    
+    requestIdleCallback(() =&gt; {
+      const delay = performance.now() - startTime;
+      callback(&#39;click&#39;, delay, e.target);
+    });
+  });
+}
+
+measureInteractionDelay((type, delay, element) =&gt; {
+  if (delay &gt; 100) {
+    console.warn(`Slow ${type} interaction:`, delay, &#39;ms&#39;, element);
+  }
+});
+</code></pre>
+<h2>性能优化检查清单</h2>
+<h3>📋 加载性能</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 启用 Gzip/Brotli 压缩</li>
+<li><input disabled="" type="checkbox"> 使用 CDN 加速静态资源</li>
+<li><input disabled="" type="checkbox"> 实现代码分割和懒加载</li>
+<li><input disabled="" type="checkbox"> 优化图片格式和大小</li>
+<li><input disabled="" type="checkbox"> 设置合理的缓存策略</li>
+<li><input disabled="" type="checkbox"> 减少 HTTP 请求数量</li>
+</ul>
+<h3>🎯 渲染性能</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 避免强制同步布局</li>
+<li><input disabled="" type="checkbox"> 使用 CSS containment</li>
+<li><input disabled="" type="checkbox"> 实现虚拟滚动</li>
+<li><input disabled="" type="checkbox"> 优化动画性能</li>
+<li><input disabled="" type="checkbox"> 避免大型 DOM 操作</li>
+</ul>
+<h3>🧠 内存性能</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 清理事件监听器</li>
+<li><input disabled="" type="checkbox"> 避免内存泄漏</li>
+<li><input disabled="" type="checkbox"> 使用对象池</li>
+<li><input disabled="" type="checkbox"> 监控内存使用</li>
+</ul>
+<h3>📊 监控</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 设置性能监控</li>
+<li><input disabled="" type="checkbox"> 定期性能审计</li>
+<li><input disabled="" type="checkbox"> 用户体验监控</li>
+<li><input disabled="" type="checkbox"> A/B 测试性能改进</li>
+</ul>
+<h2>总结</h2>
+<p>前端性能优化是一个持续的过程，需要：</p>
+<ol>
+<li><strong>测量先行</strong>：使用工具测量性能指标</li>
+<li><strong>渐进优化</strong>：从最重要的问题开始解决</li>
+<li><strong>持续监控</strong>：建立性能监控体系</li>
+<li><strong>用户为本</strong>：关注真实用户体验</li>
+</ol>
+<p>记住，<strong>过早的优化是万恶之源</strong>。先找到真正的性能瓶颈，再针对性地进行优化。</p>
+<hr>
+<h2>推荐工具</h2>
+<ul>
+<li><strong>分析工具</strong>: Lighthouse, PageSpeed Insights, WebPageTest</li>
+<li><strong>监控工具</strong>: Google Analytics, New Relic, Sentry</li>
+<li><strong>开发工具</strong>: Chrome DevTools, React DevTools</li>
+<li><strong>构建工具</strong>: Webpack Bundle Analyzer, source-map-explorer</li>
+</ul>
+<h2>相关资源</h2>
+<ul>
+<li><a href="https://web.dev/vitals/">Web Vitals</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance API</a></li>
+<li><a href="https://webpack.js.org/guides/performance/">Webpack Performance Guide</a></li>
+</ul>
+<h2>标签</h2>
+<p><code>性能优化</code> <code>前端</code> <code>实战</code> <code>Web Vitals</code> <code>用户体验</code></p>
+
                         </div>
+                        
+                        <style>
+                            /* 基础图片样式 */
+                            .article-body .article-image {
+                                max-width: 100%;
+                                height: auto;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                margin: 1.5rem 0;
+                                display: block;
+                                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            }
+                            
+                            .article-body .article-image:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                            }
+                            
+                            /* 尺寸和位置类 */
+                            .article-body .center-image {
+                                margin: 1.5rem auto;
+                            }
+                            
+                            .article-body .small-image {
+                                max-width: 400px;
+                                margin: 1rem auto;
+                            }
+                            
+                            .article-body .large-image {
+                                width: 100%;
+                                max-width: none;
+                                margin: 2rem 0;
+                            }
+                            
+                            .article-body .float-left {
+                                float: left;
+                                margin: 0 1.5rem 1rem 0;
+                                max-width: 300px;
+                            }
+                            
+                            .article-body .float-right {
+                                float: right;
+                                margin: 0 0 1rem 1.5rem;
+                                max-width: 300px;
+                            }
+                            
+                            /* Figure和Caption样式 */
+                            .article-body .image-figure {
+                                margin: 2rem 0;
+                                text-align: center;
+                                background: var(--bg-white);
+                                border-radius: 12px;
+                                padding: 1rem;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                            }
+                            
+                            .article-body figcaption {
+                                margin-top: 0.75rem;
+                                font-size: 0.875rem;
+                                color: var(--text-light);
+                                font-style: italic;
+                                line-height: 1.4;
+                            }
+                            
+                            /* 响应式设计 */
+                            @media (max-width: 768px) {
+                                .article-body .article-image {
+                                    margin: 1rem 0;
+                                }
+                                
+                                .article-body .float-left,
+                                .article-body .float-right {
+                                    float: none;
+                                    margin: 1rem auto;
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .small-image {
+                                    max-width: 100%;
+                                }
+                                
+                                .article-body .image-figure {
+                                    margin: 1.5rem 0;
+                                    padding: 0.75rem;
+                                }
+                            }
+                            
+                            /* 图片加载状态 */
+                            .article-body .article-image[loading="lazy"] {
+                                opacity: 0;
+                                animation: fadeInImage 0.5s ease forwards;
+                            }
+                            
+                            @keyframes fadeInImage {
+                                from { opacity: 0; transform: translateY(10px); }
+                                to { opacity: 1; transform: translateY(0); }
+                            }
+                        </style>
 
                         <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                                 <div class="article-stats">
-                                    <span style="margin-right: 1rem;">👁️ 2,103</span>
-                                    <span style="margin-right: 1rem;">💬 31</span>
-                                    <span>❤️ 89</span>
+                                    <span style="margin-right: 1rem;">👁️ 1356</span>
+                                    <span style="margin-right: 1rem;">💬 19</span>
+                                    <span>❤️ 49</span>
                                 </div>
                                 <div class="article-share">
                                     <span style="color: var(--text-light); margin-right: 1rem;">分享：</span>
@@ -315,45 +695,11 @@ getTTFB(sendToAnalytics);</code></pre>
                                     <button class="btn btn-sm btn-outline" style="margin-left: 0.5rem;">微博</button>
                                 </div>
                             </div>
-                            
-                            <div class="article-nav" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <a href="react-hooks-deep-dive.html" class="btn btn-outline">← 上一篇: React Hooks深度解析</a>
-                                <a href="git-workflow.html" class="btn btn-outline" style="text-align: right;">下一篇: Git工作流最佳实践 →</a>
-                            </div>
                         </div>
                     </article>
 
                     <aside class="article-sidebar">
                         <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
-                            <h3>目录</h3>
-                            <nav class="article-toc">
-                                <ul style="list-style: none; padding: 0;">
-                                    <li><a href="#importance" style="color: var(--text-dark); text-decoration: none; line-height: 2;">为什么性能优化重要</a></li>
-                                    <li><a href="#code-splitting" style="color: var(--text-dark); text-decoration: none; line-height: 2;">代码分割与懒加载</a></li>
-                                    <li><a href="#image-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">图片优化策略</a></li>
-                                    <li><a href="#css-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">CSS优化技巧</a></li>
-                                    <li><a href="#js-opt" style="color: var(--text-dark); text-decoration: none; line-height: 2;">JavaScript性能优化</a></li>
-                                    <li><a href="#cache" style="color: var(--text-dark); text-decoration: none; line-height: 2;">缓存策略</a></li>
-                                    <li><a href="#monitoring" style="color: var(--text-dark); text-decoration: none; line-height: 2;">性能监控</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
-                            <h3>相关文章</h3>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="margin-bottom: 1rem;">
-                                    <a href="react-hooks-deep-dive.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">React Hooks深度解析</a>
-                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">从入门到精通掌握Hooks</p>
-                                </li>
-                                <li style="margin-bottom: 1rem;">
-                                    <a href="css-grid-guide.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">CSS Grid布局完全指南</a>
-                                    <p style="font-size: 0.875rem; color: var(--text-light); margin: 0.25rem 0 0 0;">掌握现代CSS布局技术</p>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-widget" style="background: var(--bg-light); padding: 1.5rem; border-radius: 1rem;">
                             <h3>返回导航</h3>
                             <div class="quick-nav">
                                 <a href="../blog.html" class="quick-nav-item">

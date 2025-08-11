@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Hooks Deep Dive - 刘浩洋</title>
+    <title>如何使用自动化博客系统 - 刘浩洋</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,15 +51,15 @@
         <section class="page-header">
             <div class="container">
                 <div class="page-header-content">
-                    <h1>React Hooks Deep Dive</h1>
-                    <p>React Hooks深度解析：从入门到精通 !React Hooks 引言 React Hooks 是 React 16.8 引入的一个重要特性，它让我们能够在函数组件中使用状态和其他 React 特性。本文将深入探讨 Hooks 的工作原理、最佳实践以及常见的使用场景。 什么是 React Hooks？ Hooks 是一些特殊的函数，它们让你能够"钩入"React 的特性。最常用的 Hooks...</p>
+                    <h1>如何使用自动化博客系统</h1>
+                    <p>详细介绍如何使用这个自动化博客系统，从创建Markdown文件到自动生成HTML页面的完整流程。</p>
                     <div class="breadcrumb">
-                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>React Hooks Deep Dive</span>
+                        <a href="../index.html">首页</a> / <a href="../blog.html">博客</a> / <span>如何使用自动化博客系统</span>
                     </div>
                     <div class="article-meta" style="margin-top: 1.5rem; text-align: center;">
-                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2025年 8月 11</span>
-                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 4 分钟阅读</span>
-                        <span style="color: var(--text-light);">👁️ 1416 阅读</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">📅 2024年 8月 11</span>
+                        <span style="color: var(--text-light); margin-right: 2rem;">⏱️ 2 分钟阅读</span>
+                        <span style="color: var(--text-light);">👁️ 1110 阅读</span>
                     </div>
                 </div>
             </div>
@@ -70,303 +70,190 @@
                 <div class="article-layout" style="display: grid; grid-template-columns: 3fr 1fr; gap: 3rem;">
                     <article class="article-content" style="background: var(--bg-white); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
                         <div class="article-tags" style="margin-bottom: 2rem;">
-                            <span class="tag">技术</span>
+                            <span class="tag">博客系统</span><span class="tag">Markdown</span><span class="tag">自动化</span>
                         </div>
 
                         <div class="article-body" style="line-height: 1.8; font-size: 1.125rem;">
-                            <h1>React Hooks深度解析：从入门到精通</h1>
-<p><img src="https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=React+Hooks" alt="React Hooks"></p>
-<h2>引言</h2>
-<p>React Hooks 是 React 16.8 引入的一个重要特性，它让我们能够在函数组件中使用状态和其他 React 特性。本文将深入探讨 Hooks 的工作原理、最佳实践以及常见的使用场景。</p>
-<h2>什么是 React Hooks？</h2>
-<p>Hooks 是一些特殊的函数，它们让你能够&quot;钩入&quot;React 的特性。最常用的 Hooks 包括：</p>
+                            <h1>如何使用自动化博客系统</h1>
+<p>欢迎使用这个强大的自动化博客系统！这个系统可以让您轻松地通过创建Markdown文件来自动生成完整的HTML博客文章。</p>
+<h2>系统特性</h2>
+<h3>🚀 自动化构建</h3>
 <ul>
-<li><code>useState</code> - 用于在函数组件中添加状态</li>
-<li><code>useEffect</code> - 用于处理副作用</li>
-<li><code>useContext</code> - 用于访问 React Context</li>
-<li><code>useReducer</code> - 用于复杂状态管理</li>
-<li><code>useMemo</code> 和 <code>useCallback</code> - 用于性能优化</li>
+<li>自动将Markdown文件转换为HTML文章页面</li>
+<li>自动更新博客列表页面</li>
+<li>自动生成文章摘要和阅读时间</li>
+<li>支持中英文双语系统</li>
 </ul>
-<h2>useState 深入解析</h2>
-<h3>基础用法</h3>
-<pre><code class="language-javascript">import React, { useState } from &#39;react&#39;;
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;You clicked {count} times&lt;/p&gt;
-      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-        Click me
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-<h3>函数式更新</h3>
-<p>当新状态需要基于之前的状态计算时，推荐使用函数式更新：</p>
-<pre><code class="language-javascript">// 推荐方式
-setCount(prevCount =&gt; prevCount + 1);
-
-// 避免这样做
-setCount(count + 1);
-</code></pre>
-<h3>惰性初始化</h3>
-<p>对于计算成本较高的初始状态，可以使用函数来延迟初始化：</p>
-<pre><code class="language-javascript">const [state, setState] = useState(() =&gt; {
-  const initialState = someExpensiveComputation(props);
-  return initialState;
-});
-</code></pre>
-<h2>useEffect 详解</h2>
-<h3>基础用法</h3>
-<pre><code class="language-javascript">import React, { useState, useEffect } from &#39;react&#39;;
-
-function Example() {
-  const [count, setCount] = useState(0);
-
-  // 相当于 componentDidMount 和 componentDidUpdate
-  useEffect(() =&gt; {
-    document.title = `You clicked ${count} times`;
-  });
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;You clicked {count} times&lt;/p&gt;
-      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-        Click me
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-<h3>清理效果</h3>
-<pre><code class="language-javascript">useEffect(() =&gt; {
-  const timer = setInterval(() =&gt; {
-    setCount(prevCount =&gt; prevCount + 1);
-  }, 1000);
-
-  // 清理函数
-  return () =&gt; {
-    clearInterval(timer);
-  };
-}, []); // 空依赖数组意味着这个 effect 只运行一次
-</code></pre>
-<h3>依赖数组</h3>
-<pre><code class="language-javascript">useEffect(() =&gt; {
-  fetchUserData(userId);
-}, [userId]); // 只有当 userId 改变时才重新运行
-</code></pre>
-<h2>自定义 Hooks</h2>
-<p>自定义 Hooks 让我们能够抽取组件逻辑到可复用的函数中：</p>
-<pre><code class="language-javascript">// 自定义 Hook
-function useCounter(initialValue = 0) {
-  const [count, setCount] = useState(initialValue);
-
-  const increment = useCallback(() =&gt; {
-    setCount(prevCount =&gt; prevCount + 1);
-  }, []);
-
-  const decrement = useCallback(() =&gt; {
-    setCount(prevCount =&gt; prevCount - 1);
-  }, []);
-
-  const reset = useCallback(() =&gt; {
-    setCount(initialValue);
-  }, [initialValue]);
-
-  return {
-    count,
-    increment,
-    decrement,
-    reset
-  };
-}
-
-// 使用自定义 Hook
-function Counter() {
-  const { count, increment, decrement, reset } = useCounter(0);
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-      &lt;button onClick={increment}&gt;+&lt;/button&gt;
-      &lt;button onClick={decrement}&gt;-&lt;/button&gt;
-      &lt;button onClick={reset}&gt;Reset&lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-<h2>性能优化</h2>
-<h3>useMemo</h3>
-<pre><code class="language-javascript">function ExpensiveComponent({ items }) {
-  const expensiveValue = useMemo(() =&gt; {
-    return items.reduce((sum, item) =&gt; sum + item.value, 0);
-  }, [items]);
-
-  return &lt;div&gt;{expensiveValue}&lt;/div&gt;;
-}
-</code></pre>
-<h3>useCallback</h3>
-<pre><code class="language-javascript">function ParentComponent({ items }) {
-  const [filter, setFilter] = useState(&#39;&#39;);
-
-  const handleItemClick = useCallback((item) =&gt; {
-    console.log(&#39;Item clicked:&#39;, item);
-  }, []);
-
-  const filteredItems = useMemo(() =&gt; {
-    return items.filter(item =&gt; item.name.includes(filter));
-  }, [items, filter]);
-
-  return (
-    &lt;div&gt;
-      &lt;input 
-        value={filter}
-        onChange={(e) =&gt; setFilter(e.target.value)}
-      /&gt;
-      {filteredItems.map(item =&gt; (
-        &lt;Item 
-          key={item.id} 
-          item={item} 
-          onClick={handleItemClick}
-        /&gt;
-      ))}
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-<h2>Hooks 最佳实践</h2>
-<h3>1. 只在最顶层调用 Hooks</h3>
-<pre><code class="language-javascript">// ✅ 正确
-function MyComponent() {
-  const [count, setCount] = useState(0);
-  
-  if (count &gt; 10) {
-    // ❌ 错误：在条件语句中调用 Hook
-    // const [name, setName] = useState(&#39;&#39;);
-  }
-  
-  return &lt;div&gt;{count}&lt;/div&gt;;
-}
-
-// ✅ 正确的方式
-function MyComponent() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState(&#39;&#39;);
-  
-  return &lt;div&gt;{count &gt; 10 ? name : count}&lt;/div&gt;;
-}
-</code></pre>
-<h3>2. 只在 React 函数中调用 Hooks</h3>
-<pre><code class="language-javascript">// ✅ 在 React 函数组件中调用
-function MyComponent() {
-  const [state, setState] = useState(0);
-  return &lt;div&gt;{state}&lt;/div&gt;;
-}
-
-// ✅ 在自定义 Hook 中调用
-function useMyHook() {
-  const [state, setState] = useState(0);
-  return [state, setState];
-}
-</code></pre>
-<h3>3. 使用 ESLint 插件</h3>
-<p>安装并配置 <code>eslint-plugin-react-hooks</code> 来帮助你遵循 Hooks 的规则。</p>
-<h2>常见陷阱</h2>
-<h3>1. 闭包陷阱</h3>
-<pre><code class="language-javascript">// ❌ 问题：计时器总是显示 0
-function Timer() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() =&gt; {
-    const timer = setInterval(() =&gt; {
-      setCount(count + 1); // count 始终是 0
-    }, 1000);
-
-    return () =&gt; clearInterval(timer);
-  }, []);
-
-  return &lt;div&gt;{count}&lt;/div&gt;;
-}
-
-// ✅ 解决方案 1：使用函数式更新
-function Timer() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() =&gt; {
-    const timer = setInterval(() =&gt; {
-      setCount(prevCount =&gt; prevCount + 1);
-    }, 1000);
-
-    return () =&gt; clearInterval(timer);
-  }, []);
-
-  return &lt;div&gt;{count}&lt;/div&gt;;
-}
-
-// ✅ 解决方案 2：使用 useRef
-function Timer() {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(count);
-  
-  countRef.current = count;
-
-  useEffect(() =&gt; {
-    const timer = setInterval(() =&gt; {
-      setCount(countRef.current + 1);
-    }, 1000);
-
-    return () =&gt; clearInterval(timer);
-  }, []);
-
-  return &lt;div&gt;{count}&lt;/div&gt;;
-}
-</code></pre>
-<h3>2. 依赖数组不完整</h3>
-<pre><code class="language-javascript">// ❌ 问题：依赖数组不完整
-function UserProfile({ userId }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() =&gt; {
-    fetchUser(userId).then(setUser);
-  }, []); // 缺少 userId 依赖
-
-  return &lt;div&gt;{user?.name}&lt;/div&gt;;
-}
-
-// ✅ 解决方案：添加完整的依赖
-function UserProfile({ userId }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() =&gt; {
-    fetchUser(userId).then(setUser);
-  }, [userId]); // 包含所有依赖
-
-  return &lt;div&gt;{user?.name}&lt;/div&gt;;
-}
-</code></pre>
-<h2>总结</h2>
-<p>React Hooks 是现代 React 开发的基础，它们提供了一种更简洁、更直观的方式来管理组件状态和副作用。通过理解 Hooks 的工作原理和遵循最佳实践，我们可以写出更清晰、更可维护的代码。</p>
-<p>记住以下几个要点：</p>
-<ol>
-<li><strong>只在最顶层调用 Hooks</strong></li>
-<li><strong>正确使用依赖数组</strong></li>
-<li><strong>理解闭包的影响</strong></li>
-<li><strong>善用自定义 Hooks 抽取逻辑</strong></li>
-<li><strong>使用 useMemo 和 useCallback 进行性能优化</strong></li>
-</ol>
-<p>希望这篇文章能帮助你更好地理解和使用 React Hooks！</p>
-<hr>
-<h2>相关阅读</h2>
+<h3>📝 Markdown支持</h3>
 <ul>
-<li><a href="https://reactjs.org/docs/hooks-intro.html">React 官方文档 - Hooks</a></li>
-<li><a href="https://overreacted.io/a-complete-guide-to-useeffect/">useEffect 完整指南</a></li>
-<li><a href="https://www.patterns.dev/posts/react-hooks-patterns/">React Hooks 最佳实践</a></li>
+<li>完整的Markdown语法支持</li>
+<li>代码语法高亮</li>
+<li>Front Matter元数据支持</li>
+<li>自动生成目录和导航</li>
 </ul>
-<h2>标签</h2>
-<p><code>React</code> <code>JavaScript</code> <code>前端开发</code> <code>Hooks</code> <code>函数组件</code></p>
+<h3>🎨 美观的界面</h3>
+<ul>
+<li>响应式设计</li>
+<li>现代化的UI风格</li>
+<li>暗色/亮色主题支持</li>
+<li>移动端友好</li>
+</ul>
+<h2>使用方法</h2>
+<h3>1. 创建新文章</h3>
+<pre><code class="language-bash">npm run new &quot;文章标题&quot;
+</code></pre>
+<p>这将在<code>posts/</code>目录下创建一个新的Markdown文件模板。</p>
+<h3>2. 编辑文章内容</h3>
+<p>编辑生成的Markdown文件，添加您的内容：</p>
+<pre><code class="language-markdown">---
+title: 我的新文章
+date: 2024-08-11
+category: tech
+tags: [技术, 前端, React]
+author: 刘浩洋
+language: zh
+excerpt: 这是文章的简要描述
+---
+
+# 文章标题
+
+您的文章内容...
+</code></pre>
+<h3>3. 构建网站</h3>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<p>系统将自动：</p>
+<ul>
+<li>生成HTML文章页面</li>
+<li>更新博客列表</li>
+<li>生成文章索引</li>
+</ul>
+<h3>4. 预览网站</h3>
+<pre><code class="language-bash">npm run serve
+</code></pre>
+<p>在浏览器中访问 <code>http://localhost:8000</code> 预览您的网站。</p>
+<h2>Front Matter 配置</h2>
+<p>每个Markdown文件开头的Front Matter支持以下字段：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必需</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>title</code></td>
+<td>✅</td>
+<td>文章标题</td>
+<td><code>&quot;React Hooks深度解析&quot;</code></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>✅</td>
+<td>发布日期</td>
+<td><code>2024-08-11</code></td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>✅</td>
+<td>文章分类</td>
+<td><code>tech</code>, <code>tutorial</code>, <code>life</code>, <code>thoughts</code></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>✅</td>
+<td>文章标签</td>
+<td><code>[React, JavaScript, 前端]</code></td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>❌</td>
+<td>作者名称</td>
+<td><code>&quot;刘浩洋&quot;</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>❌</td>
+<td>语言标识</td>
+<td><code>zh</code> 或 <code>en</code></td>
+</tr>
+<tr>
+<td><code>excerpt</code></td>
+<td>❌</td>
+<td>文章摘要</td>
+<td>如不提供将自动生成</td>
+</tr>
+</tbody></table>
+<h2>目录结构</h2>
+<pre><code>Liu_Haoyang_Web/
+├── posts/              # Markdown文件目录
+│   ├── article-1.md
+│   ├── article-2.md
+│   └── posts.json      # 文章索引（自动生成）
+├── articles/           # HTML文章页面（自动生成）
+│   ├── article-1.html
+│   └── article-2.html
+├── templates/          # HTML模板文件
+├── build-blog.js       # 构建脚本
+├── blog.html           # 中文博客列表页
+├── blog-en.html        # 英文博客列表页
+└── package.json        # 项目配置
+</code></pre>
+<h2>高级功能</h2>
+<h3>自动监听文件变化</h3>
+<p>开发时可以使用以下命令自动构建：</p>
+<pre><code class="language-bash">npm run watch
+</code></pre>
+<p>当Markdown文件发生变化时，系统会自动重新构建。</p>
+<h3>清理生成的文件</h3>
+<pre><code class="language-bash">npm run clean
+</code></pre>
+<h3>双语支持</h3>
+<h2>创建英文文章时，文件名添加<code>-en</code>后缀：<br>```markdown</h2>
+<h2>title: How to Use This Blog System<br>language: en</h2>
+<pre><code>
+## 自定义模板
+
+您可以在`templates/`目录下创建自定义HTML模板：
+- `article-zh.html` - 中文文章模板
+- `article-en.html` - 英文文章模板
+
+## 部署到GitHub Pages
+
+1. 构建网站：`npm run build`
+2. 提交所有文件到GitHub
+3. 在仓库设置中启用GitHub Pages
+4. 选择`master`分支作为源码分支
+
+## 故障排除
+
+### 常见问题
+
+**Q: 文章没有出现在博客列表中？**
+A: 检查Markdown文件的Front Matter格式是否正确，确保运行了`npm run build`。
+
+**Q: 代码高亮不工作？**
+A: 确保代码块使用了正确的语言标识符，例如：\`\`\`javascript
+
+**Q: 图片显示不正常？**
+A: 使用相对路径引用图片，建议将图片放在`images/`目录下。
+
+### 获取帮助
+
+如果遇到问题，可以：
+1. 查看构建日志输出
+2. 检查Markdown语法
+3. 验证Front Matter格式
+4. 确认文件路径正确
+
+## 总结
+
+这个自动化博客系统大大简化了博客文章的创建和管理流程。您只需要专注于内容创作，系统会自动处理所有的技术细节。
+
+开始您的博客写作之旅吧！🎉
+</code></pre>
 
                         </div>
                         
@@ -471,9 +358,9 @@ function UserProfile({ userId }) {
                         <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                                 <div class="article-stats">
-                                    <span style="margin-right: 1rem;">👁️ 1416</span>
-                                    <span style="margin-right: 1rem;">💬 33</span>
-                                    <span>❤️ 66</span>
+                                    <span style="margin-right: 1rem;">👁️ 1110</span>
+                                    <span style="margin-right: 1rem;">💬 34</span>
+                                    <span>❤️ 56</span>
                                 </div>
                                 <div class="article-share">
                                     <span style="color: var(--text-light); margin-right: 1rem;">分享：</span>

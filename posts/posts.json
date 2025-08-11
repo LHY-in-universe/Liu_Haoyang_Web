@@ -1,137 +1,78 @@
-{
-  "posts": [
-    {
-      "id": "react-hooks-deep-dive",
-      "title": "React Hooks深度解析：从入门到精通",
-      "slug": "react-hooks-deep-dive",
-      "excerpt": "深入探讨React Hooks的工作原理，包括useState、useEffect、useContext等核心Hooks的使用场景和最佳实践。",
-      "content": "posts/react-hooks-deep-dive.md",
-      "image": "https://via.placeholder.com/600x300/4F46E5/FFFFFF?text=React+Hooks",
-      "category": "tech",
-      "tags": ["React", "JavaScript", "前端开发"],
-      "author": "刘浩阳",
-      "date": "2024-03-15",
-      "readTime": "5分钟阅读",
-      "views": 1234,
-      "comments": 18,
-      "likes": 45,
-      "featured": true
-    },
-    {
-      "id": "css-grid-complete-guide",
-      "title": "CSS Grid布局完全指南",
-      "slug": "css-grid-complete-guide",
-      "excerpt": "从基础到高级，全面掌握CSS Grid布局系统。通过实际案例学习如何创建复杂的响应式网格布局。",
-      "content": "posts/css-grid-complete-guide.md",
-      "image": "https://via.placeholder.com/600x300/8B5CF6/FFFFFF?text=CSS+Grid",
-      "category": "tutorial",
-      "tags": ["CSS", "布局", "响应式设计"],
-      "author": "刘浩阳",
-      "date": "2024-03-10",
-      "readTime": "8分钟阅读",
-      "views": 892,
-      "comments": 12,
-      "likes": 38,
-      "featured": false
-    },
-    {
-      "id": "career-growth-thoughts",
-      "title": "技术人的职业成长思考",
-      "slug": "career-growth-thoughts",
-      "excerpt": "分享我对技术人员职业发展的一些思考，包括技术深度vs广度的选择，如何平衡工作与学习等话题。",
-      "content": "posts/career-growth-thoughts.md",
-      "image": "https://via.placeholder.com/600x300/10B981/FFFFFF?text=Career+Growth",
-      "category": "thoughts",
-      "tags": ["职业发展", "思考", "成长"],
-      "author": "刘浩阳",
-      "date": "2024-03-05",
-      "readTime": "6分钟阅读",
-      "views": 1567,
-      "comments": 24,
-      "likes": 67,
-      "featured": true
-    },
-    {
-      "id": "frontend-performance-guide",
-      "title": "前端性能优化实战指南",
-      "slug": "frontend-performance-guide",
-      "excerpt": "从代码分割到图片优化，从缓存策略到懒加载，全面介绍前端性能优化的各种技巧和最佳实践。",
-      "content": "posts/frontend-performance-guide.md",
-      "image": "https://via.placeholder.com/600x300/F59E0B/FFFFFF?text=Performance",
-      "category": "tech",
-      "tags": ["性能优化", "前端", "实战"],
-      "author": "刘浩阳",
-      "date": "2024-02-28",
-      "readTime": "10分钟阅读",
-      "views": 2103,
-      "comments": 31,
-      "likes": 89,
-      "featured": true
-    },
-    {
-      "id": "work-life-balance",
-      "title": "工作与生活的平衡艺术",
-      "slug": "work-life-balance",
-      "excerpt": "作为一名程序员，如何在高强度的工作中保持生活的质量？分享我的一些心得和实践经验。",
-      "content": "posts/work-life-balance.md",
-      "image": "https://via.placeholder.com/600x300/EF4444/FFFFFF?text=Work+Life+Balance",
-      "category": "life",
-      "tags": ["生活方式", "工作", "平衡"],
-      "author": "刘浩阳",
-      "date": "2024-02-20",
-      "readTime": "4分钟阅读",
-      "views": 756,
-      "comments": 15,
-      "likes": 42,
-      "featured": false
-    },
-    {
-      "id": "git-workflow-best-practices",
-      "title": "Git工作流最佳实践",
-      "slug": "git-workflow-best-practices",
-      "excerpt": "详细介绍Git Flow、GitHub Flow等常见工作流程，以及如何选择适合团队的Git工作流策略。",
-      "content": "posts/git-workflow-best-practices.md",
-      "image": "https://via.placeholder.com/600x300/06B6D4/FFFFFF?text=Git+Workflow",
-      "category": "tutorial",
-      "tags": ["Git", "版本控制", "团队协作"],
-      "author": "刘浩阳",
-      "date": "2024-02-15",
-      "readTime": "7分钟阅读",
-      "views": 1345,
-      "comments": 22,
-      "likes": 56,
-      "featured": false
-    }
-  ],
-  "categories": [
-    {
-      "id": "tech",
-      "name": "技术",
-      "description": "技术相关文章",
-      "color": "#4F46E5"
-    },
-    {
-      "id": "tutorial",
-      "name": "教程",
-      "description": "技术教程和指南",
-      "color": "#8B5CF6"
-    },
-    {
-      "id": "thoughts",
-      "name": "思考",
-      "description": "个人思考和见解",
-      "color": "#10B981"
-    },
-    {
-      "id": "life",
-      "name": "生活",
-      "description": "生活感悟和经验",
-      "color": "#EF4444"
-    }
-  ],
-  "tags": [
-    "React", "JavaScript", "前端开发", "CSS", "布局", "响应式设计",
-    "职业发展", "思考", "成长", "性能优化", "实战", "生活方式", 
-    "工作", "平衡", "Git", "版本控制", "团队协作"
-  ]
-}
+[
+  {
+    "id": "frontend-performance-guide",
+    "title": "Frontend Performance Guide",
+    "excerpt": "前端性能优化实战指南 !Performance Optimization 前言 在当今快节奏的数字世界中，网站性能直接影响用户体验和业务成果。本文将分享前端性能优化的各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用。 性能优化的重要性 用户体验影响 - 加载速度：页面加载时间每增加1秒，转化率下降7% - 交互延迟：用户期望在100ms内看到响应 - 流畅度：60FPS的动画让用户感觉更流畅...",
+    "date": "2025-08-11",
+    "category": "tech",
+    "tags": [
+      "技术"
+    ],
+    "author": "刘浩洋",
+    "language": "zh",
+    "readTime": 6,
+    "views": 1356,
+    "comments": 19,
+    "likes": 49,
+    "url": "articles/frontend-performance-guide.html",
+    "fileName": "frontend-performance-guide.html"
+  },
+  {
+    "id": "react-hooks-deep-dive",
+    "title": "React Hooks Deep Dive",
+    "excerpt": "React Hooks深度解析：从入门到精通 !React Hooks 引言 React Hooks 是 React 16.8 引入的一个重要特性，它让我们能够在函数组件中使用状态和其他 React 特性。本文将深入探讨 Hooks 的工作原理、最佳实践以及常见的使用场景。 什么是 React Hooks？ Hooks 是一些特殊的函数，它们让你能够\"钩入\"React 的特性。最常用的 Hooks...",
+    "date": "2025-08-11",
+    "category": "tech",
+    "tags": [
+      "技术"
+    ],
+    "author": "刘浩洋",
+    "language": "zh",
+    "readTime": 4,
+    "views": 1416,
+    "comments": 33,
+    "likes": 66,
+    "url": "articles/react-hooks-deep-dive.html",
+    "fileName": "react-hooks-deep-dive.html"
+  },
+  {
+    "id": "how-to-use-the-automated-blog-system",
+    "title": "How to Use the Automated Blog System",
+    "excerpt": "A comprehensive guide on how to use this automated blog system, from creating Markdown files to automatically generating HTML pages.",
+    "date": "2024-08-11",
+    "category": "tutorial",
+    "tags": [
+      "Blog System",
+      "Markdown",
+      "Automation"
+    ],
+    "author": "Liu Haoyang",
+    "language": "en",
+    "readTime": 4,
+    "views": 1489,
+    "comments": 12,
+    "likes": 57,
+    "url": "articles/how-to-use-the-automated-blog-system.html",
+    "fileName": "how-to-use-the-automated-blog-system.html"
+  },
+  {
+    "id": "",
+    "title": "如何使用自动化博客系统",
+    "excerpt": "详细介绍如何使用这个自动化博客系统，从创建Markdown文件到自动生成HTML页面的完整流程。",
+    "date": "2024-08-11",
+    "category": "tutorial",
+    "tags": [
+      "博客系统",
+      "Markdown",
+      "自动化"
+    ],
+    "author": "刘浩洋",
+    "language": "zh",
+    "readTime": 2,
+    "views": 1110,
+    "comments": 34,
+    "likes": 56,
+    "url": "articles/.html",
+    "fileName": ".html"
+  }
+]
