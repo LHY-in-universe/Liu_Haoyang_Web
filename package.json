@@ -1,0 +1,41 @@
+{
+  "name": "liu-haoyang-blog",
+  "version": "1.0.0",
+  "description": "刘浩洋的个人博客网站 - 自动化Markdown到HTML转换系统",
+  "main": "build-blog.js",
+  "scripts": {
+    "build": "node build-blog.js build",
+    "new": "node build-blog.js new",
+    "dev": "node build-blog.js build && python -m http.server 8000",
+    "serve": "python -m http.server 8000",
+    "watch": "nodemon --watch posts --ext md --exec \"npm run build\"",
+    "clean": "rm -rf articles/*.html && echo '清理完成'",
+    "help": "node build-blog.js help"
+  },
+  "keywords": [
+    "blog",
+    "markdown",
+    "html",
+    "static-site",
+    "github-pages"
+  ],
+  "author": "刘浩洋 <liuhaoyang@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^9.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LHY-in-universe/Liu_Haoyang_Web.git"
+  },
+  "homepage": "https://lhy-in-universe.github.io/Liu_Haoyang_Web/",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "bin": {
+    "build-blog": "./build-blog.js"
+  }
+}
