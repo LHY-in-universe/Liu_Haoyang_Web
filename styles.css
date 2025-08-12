@@ -104,11 +104,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 80px;
 }
 
 .nav-logo a {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
@@ -117,33 +117,50 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--text-dark);
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
     position: relative;
+    border-radius: var(--border-radius-sm);
 }
 
 .nav-link:hover {
     color: var(--primary-color);
+    background: var(--bg-lighter);
+    transform: translateY(-1px);
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
-    bottom: -5px;
+    height: 3px;
+    bottom: -2px;
     left: 50%;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
 .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    background: var(--bg-lighter);
+    font-weight: 700;
+}
+
+.nav-link.active::after {
     width: 100%;
     left: 0;
 }
@@ -702,7 +719,7 @@ section:nth-child(odd) {
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 80px;
         flex-direction: column;
         background-color: white;
         width: 100%;
