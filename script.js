@@ -96,23 +96,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Navbar scroll effect
-const navbar = document.querySelector('.navbar');
-let lastScrollY = window.scrollY;
-
-window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
-    }
-    
-    lastScrollY = currentScrollY;
-});
 
 // Navigation active state management
 const updateNavActiveState = (activeAnchor = null) => {
@@ -861,25 +844,33 @@ function createPageTransition() {
     return transition;
 }
 
-// 科幻页面加载效果
+// 科幻页面加载效果 - 只在首次访问时显示
 function initSciFiLoader() {
-    const loader = createSciFiLoader();
-    document.body.appendChild(loader);
+    // 检查是否是首次访问（检查sessionStorage，这样在同一会话中只显示一次）
+    const hasVisited = sessionStorage.getItem('hasVisitedSite');
     
-    // 创建矩阵雨
-    setTimeout(() => {
-        createMatrixRain();
-    }, 100);
-    
-    // 模拟加载时间
-    const loadingTime = 2000 + Math.random() * 1000;
-    
-    setTimeout(() => {
-        loader.classList.add('fade-out');
+    if (!hasVisited) {
+        // 标记为已访问
+        sessionStorage.setItem('hasVisitedSite', 'true');
+        
+        const loader = createSciFiLoader();
+        document.body.appendChild(loader);
+        
+        // 创建矩阵雨
         setTimeout(() => {
-            loader.remove();
-        }, 800);
-    }, loadingTime);
+            createMatrixRain();
+        }, 100);
+        
+        // 模拟加载时间
+        const loadingTime = 2000 + Math.random() * 1000;
+        
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.remove();
+            }, 800);
+        }, loadingTime);
+    }
 }
 
 // 科幻按钮和链接交互
@@ -926,31 +917,21 @@ function initSciFiPageTransitions() {
     });
 }
 
-// 科幻滚动效果
-function initSciFiScrollEffects() {
+// 原始导航栏滚动效果
+function initOriginalScrollEffects() {
     const navbar = document.querySelector('.navbar');
     
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         
-        // 科幻导航栏效果
+        // 原始导航栏效果
         if (scrollY > 100) {
-            navbar.style.background = 'rgba(0, 0, 0, 0.9)';
-            navbar.style.backdropFilter = 'blur(15px)';
-            navbar.style.borderBottom = '1px solid rgba(0, 255, 255, 0.3)';
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         } else {
-            navbar.style.background = 'rgba(0, 0, 0, 0.8)';
-            navbar.style.backdropFilter = 'blur(10px)';
-            navbar.style.borderBottom = 'none';
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
         }
-        
-        // 视差效果
-        const parallaxElements = document.querySelectorAll('.hero, .project-card');
-        parallaxElements.forEach((element, index) => {
-            const speed = 0.5 + (index * 0.1);
-            const yPos = -(scrollY * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
     });
 }
 
@@ -1030,7 +1011,7 @@ function initAllSciFiEffects() {
     setTimeout(() => {
         initSciFiInteractions();
         initSciFiPageTransitions();
-        initSciFiScrollEffects();
+        initOriginalScrollEffects();
         
         // 创建粒子背景
         createParticles();
