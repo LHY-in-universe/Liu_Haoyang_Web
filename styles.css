@@ -193,7 +193,7 @@ body {
         #EDE9FE 50%,
         #F3E8FF 100%
     );
-    padding-top: 70px;
+    padding-top: 80px;
     position: relative;
     overflow: hidden;
 }
@@ -965,7 +965,7 @@ html {
 
 /* Page-specific styles */
 .main-content {
-    padding-top: 70px;
+    padding-top: 80px;
 }
 
 .page-header {
