@@ -7,20 +7,47 @@ const { marked } = require('marked');
 /**
  * 自动化博客构建系统
  * 通过添加Markdown文件自动生成HTML文章并更新博客列表
+ * 
+ * 功能特点：
+ * - 支持Markdown前言（Front Matter）解析
+ * - 自动生成HTML文章页面
+ * - 支持中英文双语
+ * - 图片路径处理和优化
+ * - 自动更新博客列表页面
+ * - 响应式设计支持
+ * 
+ * @author 刘浩洋
+ * @version 2.0.0
  */
 
-// 配置文件
+/**
+ * ============================================
+ * 配置常量
+ * ============================================
+ */
 const CONFIG = {
+    // 目录配置
     postsDir: './posts',
     articlesDir: './articles', 
     templatesDir: './templates',
     imagesDir: './images',
+    
+    // 博客页面配置
     blogPages: {
         zh: './blog.html',
         en: './blog-en.html'
     },
+    
+    // 文件编码
     outputEncoding: 'utf8',
-    imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.avif'],
+    
+    // 支持的图片格式
+    imageExtensions: [
+        '.jpg', '.jpeg', '.png', '.gif', 
+        '.webp', '.svg', '.avif'
+    ],
+    
+    // 图片尺寸配置
     supportedImageSizes: {
         thumbnail: { width: 600, height: 300 },
         cover: { width: 1200, height: 630 },
@@ -28,9 +55,17 @@ const CONFIG = {
     }
 };
 
-// 工具函数
+/**
+ * ============================================
+ * 工具函数集合
+ * ============================================
+ */
 const utils = {
-    // 读取文件
+    /**
+     * 安全读取文件内容
+     * @param {string} filePath - 文件路径
+     * @returns {string|null} 文件内容或null
+     */
     readFile: (filePath) => {
         try {
             return fs.readFileSync(filePath, CONFIG.outputEncoding);
@@ -40,7 +75,12 @@ const utils = {
         }
     },
 
-    // 写入文件
+    /**
+     * 安全写入文件内容
+     * @param {string} filePath - 文件路径
+     * @param {string} content - 文件内容
+     * @returns {boolean} 是否写入成功
+     */
     writeFile: (filePath, content) => {
         try {
             // 确保目录存在
@@ -57,7 +97,11 @@ const utils = {
         }
     },
 
-    // 获取文件列表
+    /**
+     * 获取目录下的所有Markdown文件
+     * @param {string} dir - 目录路径
+     * @returns {string[]} Markdown文件路径数组
+     */
     getMarkdownFiles: (dir) => {
         try {
             if (!fs.existsSync(dir)) {
@@ -73,7 +117,11 @@ const utils = {
         }
     },
 
-    // 解析Markdown前言 (Front Matter)
+    /**
+     * 解析Markdown前言（Front Matter）
+     * @param {string} content - Markdown内容
+     * @returns {Object} 包含元数据和内容的对象
+     */
     parseFrontMatter: (content) => {
         const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
         const match = content.match(frontMatterRegex);
@@ -110,7 +158,12 @@ const utils = {
         };
     },
 
-    // 生成文章摘要
+    /**
+     * 从Markdown内容生成摘要
+     * @param {string} content - Markdown内容
+     * @param {number} maxLength - 最大长度
+     * @returns {string} 文章摘要
+     */
     generateExcerpt: (content, maxLength = 200) => {
         // 移除Markdown标记
         const plainText = content

@@ -188,19 +188,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
+/**
+ * ============================================
+ * FORM HANDLING
+ * ============================================
+ */
+
+/**
+ * 联系表单处理
+ */
+const initContactForm = () => {
+    const contactForm = document.querySelector('.contact-form');
+    
+    if (!contactForm) return;
+    
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Get form data
+        // 获取表单数据
         const formData = new FormData(contactForm);
         const name = formData.get('name');
         const email = formData.get('email');
         const message = formData.get('message');
         
-        // Basic validation with localized messages
+        // 基础验证（支持本地化消息）
         const currentLang = getCurrentLanguage();
         
         if (!name || !email || !message) {
@@ -213,14 +224,14 @@ if (contactForm) {
             return;
         }
         
-        // Simulate form submission
+        // 模拟表单提交
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         
         submitButton.textContent = getLocalizedMessage('sending', currentLang);
         submitButton.disabled = true;
         
-        // Simulate API call
+        // 模拟API调用
         setTimeout(() => {
             showMessage(getLocalizedMessage('contact_success', currentLang), 'success');
             contactForm.reset();
@@ -228,7 +239,10 @@ if (contactForm) {
             submitButton.disabled = false;
         }, 1500);
     });
-}
+};
+
+// 初始化联系表单
+initContactForm();
 
 // Helper function to validate email
 function isValidEmail(email) {

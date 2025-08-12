@@ -1,67 +1,134 @@
 #!/usr/bin/env node
 
+/**
+ * 博客管理工具
+ * 用于管理Markdown博客文章的创建、更新和删除
+ * @author 刘浩洋
+ * @version 1.0.0
+ */
+
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+/**
+ * 博客管理器类
+ * 负责博客文章的增删改查操作
+ */
 class BlogManager {
+    /**
+     * 构造函数 - 初始化博客管理器
+     */
     constructor() {
         this.postsDir = path.join(__dirname, 'posts');
         this.postsJsonPath = path.join(this.postsDir, 'posts.json');
         
-        // 确保posts目录存在
-        if (!fs.existsSync(this.postsDir)) {
-            fs.mkdirSync(this.postsDir, { recursive: true });
-        }
-        
-        // 初始化posts.json
+        this._ensurePostsDirectory();
         this.initializePostsJson();
     }
 
+    /**
+     * 确保posts目录存在
+     * @private
+     */
+    _ensurePostsDirectory() {
+        if (!fs.existsSync(this.postsDir)) {
+            fs.mkdirSync(this.postsDir, { recursive: true });
+        }
+    }
+
+    /**
+     * 初始化posts.json文件
+     * 如果文件不存在，创建包含默认分类的空数据结构
+     */
     initializePostsJson() {
         if (!fs.existsSync(this.postsJsonPath)) {
             const initialData = {
                 posts: [],
                 categories: [
-                    { id: "tech", name: "技术", description: "技术相关文章", color: "#4F46E5" },
-                    { id: "tutorial", name: "教程", description: "技术教程和指南", color: "#8B5CF6" },
-                    { id: "thoughts", name: "思考", description: "个人思考和见解", color: "#10B981" },
-                    { id: "life", name: "生活", description: "生活感悟和经验", color: "#EF4444" }
+                    { 
+                        id: 'tech', 
+                        name: '技术', 
+                        description: '技术相关文章', 
+                        color: '#4F46E5' 
+                    },
+                    { 
+                        id: 'tutorial', 
+                        name: '教程', 
+                        description: '技术教程和指南', 
+                        color: '#8B5CF6' 
+                    },
+                    { 
+                        id: 'thoughts', 
+                        name: '思考', 
+                        description: '个人思考和见解', 
+                        color: '#10B981' 
+                    },
+                    { 
+                        id: 'life', 
+                        name: '生活', 
+                        description: '生活感悟和经验', 
+                        color: '#EF4444' 
+                    }
                 ],
                 tags: []
             };
-            fs.writeFileSync(this.postsJsonPath, JSON.stringify(initialData, null, 2));
+            
+            fs.writeFileSync(
+                this.postsJsonPath, 
+                JSON.stringify(initialData, null, 2)
+            );
         }
     }
 
+    /**
+     * 加载posts.json文件
+     * @returns {Object} 包含posts、categories和tags的数据对象
+     */
     loadPosts() {
         try {
             const data = fs.readFileSync(this.postsJsonPath, 'utf8');
             return JSON.parse(data);
         } catch (error) {
-            console.error('Error loading posts:', error);
+            console.error('❌ 加载文章数据失败:', error.message);
             return { posts: [], categories: [], tags: [] };
         }
     }
 
+    /**
+     * 保存数据到posts.json文件
+     * @param {Object} data - 要保存的数据对象
+     */
     savePosts(data) {
         try {
-            fs.writeFileSync(this.postsJsonPath, JSON.stringify(data, null, 2));
-            console.log('✅ Posts data saved successfully');
+            fs.writeFileSync(
+                this.postsJsonPath, 
+                JSON.stringify(data, null, 2)
+            );
+            console.log('✅ 文章数据保存成功');
         } catch (error) {
-            console.error('❌ Error saving posts:', error);
+            console.error('❌ 保存文章数据失败:', error.message);
         }
     }
 
+    /**
+     * 根据标题生成URL友好的slug
+     * @param {string} title - 文章标题
+     * @returns {string} URL友好的slug
+     */
     generateSlug(title) {
         return title
             .toLowerCase()
-            .replace(/[^\w\s-]/g, '') // 移除特殊字符
-            .replace(/\s+/g, '-') // 空格替换为连字符
-            .replace(/-+/g, '-') // 多个连字符合并为一个
-            .trim('-'); // 移除首尾连字符
+            .replace(/[^\w\s-]/g, '')     // 移除特殊字符
+            .replace(/\s+/g, '-')        // 空格替换为连字符
+            .replace(/-+/g, '-')         // 多个连字符合并为一个
+            .trim('-');                  // 移除首尾连字符
     }
 
+    /**
+     * 生成随机的文章ID
+     * @returns {string} 16位十六进制字符串
+     */
     generateId() {
         return crypto.randomBytes(8).toString('hex');
     }
