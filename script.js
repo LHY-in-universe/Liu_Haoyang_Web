@@ -836,13 +836,6 @@ function createParticles() {
     }
 }
 
-// 页面转场效果
-function createPageTransition() {
-    const transition = document.createElement('div');
-    transition.className = 'page-transition';
-    document.body.appendChild(transition);
-    return transition;
-}
 
 // 科幻页面加载效果 - 只在首次访问时显示
 function initSciFiLoader() {
@@ -899,22 +892,10 @@ function initSciFiInteractions() {
     });
 }
 
-// 页面链接的科幻转场效果
-function initSciFiPageTransitions() {
-    const transition = createPageTransition();
-    
-    document.querySelectorAll('a[href*=".html"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            
-            transition.classList.add('active');
-            
-            setTimeout(() => {
-                window.location.href = href;
-            }, 500);
-        });
-    });
+// 移除科幻页面转场效果 - 使用普通链接跳转
+function initNormalPageTransitions() {
+    // 不添加任何特殊的转场效果，让链接正常工作
+    // 页面跳转将使用浏览器默认行为
 }
 
 // 原始导航栏滚动效果
@@ -1010,7 +991,7 @@ function initAllSciFiEffects() {
     // 交互效果
     setTimeout(() => {
         initSciFiInteractions();
-        initSciFiPageTransitions();
+        initNormalPageTransitions();
         initOriginalScrollEffects();
         
         // 创建粒子背景
