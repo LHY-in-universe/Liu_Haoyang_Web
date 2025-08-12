@@ -14,6 +14,14 @@
     --accent-color: #06B6D4;
     --accent-light: #67E8F9;
     
+    /* 科幻主题颜色 */
+    --neon-cyan: #00FFFF;
+    --neon-pink: #FF00FF;
+    --neon-green: #00FF41;
+    --neon-blue: #0080FF;
+    --matrix-green: #00FF41;
+    --hologram-blue: #00D4FF;
+    
     /* 文本颜色 */
     --text-dark: #1F2937;
     --text-medium: #374151;
@@ -2130,4 +2138,294 @@ html {
     img {
         max-width: 100% !important;
     }
+}
+
+/* ============================================
+   SCI-FI EFFECTS
+   ============================================ */
+
+/* 页面加载效果 */
+.sci-fi-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #000, #111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.8s ease-out;
+}
+
+.sci-fi-loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+    color: var(--neon-cyan);
+}
+
+.hologram-text {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    animation: hologramFlicker 2s infinite;
+}
+
+.hologram-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--neon-pink);
+    z-index: -1;
+    animation: hologramGlitch 3s infinite;
+}
+
+@keyframes hologramFlicker {
+    0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+    50% { opacity: 0.8; text-shadow: 0 0 5px var(--neon-cyan); }
+}
+
+@keyframes hologramGlitch {
+    0%, 90%, 100% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    30% { transform: translate(1px, -1px); }
+    40% { transform: translate(-1px, -1px); }
+    50% { transform: translate(1px, 1px); }
+    60% { transform: translate(-1px, 1px); }
+    70% { transform: translate(1px, -1px); }
+}
+
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.matrix-column {
+    position: absolute;
+    top: -100%;
+    color: var(--matrix-green);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    opacity: 0.7;
+    animation: matrixFall 3s linear infinite;
+}
+
+@keyframes matrixFall {
+    to { top: 100%; }
+}
+
+/* 科幻按钮效果 */
+.btn, .nav-link {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn::before, .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.btn:hover::before, .nav-link:hover::before {
+    left: 100%;
+}
+
+.btn:hover, .nav-link:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    box-shadow: 
+        0 0 10px var(--neon-cyan),
+        0 0 20px var(--neon-cyan),
+        inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+/* 科幻点击效果 */
+.sci-fi-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 科幻卡片效果 */
+.project-card, .blog-card, .contact-form {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.project-card::before, .blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid transparent;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover::before, .blog-card:hover::before {
+    opacity: 1;
+}
+
+.project-card:hover, .blog-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 
+        0 10px 30px rgba(0, 255, 255, 0.3),
+        0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+/* 科幻输入框效果 */
+input, textarea {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: var(--neon-cyan);
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 
+        0 0 10px var(--neon-cyan),
+        inset 0 0 10px rgba(0, 255, 255, 0.1);
+    background: rgba(0, 255, 255, 0.05);
+}
+
+/* 科幻导航效果 */
+.navbar {
+    position: relative;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    animation: scanline 2s linear infinite;
+}
+
+@keyframes scanline {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* 科幻滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* 科幻页面转场效果 */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #000, #111);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.page-transition.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 科幻粒子背景 */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    animation: particleFloat 10s infinite linear;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+/* 科幻文本效果 */
+.sci-fi-text {
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    from { filter: drop-shadow(0 0 5px var(--neon-cyan)); }
+    to { filter: drop-shadow(0 0 15px var(--neon-pink)); }
 }
