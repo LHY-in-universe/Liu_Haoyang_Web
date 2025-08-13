@@ -742,3 +742,79 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTagCloud();
 });
 
+/**
+ * ============================================
+ * SPACESHIP LOADING EFFECT
+ * ============================================
+ */
+
+// 创建飞船加载屏幕
+function createSpaceshipLoader() {
+    const loader = document.createElement('div');
+    loader.className = 'spaceship-loader';
+    
+    const container = document.createElement('div');
+    container.className = 'spaceship-container';
+    
+    const spaceship = document.createElement('div');
+    spaceship.className = 'spaceship';
+    
+    const loadingText = document.createElement('div');
+    loadingText.className = 'loading-text';
+    loadingText.textContent = '正在启动系统';
+    
+    const loadingDots = document.createElement('div');
+    loadingDots.className = 'loading-dots';
+    loadingDots.textContent = '载入中...';
+    
+    // 创建星空背景
+    const stars = document.createElement('div');
+    stars.className = 'stars';
+    
+    for (let i = 0; i < 6; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        stars.appendChild(star);
+    }
+    
+    container.appendChild(spaceship);
+    container.appendChild(loadingText);
+    container.appendChild(loadingDots);
+    
+    loader.appendChild(stars);
+    loader.appendChild(container);
+    
+    return loader;
+}
+
+// 飞船加载效果 - 只在首次访问时显示
+function initSpaceshipLoader() {
+    // 检查是否是首次访问（使用sessionStorage，这样在同一会话中只显示一次）
+    const hasVisited = sessionStorage.getItem('hasVisitedSite');
+    
+    if (!hasVisited) {
+        // 标记为已访问
+        sessionStorage.setItem('hasVisitedSite', 'true');
+        
+        const loader = createSpaceshipLoader();
+        document.body.appendChild(loader);
+        
+        // 模拟加载时间（2-4秒）
+        const loadingTime = 2000 + Math.random() * 2000;
+        
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.remove();
+            }, 800);
+        }, loadingTime);
+    }
+}
+
+// 当页面加载完成时初始化飞船效果
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSpaceshipLoader);
+} else {
+    initSpaceshipLoader();
+}
+
