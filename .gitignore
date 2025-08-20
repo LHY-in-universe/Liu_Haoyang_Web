@@ -77,7 +77,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public  # 注释掉，因为我们的public目录包含重要的静态资源
 
 # Storybook build outputs
 .out
@@ -103,12 +103,81 @@ temp/
 ehthumbs.db
 Thumbs.db
 
-# Build artifacts (可以选择性忽略)
-# articles/*.html  # 如果希望Git忽略生成的文章HTML文件，取消注释这行
+# ============================================
+# 项目特定忽略规则
+# ============================================
 
-# Backup files
+# 生成的HTML文章文件 (可选择性忽略)
+articles/*.html
+!articles/.gitkeep
+
+# 图片优化生成的备份文件
+public/images/**/*.backup
+public/images/**/*-optimized.*
+public/images/.backup/
+
+# 构建和开发临时文件
+build.log
+*.build.log
+.build/
+.output/
+
+# 图片处理临时文件
+.image-cache/
+*.processing
+*.temp.*
+
+# 备份文件
 *.backup
 *.bak
+*~
 
-# Debug files
-build.log
+# 本地开发配置文件
+.env.local
+.env.development
+.env.production
+
+# 测试文件和覆盖率报告
+coverage/
+test-results/
+playwright-report/
+*.test.log
+
+# 开发服务器文件
+.serve/
+*.serve.log
+
+# 性能分析文件
+*.cpuprofile
+*.heapsnapshot
+
+# Python缓存文件 (如果使用Python工具)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 自动生成的文件
+sitemap.xml
+robots.txt.backup
+
+# ============================================
+# 文档管理系统
+# ============================================
+
+# 上传的文档文件 (可选择性忽略大文件)
+public/documents/**/*.pdf
+public/documents/**/*.doc
+public/documents/**/*.docx
+public/documents/**/*.ppt
+public/documents/**/*.pptx
+
+# 但保留配置和示例文件
+!public/documents/documents.json
+!public/documents/README.md
+!public/documents/.gitkeep
+
+# 文档处理临时文件
+.docs-temp/
+*.doc.tmp
+*.pdf.processing

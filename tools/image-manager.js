@@ -10,7 +10,7 @@ const path = require('path');
 
 // 配置
 const CONFIG = {
-    imagesDir: './images',
+    imagesDir: './public/images',
     postsDir: './posts',
     articlesDir: './articles',
     supportedExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.avif'],

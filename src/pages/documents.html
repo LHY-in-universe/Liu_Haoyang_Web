@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档资源 - 刘浩洋</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .documents-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .documents-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .documents-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .documents-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .category-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .category-description {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .document-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: background 0.3s ease;
+        }
+        
+        .document-item:hover {
+            background: #e9ecef;
+        }
+        
+        .document-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .document-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .document-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .document-date {
+            display: flex;
+            align-items: center;
+        }
+        
+        .document-date::before {
+            content: "📅";
+            margin-right: 0.5rem;
+        }
+        
+        .document-size {
+            display: flex;
+            align-items: center;
+        }
+        
+        .document-size::before {
+            content: "📄";
+            margin-right: 0.5rem;
+        }
+        
+        .document-description {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .document-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-download {
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-download:hover {
+            background: #218838;
+        }
+        
+        .btn-download::before {
+            content: "⬇️";
+            margin-right: 0.5rem;
+        }
+        
+        .btn-preview {
+            background: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-preview:hover {
+            background: #0056b3;
+        }
+        
+        .btn-preview::before {
+            content: "👁️";
+            margin-right: 0.5rem;
+        }
+        
+        .empty-category {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 2rem;
+        }
+        
+        .filter-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            text-align: center;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .documents-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .document-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">刘浩洋</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="documents.html" class="nav-link active">文档</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resume.html" class="nav-link">简历</a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
+                <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="documents-hero">
+        <div class="container">
+            <h1>文档资源</h1>
+            <p>这里收录了我的学术论文、技术文档、演讲稿和相关资料。欢迎下载和分享！</p>
+        </div>
+    </section>
+
+    <section class="documents-section">
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="resume">简历</button>
+                <button class="filter-btn" data-category="academic">学术论文</button>
+                <button class="filter-btn" data-category="presentations">演讲稿</button>
+                <button class="filter-btn" data-category="blog">博客文章</button>
+            </div>
+            
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="搜索文档..." id="searchInput">
+            </div>
+        </div>
+        
+        <div class="documents-grid" id="documentsGrid">
+            <!-- 文档内容将通过 JavaScript 动态加载 -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub">🐙</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                        <a href="#" aria-label="Email">📧</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>&copy; 2024 刘浩洋. 保留所有权利.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        // 文档管理系统
+        class DocumentsManager {
+            constructor() {
+                this.documents = [];
+                this.categories = {};
+                this.currentFilter = 'all';
+                this.init();
+            }
+            
+            async init() {
+                try {
+                    await this.loadDocuments();
+                    this.setupEventListeners();
+                    this.renderDocuments();
+                } catch (error) {
+                    console.error('加载文档失败:', error);
+                    this.showError('加载文档失败，请刷新页面重试。');
+                }
+            }
+            
+            async loadDocuments() {
+                const response = await fetch('../../public/documents/documents.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                this.documents = data.documents || [];
+                this.categories = data.categories || {};
+            }
+            
+            setupEventListeners() {
+                // 筛选按钮
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentFilter = e.target.dataset.category;
+                        this.renderDocuments();
+                    });
+                });
+                
+                // 搜索框
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', (e) => {
+                    this.renderDocuments(e.target.value);
+                });
+            }
+            
+            filterDocuments(searchTerm = '') {
+                let filtered = this.documents;
+                
+                // 按分类筛选
+                if (this.currentFilter !== 'all') {
+                    filtered = filtered.filter(doc => doc.category === this.currentFilter);
+                }
+                
+                // 按搜索词筛选
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    filtered = filtered.filter(doc => 
+                        doc.title.toLowerCase().includes(term) ||
+                        doc.description.toLowerCase().includes(term) ||
+                        doc.tags.some(tag => tag.toLowerCase().includes(term))
+                    );
+                }
+                
+                return filtered;
+            }
+            
+            renderDocuments(searchTerm = '') {
+                const grid = document.getElementById('documentsGrid');
+                const filtered = this.filterDocuments(searchTerm);
+                
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-category">
+                            <p>暂无符合条件的文档</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 按分类组织文档
+                const grouped = {};
+                filtered.forEach(doc => {
+                    if (!grouped[doc.category]) {
+                        grouped[doc.category] = [];
+                    }
+                    grouped[doc.category].push(doc);
+                });
+                
+                let html = '';
+                Object.entries(grouped).forEach(([category, docs]) => {
+                    const categoryInfo = this.categories[category] || { title: category };
+                    html += `
+                        <div class="category-section">
+                            <div class="category-header">
+                                <span class="category-icon">${this.getCategoryIcon(category)}</span>
+                                <h2 class="category-title">${categoryInfo.title}</h2>
+                            </div>
+                            <p class="category-description">${categoryInfo.description || ''}</p>
+                            ${docs.map(doc => this.renderDocument(doc)).join('')}
+                        </div>
+                    `;
+                });
+                
+                grid.innerHTML = html;
+            }
+            
+            getCategoryIcon(category) {
+                const icons = {
+                    'resume': '📄',
+                    'academic': '🎓',
+                    'presentations': '📊',
+                    'blog': '📝'
+                };
+                return icons[category] || '📄';
+            }
+            
+            renderDocument(doc) {
+                return `
+                    <div class="document-item" data-category="${doc.category}">
+                        <h3 class="document-title">${doc.title}</h3>
+                        <div class="document-meta">
+                            <span class="document-date">${doc.date}</span>
+                            <span class="document-size">${doc.fileSize}</span>
+                        </div>
+                        <p class="document-description">${doc.description}</p>
+                        <div class="document-tags">
+                            ${doc.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="document-actions">
+                            <a href="${doc.downloadUrl}" class="btn-download" download>下载</a>
+                            ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">预览</a>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            showError(message) {
+                const grid = document.getElementById('documentsGrid');
+                grid.innerHTML = `
+                    <div class="error-message" style="text-align: center; color: #dc3545; padding: 2rem;">
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 初始化文档管理器
+        document.addEventListener('DOMContentLoaded', () => {
+            new DocumentsManager();
+        });
+    </script>
+</body>
+</html>

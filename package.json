@@ -2,22 +2,26 @@
   "name": "liu-haoyang-blog",
   "version": "1.0.0",
   "description": "刘浩洋的个人博客网站 - 自动化Markdown到HTML转换系统",
-  "main": "build-blog.js",
+  "main": "tools/build-blog.js",
   "scripts": {
-    "build": "node build-blog.js build",
-    "new": "node build-blog.js new",
-    "dev": "node build-blog.js build && python -m http.server 8000",
+    "build": "node tools/build-blog.js build",
+    "new": "node tools/build-blog.js new",
+    "dev": "node tools/build-blog.js build && python -m http.server 8000",
     "serve": "python -m http.server 8000",
     "watch": "nodemon --watch posts --ext md --exec \"npm run build\"",
     "clean": "rm -rf articles/*.html && echo '清理完成'",
-    "help": "node build-blog.js help",
-    "image-scan": "node image-manager.js scan",
-    "image-check": "node image-manager.js check",
-    "image-cleanup": "node image-manager.js cleanup",
-    "image-create": "node image-manager.js create",
-    "image-move": "node image-manager.js move",
-    "image-help": "node image-manager.js help",
-    "image-optimize": "node image-manager.js optimize"
+    "help": "node tools/build-blog.js help",
+    "image-scan": "node tools/image-manager.js scan",
+    "image-check": "node tools/image-manager.js check",
+    "image-cleanup": "node tools/image-manager.js cleanup",
+    "image-create": "node tools/image-manager.js create",
+    "image-move": "node tools/image-manager.js move",
+    "image-help": "node tools/image-manager.js help",
+    "image-optimize": "node tools/image-manager.js optimize",
+    "doc-add": "node tools/document-manager.js add",
+    "doc-list": "node tools/document-manager.js list",
+    "doc-remove": "node tools/document-manager.js remove",
+    "doc-help": "node tools/document-manager.js help"
   },
   "keywords": [
     "blog",
@@ -47,6 +51,6 @@
     "node": ">=14.0.0"
   },
   "bin": {
-    "build-blog": "./build-blog.js"
+    "build-blog": "./tools/build-blog.js"
   }
 }

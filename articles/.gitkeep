@@ -1,0 +1,2 @@
+# 此文件用于保持articles目录在Git中被跟踪
+# 自动生成的HTML文章文件将被.gitignore忽略，但目录结构会保留

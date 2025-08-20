@@ -30,12 +30,12 @@ const CONFIG = {
     postsDir: './posts',
     articlesDir: './articles', 
     templatesDir: './templates',
-    imagesDir: './images',
+    imagesDir: './public/images',
     
     // 博客页面配置
     blogPages: {
-        zh: './blog.html',
-        en: './blog-en.html'
+        zh: './src/pages/blog.html',
+        en: './src/pages/blog-en.html'
     },
     
     // 文件编码

@@ -4,220 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>刘浩洋 - 个人网站</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta http-equiv="refresh" content="0; url=src/pages/index.html">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .loading {
+            animation: fade 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes fade {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        .redirect-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .manual-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .manual-link:hover {
+            background: #fff;
+            color: #667eea;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">刘浩洋</a>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active">首页</a>
-                </li>
-                <li class="nav-item">
-                    <a href="blog.html" class="nav-link">博客</a>
-                </li>
-                <li class="nav-item">
-                    <a href="resume.html" class="nav-link">简历</a>
-                </li>
-            </ul>
-            <div class="language-switcher">
-                <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
-                <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
-            </div>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>你好，我是<span class="highlight">刘浩洋</span></h1>
-                <p class="hero-description">
-                    一名热爱技术与创新的开发者，专注于前端开发和用户体验设计
-                </p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">查看作品</a>
-                    <a href="blog.html" class="btn btn-secondary">阅读博客</a>
-                    <a href="resume.html" class="btn btn-secondary">查看简历</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="avatar">
-                    <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=LHY" alt="刘浩洋">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>关于我</h2>
-                <p>了解我的背景和技能</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>我是一名充满激情的开发者，致力于创造优秀的数字体验。我相信技术的力量能够改变世界，并通过代码来实现创意和想法。</p>
-                    <div class="skills">
-                        <h3>技能专长</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">MPC</span>
-                            <span class="skill-tag">Rust</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Mathrmatica</span>
-                            <span class="skill-tag">Latex</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">Linux</span>
-                        </div>
-                        <div style="margin-top: 2rem; text-align: center;">
-                            <a href="resume.html" class="btn btn-primary">查看简历</a>
-                            <a href="blog.html" class="btn btn-outline" style="margin-left: 1rem;">技术博客</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2>项目作品</h2>
-                <p>我的一些精选项目</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/6366F1/FFFFFF?text=Project+1" alt="项目1">
-                    </div>
-                    <div class="project-content">
-                        <h3>项目名称 1</h3>
-                        <p>这是一个示例项目的描述，展示了我在前端开发方面的能力。</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">CSS3</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-sm">演示</a>
-                            <a href="#" class="btn btn-sm btn-outline">代码</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/8B5CF6/FFFFFF?text=Project+2" alt="项目2">
-                    </div>
-                    <div class="project-content">
-                        <h3>项目名称 2</h3>
-                        <p>另一个展示我技术能力的项目，使用了现代化的开发技术栈。</p>
-                        <div class="project-tags">
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-sm">演示</a>
-                            <a href="#" class="btn btn-sm btn-outline">代码</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/10B981/FFFFFF?text=Project+3" alt="项目3">
-                    </div>
-                    <div class="project-content">
-                        <h3>项目名称 3</h3>
-                        <p>一个全栈应用项目，展示了我在后端开发方面的技能。</p>
-                        <div class="project-tags">
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-sm">演示</a>
-                            <a href="#" class="btn btn-sm btn-outline">代码</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>联系我</h2>
-                <p>让我们一起创造amazing的东西</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-text">
-                            <h3>邮箱</h3>
-                            <p>your.email@example.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🐙</div>
-                        <div class="contact-text">
-                            <h3>GitHub</h3>
-                            <p>github.com/yourusername</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💼</div>
-                        <div class="contact-text">
-                            <h3>LinkedIn</h3>
-                            <p>linkedin.com/in/yourprofile</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">姓名</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">邮箱</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">消息</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">发送消息</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 刘浩洋. 保留所有权利. <a href="zhang-haoyan.html" class="hidden-cat-btn" title="🐱">🐱</a></p>
-                <div class="social-links">
-                    <a href="#" aria-label="GitHub">🐙</a>
-                    <a href="#" aria-label="LinkedIn">💼</a>
-                    <a href="#" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <div class="loading">
+        <div class="redirect-text">正在跳转到主页...</div>
+        <p>如果页面没有自动跳转，请点击下方链接：</p>
+        <a href="src/pages/index.html" class="manual-link">进入主页</a>
+    </div>
+    
+    <script>
+        // 自动跳转到主页
+        setTimeout(() => {
+            window.location.href = 'src/pages/index.html';
+        }, 1000);
+    </script>
 </body>
 </html>

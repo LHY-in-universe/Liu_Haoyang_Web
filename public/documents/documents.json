@@ -1,0 +1,274 @@
+{
+  "categories": {
+    "resume": {
+      "title": "简历文档",
+      "titleEn": "Resume Documents",
+      "description": "个人简历和相关文档",
+      "descriptionEn": "Personal resume and related documents"
+    },
+    "presentations": {
+      "title": "演讲稿",
+      "titleEn": "Presentations",
+      "description": "学术演讲和技术分享",
+      "descriptionEn": "Academic presentations and technical talks"
+    },
+    "academic": {
+      "title": "学术论文",
+      "titleEn": "Academic Papers",
+      "description": "研究论文和学术文章",
+      "descriptionEn": "Research papers and academic articles"
+    },
+    "blog": {
+      "title": "博客文章",
+      "titleEn": "Blog Articles",
+      "description": "技术博客和个人思考",
+      "descriptionEn": "Technical blogs and personal thoughts"
+    }
+  },
+  "documents": [
+    {
+      "id": "main-resume",
+      "category": "resume",
+      "title": "个人简历",
+      "titleEn": "Personal Resume",
+      "filename": "main.pdf",
+      "path": "public/documents/resume/main.pdf",
+      "description": "刘浩洋个人简历，包含教育背景、工作经历、技能和项目经验",
+      "descriptionEn": "Liu Haoyang's personal resume including education, work experience, skills and project experience",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-08-20",
+      "tags": [
+        "简历",
+        "个人",
+        "求职"
+      ],
+      "tagsEn": [
+        "resume",
+        "personal",
+        "job"
+      ],
+      "language": "zh",
+      "fileSize": "132.86 KB",
+      "downloadUrl": "public/documents/resume/main.pdf",
+      "previewUrl": null,
+      "featured": true
+    },
+    {
+      "id": "dsmc-method",
+      "category": "academic",
+      "title": "DSMC方法研究",
+      "titleEn": "DSMC Method Research",
+      "filename": "DSMC.pdf",
+      "path": "public/documents/academic/DSMC.pdf",
+      "description": "基于直接模拟蒙特卡洛(DSMC)方法的稀薄气体动力学数值研究，探讨DSMC在冷原子物理中的应用",
+      "descriptionEn": "Numerical study of rarefied gas dynamics based on Direct Simulation Monte Carlo (DSMC) method, exploring DSMC applications in cold atom physics",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-12-01",
+      "tags": [
+        "DSMC",
+        "数值模拟",
+        "稀薄气体",
+        "蒙特卡洛",
+        "计算物理"
+      ],
+      "tagsEn": [
+        "DSMC",
+        "numerical simulation",
+        "rarefied gas",
+        "Monte Carlo",
+        "computational physics"
+      ],
+      "language": "zh",
+      "fileSize": "1.95 MB",
+      "downloadUrl": "public/documents/academic/DSMC.pdf",
+      "previewUrl": null,
+      "featured": true
+    },
+    {
+      "id": "qmc-algorithms",
+      "category": "academic",
+      "title": "量子蒙特卡洛方法研究",
+      "titleEn": "Quantum Monte Carlo Method Research",
+      "filename": "QMC.pdf",
+      "path": "public/documents/academic/QMC.pdf",
+      "description": "量子蒙特卡洛(QMC)算法在物理系统中的应用研究，包括扩散蒙特卡洛(DMC)和变分蒙特卡洛(VMC)方法",
+      "descriptionEn": "Research on Quantum Monte Carlo (QMC) algorithms in physical systems, including Diffusion Monte Carlo (DMC) and Variational Monte Carlo (VMC) methods",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-01-15",
+      "tags": [
+        "量子蒙特卡洛",
+        "DMC",
+        "VMC",
+        "量子物理",
+        "计算物理"
+      ],
+      "tagsEn": [
+        "Quantum Monte Carlo",
+        "DMC",
+        "VMC",
+        "quantum physics",
+        "computational physics"
+      ],
+      "language": "zh",
+      "fileSize": "2.19 MB",
+      "downloadUrl": "public/documents/academic/QMC.pdf",
+      "previewUrl": null,
+      "featured": true
+    },
+    {
+      "id": "ml-quantum-mechanics",
+      "category": "academic",
+      "title": "机器学习与量子力学交叉研究",
+      "titleEn": "Machine Learning and Quantum Mechanics Interdisciplinary Research",
+      "filename": "MLQM.pdf",
+      "path": "public/documents/academic/MLQM.pdf",
+      "description": "机器学习方法在量子力学系统中的应用研究，探讨神经网络和张量网络在物理建模中的应用",
+      "descriptionEn": "Research on machine learning applications in quantum mechanical systems, exploring neural networks and tensor networks in physics modeling",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-03-20",
+      "tags": [
+        "机器学习",
+        "量子力学",
+        "神经网络",
+        "张量网络",
+        "人工智能"
+      ],
+      "tagsEn": [
+        "machine learning",
+        "quantum mechanics",
+        "neural networks",
+        "tensor networks",
+        "artificial intelligence"
+      ],
+      "language": "zh",
+      "fileSize": "1.18 MB",
+      "downloadUrl": "public/documents/academic/MLQM.pdf",
+      "previewUrl": null,
+      "featured": true
+    },
+    {
+      "id": "phd-progress-review",
+      "category": "academic",
+      "title": "博士研究进展报告",
+      "titleEn": "PhD Research Progress Review",
+      "filename": "phdreview.pdf",
+      "path": "public/documents/academic/phdreview.pdf",
+      "description": "博士阶段研究进展和成果总结报告，包含冷原子物理模拟、计算方法优化等研究内容",
+      "descriptionEn": "PhD research progress and achievements summary report, including cold atom physics simulation and computational method optimization",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2025-02-01",
+      "tags": [
+        "博士",
+        "研究报告",
+        "冷原子物理",
+        "学术进展"
+      ],
+      "tagsEn": [
+        "PhD",
+        "research report",
+        "cold atom physics",
+        "academic progress"
+      ],
+      "language": "zh",
+      "fileSize": "155.11 KB",
+      "downloadUrl": "public/documents/academic/phdreview.pdf",
+      "previewUrl": null,
+      "featured": false
+    },
+    {
+      "id": "dsmc-revised",
+      "category": "academic",
+      "title": "DSMC方法研究(修订版)",
+      "titleEn": "DSMC Method Research (Revised Edition)",
+      "filename": "DSMC_re.pdf",
+      "path": "public/documents/academic/DSMC_re.pdf",
+      "description": "DSMC方法在稀薄气体动力学中的应用研究修订版，包含算法改进和实验验证结果",
+      "descriptionEn": "Revised edition of DSMC method research in rarefied gas dynamics, including algorithm improvements and experimental validation results",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-12-15",
+      "tags": [
+        "DSMC",
+        "修订版",
+        "算法优化",
+        "数值模拟"
+      ],
+      "tagsEn": [
+        "DSMC",
+        "revised",
+        "algorithm optimization",
+        "numerical simulation"
+      ],
+      "language": "zh",
+      "fileSize": "1.18 MB",
+      "downloadUrl": "public/documents/academic/DSMC_re.pdf",
+      "previewUrl": null,
+      "featured": false
+    },
+    {
+      "id": "berry-phase-theory",
+      "category": "blog",
+      "title": "Berry相位理论研究",
+      "titleEn": "Berry Phase Theory Research",
+      "filename": "2024-12-19-post.md",
+      "path": "public/documents/blog/2024-12-19-post.md",
+      "description": "关于Berry相位的理论研究，包括拓扑绝缘体和拓扑超导体的基础理论，探讨Berry连接和Berry曲率的物理意义",
+      "descriptionEn": "Theoretical research on Berry phase, including fundamental theory of topological insulators and superconductors, exploring the physical significance of Berry connection and Berry curvature",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2024-12-19",
+      "tags": [
+        "Berry相位",
+        "拓扑物理",
+        "量子力学",
+        "凝聚态物理"
+      ],
+      "tagsEn": [
+        "Berry phase",
+        "topological physics",
+        "quantum mechanics",
+        "condensed matter physics"
+      ],
+      "language": "zh",
+      "fileSize": "8.17 KB",
+      "downloadUrl": "public/documents/blog/2024-12-19-post.md",
+      "previewUrl": null,
+      "featured": true
+    },
+    {
+      "id": "odmr-diamond-tracking",
+      "category": "blog",
+      "title": "光学探测磁共振技术研究",
+      "titleEn": "Optically Detected Magnetic Resonance Research",
+      "filename": "2025-02-07-post.md",
+      "path": "public/documents/blog/2025-02-07-post.md",
+      "description": "关于光学探测磁共振(ODMR)技术在钻石粒子运动检测中的应用研究，包括NV中心的量子传感应用和布朗运动分析",
+      "descriptionEn": "Research on Optically Detected Magnetic Resonance (ODMR) technology in diamond particle motion detection, including NV center quantum sensing applications and Brownian motion analysis",
+      "author": "刘浩洋",
+      "authorEn": "Liu Haoyang",
+      "date": "2025-02-07",
+      "tags": [
+        "ODMR",
+        "NV中心",
+        "量子传感",
+        "布朗运动"
+      ],
+      "tagsEn": [
+        "ODMR",
+        "NV center",
+        "quantum sensing",
+        "Brownian motion"
+      ],
+      "language": "zh",
+      "fileSize": "5.26 KB",
+      "downloadUrl": "public/documents/blog/2025-02-07-post.md",
+      "previewUrl": null,
+      "featured": true
+    }
+  ]
+}
