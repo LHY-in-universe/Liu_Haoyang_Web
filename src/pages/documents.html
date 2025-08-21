@@ -8,11 +8,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Markdown解析器 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- MathJax for LaTeX rendering -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/marked/marked.min.js" as="script">
+    <link rel="preload" href="../../public/documents/documents.json" as="fetch" crossorigin>
+    
+    <!-- Markdown解析器 - 延迟加载 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    
+    <!-- MathJax for LaTeX rendering - 按需加载 -->
+    <script>
+        // 延迟加载 MathJax
+        window.loadMathJax = function() {
+            if (window.MathJax) return Promise.resolve();
+            
+            return new Promise((resolve, reject) => {
+                const polyfillScript = document.createElement('script');
+                polyfillScript.src = 'https://polyfill.io/v3/polyfill.min.js?features=es6';
+                polyfillScript.onload = () => {
+                    const mathJaxScript = document.createElement('script');
+                    mathJaxScript.id = 'MathJax-script';
+                    mathJaxScript.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+                    mathJaxScript.async = true;
+                    mathJaxScript.onload = resolve;
+                    mathJaxScript.onerror = reject;
+                    document.head.appendChild(mathJaxScript);
+                };
+                polyfillScript.onerror = reject;
+                document.head.appendChild(polyfillScript);
+            });
+        };
+    </script>
     <style>
         .documents-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -53,12 +78,13 @@
             border-radius: 15px;
             padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
         }
         
         .category-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .category-header {
@@ -90,7 +116,7 @@
             border-radius: 10px;
             padding: 1.5rem;
             margin-bottom: 1rem;
-            transition: background 0.3s ease;
+            transition: background 0.2s ease;
         }
         
         .document-item:hover {
@@ -167,26 +193,142 @@
         }
         
         .btn-download {
-            background: #28a745;
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            cursor: pointer;
+            min-width: 120px;
+            justify-content: center;
         }
         
         .btn-download:hover {
-            background: #218838;
+            background: linear-gradient(135deg, #218838, #1abc9c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-download:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
         }
         
         .btn-download::before {
-            content: "⬇️";
+            content: "📥";
             margin-right: 0.5rem;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-download:hover::before {
+            transform: translateY(-2px);
+        }
+        
+        /* 下载按钮加载状态 */
+        .btn-download.downloading {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .btn-download.downloading::before {
+            content: "⏳";
+            animation: pulse 1.5s infinite;
+        }
+        
+        .btn-download.success {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+        
+        .btn-download.success::before {
+            content: "✅";
+        }
+        
+        /* 下载进度条 */
+        .download-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0 0 12px 12px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* 文件信息提示 */
+        .file-info-tooltip {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        .file-info-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .btn-download:hover .file-info-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 已下载指示器 */
+        .downloaded-indicator {
+            font-size: 0.8em;
+            margin-left: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .download-count {
+            display: flex;
+            align-items: center;
+            font-size: 0.85em;
+            color: #28a745;
+            font-weight: 500;
+        }
+        
+        .btn-download.has-downloaded {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+        }
+        
+        .btn-download.has-downloaded:hover {
+            background: linear-gradient(135deg, #138496, #117a8b);
+            box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
         }
         
         .btn-preview {
@@ -430,11 +572,12 @@
             font-size: 1.1em !important;
         }
         
-        /* 骨架屏和加载状态 */
+        /* 骨架屏和加载状态 - 优化动画 */
         .skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+            animation: loading 1.5s ease-in-out infinite;
+            will-change: background-position;
         }
         
         @keyframes loading {
@@ -509,16 +652,23 @@
             margin-bottom: 1rem;
         }
         
-        /* 渐现动画 */
+        /* 渐现动画 - 优化 */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            will-change: opacity, transform;
         }
         
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        /* 优化文档网格渐现 */
+        #documentsGrid {
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         @keyframes fadeIn {
@@ -529,6 +679,22 @@
         @keyframes slideIn {
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Toast通知样式 */
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .toast-icon {
+            font-size: 1.2rem;
+        }
+        
+        .toast-message {
+            flex: 1;
+            line-height: 1.4;
         }
         
         @media (max-width: 768px) {
@@ -547,6 +713,34 @@
             
             .document-actions {
                 flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .file-info-tooltip {
+                top: -70px;
+                font-size: 0.75rem;
+                max-width: 200px;
+                white-space: normal;
+                text-align: center;
+            }
+            
+            .toast {
+                right: 10px !important;
+                left: 10px !important;
+                width: auto !important;
+                min-width: auto !important;
+                transform: translateY(-100px) !important;
+            }
+            
+            .toast.show {
+                transform: translateY(0) !important;
             }
             
             .modal-content {
@@ -695,13 +889,14 @@
                 this.showSkeleton();
                 
                 try {
-                    // 步骤1: 加载数据
-                    await this.loadDocuments();
+                    // 并行加载数据和初始化
+                    const [loadResult] = await Promise.all([
+                        this.loadDocuments(),
+                        // 延迟100ms让用户看到加载状态
+                        new Promise(resolve => setTimeout(resolve, 100))
+                    ]);
                     
-                    // 步骤2: 短暂延迟让用户看到加载过程
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                    
-                    // 步骤3: 隐藏骨架屏并渲染内容
+                    // 隐藏骨架屏并渲染内容
                     this.hideSkeleton();
                     this.setupEventListeners();
                     this.renderDocuments();
@@ -838,6 +1033,9 @@
                     return;
                 }
                 
+                // 使用DocumentFragment优化DOM操作
+                const fragment = document.createDocumentFragment();
+                
                 // 按分类组织文档
                 const grouped = {};
                 filtered.forEach(doc => {
@@ -847,22 +1045,29 @@
                     grouped[doc.category].push(doc);
                 });
                 
-                let html = '';
                 Object.entries(grouped).forEach(([category, docs]) => {
                     const categoryInfo = this.categories[category] || { title: category };
-                    html += `
-                        <div class="category-section">
-                            <div class="category-header">
-                                <span class="category-icon">${this.getCategoryIcon(category)}</span>
-                                <h2 class="category-title">${categoryInfo.title}</h2>
-                            </div>
-                            <p class="category-description">${categoryInfo.description || ''}</p>
-                            ${docs.map(doc => this.renderDocument(doc)).join('')}
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category-section';
+                    categoryDiv.innerHTML = `
+                        <div class="category-header">
+                            <span class="category-icon">${this.getCategoryIcon(category)}</span>
+                            <h2 class="category-title">${categoryInfo.title}</h2>
                         </div>
+                        <p class="category-description">${categoryInfo.description || ''}</p>
+                        ${docs.map(doc => this.renderDocument(doc)).join('')}
                     `;
+                    fragment.appendChild(categoryDiv);
                 });
                 
-                grid.innerHTML = html;
+                // 一次性更新DOM
+                grid.innerHTML = '';
+                grid.appendChild(fragment);
+                
+                // 添加渐现动画
+                requestAnimationFrame(() => {
+                    grid.style.opacity = '1';
+                });
             }
             
             getCategoryIcon(category) {
@@ -876,25 +1081,56 @@
             }
             
             renderDocument(doc) {
+                // 获取下载统计
+                const downloadStats = this.getDownloadStats(doc.id, doc.filename);
+                const downloadCount = downloadStats?.count || 0;
+                const hasBeenDownloaded = downloadCount > 0;
+                
                 return `
                     <div class="document-item" data-category="${doc.category}" data-id="${doc.id}">
-                        <h3 class="document-title">${doc.title}</h3>
+                        <h3 class="document-title">
+                            ${doc.title}
+                            ${hasBeenDownloaded ? '<span class="downloaded-indicator" title="已下载">✅</span>' : ''}
+                        </h3>
                         <div class="document-meta">
                             <span class="document-date">${doc.date}</span>
                             <span class="document-size">${doc.fileSize}</span>
+                            ${downloadCount > 0 ? `<span class="download-count" title="下载次数">📈 ${downloadCount}</span>` : ''}
                         </div>
                         <p class="document-description">${doc.description}</p>
                         <div class="document-tags">
                             ${doc.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <div class="document-actions">
-                            <a href="../../${doc.downloadUrl}" class="btn-download" download>下载</a>
+                            <button class="btn-download ${hasBeenDownloaded ? 'has-downloaded' : ''}" 
+                                    onclick="downloadFile('${doc.id}', '${doc.downloadUrl}', '${doc.filename}', '${doc.fileSize}')"
+                                    oncontextmenu="event.preventDefault(); simpleDownload('${doc.downloadUrl}', '${doc.filename}'); return false;"
+                                    title="左键高级下载，右键简单下载">
+                                ${hasBeenDownloaded ? '再次下载' : '下载'}
+                                <div class="file-info-tooltip">
+                                    ${doc.filename} (${doc.fileSize})
+                                    ${downloadCount > 0 ? `<br>已下载 ${downloadCount} 次` : ''}
+                                    <br><small>右键点击使用简单下载</small>
+                                </div>
+                                <div class="download-progress"></div>
+                            </button>
                             ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">预览</a>` : ''}
                             ${doc.category === 'blog' && doc.filename.endsWith('.md') ? 
                                 `<button class="btn-preview btn-markdown" onclick="previewMarkdown('${doc.id}', '${doc.title}', '../../${doc.downloadUrl}')">在线查看</button>` : ''}
                         </div>
                     </div>
                 `;
+            }
+            
+            // 获取下载统计
+            getDownloadStats(docId, filename) {
+                try {
+                    const downloads = JSON.parse(localStorage.getItem('download_stats') || '{}');
+                    const key = `${docId}_${filename}`;
+                    return downloads[key];
+                } catch (e) {
+                    return null;
+                }
             }
             
             showError(message) {
@@ -905,11 +1141,43 @@
                     </div>
                 `;
             }
+            
+            // 缓存管理
+            getFromCache(key, maxAge) {
+                try {
+                    const item = localStorage.getItem(key);
+                    if (!item) return null;
+                    
+                    const data = JSON.parse(item);
+                    const now = Date.now();
+                    
+                    if (now - data.timestamp > maxAge) {
+                        localStorage.removeItem(key);
+                        return null;
+                    }
+                    
+                    return data.value;
+                } catch (e) {
+                    return null;
+                }
+            }
+            
+            setCache(key, value) {
+                try {
+                    const data = {
+                        value: value,
+                        timestamp: Date.now()
+                    };
+                    localStorage.setItem(key, JSON.stringify(data));
+                } catch (e) {
+                    // 忽略缓存错误
+                }
+            }
         }
         
         // 初始化文档管理器
         document.addEventListener('DOMContentLoaded', () => {
-            new DocumentsManager();
+            window.documentsManager = new DocumentsManager();
         });
         
         // MathJax配置
@@ -925,7 +1193,7 @@
             }
         };
         
-        // 预览Markdown函数
+        // 预览Markdown函数 - 懒加载优化
         async function previewMarkdown(docId, title, markdownUrl) {
             const modal = document.getElementById('markdownModal');
             const modalTitle = document.getElementById('modalTitle');
@@ -934,29 +1202,54 @@
             // 显示模态窗口
             modal.style.display = 'block';
             modalTitle.textContent = title;
-            markdownContent.innerHTML = '加载中...';
+            markdownContent.innerHTML = '<div class="loading">加载中...</div>';
             
             try {
-                // 获取markdown内容
-                const response = await fetch(markdownUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                // 检查Markdown缓存
+                const cacheKey = `markdown_${docId}`;
+                const cached = localStorage.getItem(cacheKey);
+                let htmlContent;
+                
+                if (cached) {
+                    htmlContent = cached;
+                } else {
+                    // 获取markdown内容
+                    const response = await fetch(markdownUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const markdownText = await response.text();
+                    
+                    // 检查marked是否已加载
+                    if (!window.marked) {
+                        throw new Error('Markdown解析器未加载');
+                    }
+                    
+                    // 配置marked选项
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true
+                    });
+                    
+                    // 解析markdown
+                    htmlContent = marked.parse(markdownText);
+                    
+                    // 缓存结果
+                    try {
+                        localStorage.setItem(cacheKey, htmlContent);
+                    } catch (e) {
+                        // 忽略缓存错误
+                    }
                 }
-                const markdownText = await response.text();
                 
-                // 配置marked选项
-                marked.setOptions({
-                    breaks: true,
-                    gfm: true
-                });
-                
-                // 解析markdown
-                const htmlContent = marked.parse(markdownText);
                 markdownContent.innerHTML = htmlContent;
                 
-                // 重新渲染MathJax
-                if (window.MathJax) {
-                    MathJax.typesetPromise([markdownContent]).catch((err) => console.log(err));
+                // 按需加载MathJax
+                if (htmlContent.includes('$') || htmlContent.includes('\\(') || htmlContent.includes('\\[')) {
+                    await window.loadMathJax();
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([markdownContent]).catch((err) => console.log(err));
+                    }
                 }
                 
             } catch (error) {
@@ -991,6 +1284,324 @@
                 closeModal();
             }
         });
+        
+        // 改进的下载函数 - 修复路径和文件类型问题
+        async function downloadFile(docId, downloadUrl, filename, fileSize) {
+            const btn = event.target.closest('.btn-download');
+            const progressBar = btn.querySelector('.download-progress');
+            const originalText = btn.textContent.trim();
+            
+            // 修复下载URL路径
+            let actualUrl = downloadUrl;
+            
+            // 如果路径不是绝对URL且不以/开头，则修复路径
+            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
+                // 从 src/pages/ 目录访问根目录的文件
+                actualUrl = '../../' + actualUrl;
+            }
+            
+            console.log('下载URL:', actualUrl);
+            
+            try {
+                // 设置下载状态
+                btn.classList.add('downloading');
+                btn.querySelector('.file-info-tooltip').style.display = 'none';
+                
+                // 首先检查文件是否存在且不是HTML文件
+                const headResponse = await fetch(actualUrl, { method: 'HEAD' });
+                if (!headResponse.ok) {
+                    throw new Error(`文件不存在: ${headResponse.status}`);
+                }
+                
+                const contentType = headResponse.headers.get('content-type') || '';
+                console.log('文件类型:', contentType);
+                
+                // 检查是否是HTML文件（这意味着路径错误）
+                if (contentType.includes('text/html')) {
+                    throw new Error('检测到HTML文件，可能路径错误');
+                }
+                
+                // 获取文件内容
+                const response = await fetch(actualUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // 检查响应类型
+                const responseContentType = response.headers.get('content-type') || '';
+                if (responseContentType.includes('text/html')) {
+                    throw new Error('服务器返回HTML内容，文件路径可能错误');
+                }
+                
+                const contentLength = response.headers.get('content-length');
+                const total = parseInt(contentLength, 10);
+                let loaded = 0;
+                
+                const reader = response.body.getReader();
+                const chunks = [];
+                
+                // 读取流并更新进度
+                while (true) {
+                    const { done, value } = await reader.read();
+                    
+                    if (done) break;
+                    
+                    chunks.push(value);
+                    loaded += value.length;
+                    
+                    // 更新进度条
+                    if (total && total > 0) {
+                        const progress = (loaded / total) * 100;
+                        progressBar.style.width = `${progress}%`;
+                    } else {
+                        // 如果没有总大小，显示不定进度
+                        progressBar.style.width = '50%';
+                    }
+                }
+                
+                // 验证下载的文件不是HTML
+                const firstChunk = chunks[0];
+                if (firstChunk && firstChunk.length > 0) {
+                    const firstBytes = new TextDecoder().decode(firstChunk.slice(0, 100));
+                    if (firstBytes.toLowerCase().includes('<!doctype html') || firstBytes.toLowerCase().includes('<html')) {
+                        throw new Error('下载的文件是HTML页面，不是目标文件');
+                    }
+                }
+                
+                // 根据文件扩展名设置正确的MIME类型
+                let mimeType = 'application/octet-stream';
+                const ext = filename.toLowerCase().split('.').pop();
+                const mimeTypes = {
+                    'pdf': 'application/pdf',
+                    'doc': 'application/msword',
+                    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'xls': 'application/vnd.ms-excel',
+                    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'ppt': 'application/vnd.ms-powerpoint',
+                    'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    'txt': 'text/plain',
+                    'md': 'text/markdown',
+                    'zip': 'application/zip',
+                    'rar': 'application/x-rar-compressed',
+                    'jpg': 'image/jpeg',
+                    'jpeg': 'image/jpeg',
+                    'png': 'image/png',
+                    'gif': 'image/gif'
+                };
+                
+                if (mimeTypes[ext]) {
+                    mimeType = mimeTypes[ext];
+                }
+                
+                // 创建Blob并下载
+                const blob = new Blob(chunks, { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                // 延迟释放 URL 以确保下载完成
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+                
+                // 显示成功状态
+                btn.classList.remove('downloading');
+                btn.classList.add('success');
+                progressBar.style.width = '100%';
+                
+                // 记录下载统计
+                recordDownload(docId, filename);
+                
+                // 显示成功通知
+                showToast(`文件 "${filename}" 下载成功！`, 'success');
+                
+                // 2秒后恢复原始状态并更新按钮显示
+                setTimeout(() => {
+                    btn.classList.remove('success');
+                    btn.classList.add('has-downloaded');
+                    progressBar.style.width = '0%';
+                    btn.querySelector('.file-info-tooltip').style.display = 'block';
+                    
+                    // 更新按钮文本
+                    const btnTextNode = btn.childNodes[0];
+                    if (btnTextNode && btnTextNode.nodeType === Node.TEXT_NODE) {
+                        btnTextNode.textContent = '再次下载';
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                console.error('下载失败:', error);
+                
+                // 显示错误状态
+                btn.classList.remove('downloading');
+                btn.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+                btn.innerHTML = '<span style="margin-right: 0.5rem;">❌</span>下载失败';
+                
+                // 更详细的错误信息
+                let errorMessage = '下载失败';
+                if (error.message.includes('HTML')) {
+                    errorMessage = '文件路径错误，请联系管理员';
+                } else if (error.message.includes('不存在')) {
+                    errorMessage = '文件不存在';
+                } else {
+                    errorMessage = '网络错误，请稍后重试';
+                }
+                
+                // 3秒后恢复原始状态
+                setTimeout(() => {
+                    btn.style.background = '';
+                    const isDownloaded = btn.classList.contains('has-downloaded');
+                    btn.innerHTML = (isDownloaded ? '再次下载' : originalText) + '<div class="file-info-tooltip">' + filename + ' (' + fileSize + ')</div><div class="download-progress"></div>';
+                    btn.querySelector('.file-info-tooltip').style.display = 'block';
+                }, 3000);
+                
+                // 显示错误提示
+                showToast(errorMessage + ' - 尝试传统下载方式', 'error');
+                
+                // 尝试传统下载方式作为备用
+                setTimeout(() => {
+                    try {
+                        const fallbackLink = document.createElement('a');
+                        fallbackLink.href = actualUrl;
+                        fallbackLink.download = filename;
+                        fallbackLink.target = '_blank';
+                        fallbackLink.style.display = 'none';
+                        document.body.appendChild(fallbackLink);
+                        fallbackLink.click();
+                        document.body.removeChild(fallbackLink);
+                        
+                        showToast('正在尝试传统下载方式...', 'info');
+                    } catch (fallbackError) {
+                        console.error('备用下载也失败:', fallbackError);
+                    }
+                }, 1000);
+            }
+        }
+        
+        // 简单的直接下载函数（作为备用）
+        function simpleDownload(downloadUrl, filename) {
+            // 修复下载URL路径
+            let actualUrl = downloadUrl;
+            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
+                actualUrl = '../../' + actualUrl;
+            }
+            
+            const link = document.createElement('a');
+            link.href = actualUrl;
+            link.download = filename;
+            link.target = '_blank';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast(`正在下载 "${filename}"...`, 'info');
+        }
+        
+        // 初始化时添加一些调试信息
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加一个全局调试函数
+            window.debugDownload = function(docId) {
+                const doc = window.documentsManager?.documents?.find(d => d.id === docId);
+                if (doc) {
+                    console.log('文档信息:', doc);
+                    console.log('下载URL:', '../../' + doc.downloadUrl);
+                    console.log('完整路径:', window.location.origin + window.location.pathname.replace('documents.html', '') + '../' + doc.downloadUrl);
+                }
+            };
+            
+            console.log('下载系统已初始化 - 使用 debugDownload("docId") 调试');
+        });
+        
+        // 记录下载统计
+        function recordDownload(docId, filename) {
+            try {
+                const downloads = JSON.parse(localStorage.getItem('download_stats') || '{}');
+                const key = `${docId}_${filename}`;
+                downloads[key] = {
+                    count: (downloads[key]?.count || 0) + 1,
+                    lastDownload: Date.now(),
+                    filename: filename
+                };
+                localStorage.setItem('download_stats', JSON.stringify(downloads));
+            } catch (e) {
+                // 忽略统计错误
+            }
+        }
+        
+        // Toast通知函数
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <span class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                    <span class="toast-message">${message}</span>
+                </div>
+            `;
+            
+            // 检查是否为移动设备
+            const isMobile = window.innerWidth <= 768;
+            
+            // 添加样式
+            Object.assign(toast.style, {
+                position: 'fixed',
+                top: isMobile ? '20px' : '20px',
+                right: isMobile ? '10px' : '20px',
+                left: isMobile ? '10px' : 'auto',
+                background: type === 'success' ? 'linear-gradient(135deg, #28a745, #20c997)' : 
+                           type === 'error' ? 'linear-gradient(135deg, #dc3545, #c82333)' :
+                           'linear-gradient(135deg, #17a2b8, #138496)',
+                color: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                zIndex: '10000',
+                fontSize: '0.9rem',
+                fontWeight: '500',
+                minWidth: isMobile ? 'auto' : '300px',
+                width: isMobile ? 'auto' : 'auto',
+                transform: isMobile ? 'translateY(-100px)' : 'translateX(400px)',
+                transition: 'transform 0.3s ease',
+                backdropFilter: 'blur(10px)'
+            });
+            
+            document.body.appendChild(toast);
+            
+            // 显示动画
+            setTimeout(() => {
+                toast.style.transform = isMobile ? 'translateY(0)' : 'translateX(0)';
+                if (isMobile) toast.classList.add('show');
+            }, 100);
+            
+            // 自动消失
+            setTimeout(() => {
+                toast.style.transform = isMobile ? 'translateY(-100px)' : 'translateX(400px)';
+                if (isMobile) toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 4000);
+            
+            // 点击关闭
+            toast.addEventListener('click', () => {
+                toast.style.transform = isMobile ? 'translateY(-100px)' : 'translateX(400px)';
+                if (isMobile) toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            });
+        }
     </script>
 </body>
 </html>
