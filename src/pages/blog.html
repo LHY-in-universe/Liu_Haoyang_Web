@@ -279,18 +279,18 @@
                         <div class="blog-info-card">
                             <h2>🔄 博客系统已更新</h2>
                             <p>我们的博客内容现已整合到全新的文档管理系统中，提供更好的阅读体验和搜索功能。</p>
-                            <div class="blog-stats">
+                            <div class="blog-stats" id="blogStats">
                                 <div class="stat-item">
-                                    <span class="stat-number">2</span>
+                                    <span class="stat-number" id="blogCount">-</span>
                                     <span class="stat-label">篇博客文章</span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-number">5</span>
+                                    <span class="stat-number" id="academicCount">-</span>
                                     <span class="stat-label">篇学术论文</span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-number">1</span>
-                                    <span class="stat-label">份简历文档</span>
+                                    <span class="stat-number" id="totalPosts">-</span>
+                                    <span class="stat-label">篇文章总数</span>
                                 </div>
                             </div>
                             <a href="documents.html" class="cta-button">
@@ -421,16 +421,12 @@
                             </article>
                         </div>
 
-                        <div class="pagination">
-                            <button class="pagination-btn" disabled>上一页</button>
-                            <div class="pagination-numbers">
-                                <button class="pagination-number active">1</button>
-                                <button class="pagination-number">2</button>
-                                <button class="pagination-number">3</button>
-                                <span class="pagination-ellipsis">...</span>
-                                <button class="pagination-number">8</button>
+                        <div class="pagination" id="blogPagination" style="display: none;">
+                            <button class="pagination-btn" id="prevBtn">上一页</button>
+                            <div class="pagination-numbers" id="pageNumbers">
+                                <!-- 页码将通过JavaScript动态生成 -->
                             </div>
-                            <button class="pagination-btn">下一页</button>
+                            <button class="pagination-btn" id="nextBtn">下一页</button>
                         </div>
                     </div>
 
@@ -539,5 +535,315 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+        // 动态博客管理系统
+        class BlogManager {
+            constructor() {
+                this.allPosts = []; // 所有博客文章
+                this.blogPosts = []; // 从文档系统获取的blog文章
+                this.currentPage = 1;
+                this.postsPerPage = 5;
+                this.totalPages = 1;
+                this.init();
+            }
+            
+            async init() {
+                try {
+                    await this.loadBlogPosts();
+                    this.setupPagination();
+                    this.renderCurrentPage();
+                } catch (error) {
+                    console.error('初始化博客系统失败:', error);
+                }
+            }
+            
+            async loadBlogPosts() {
+                try {
+                    // 从documents.json获取blog文章
+                    const response = await fetch('../../public/documents/documents.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    
+                    // 筛选blog类型的文档
+                    this.blogPosts = data.documents.filter(doc => doc.category === 'blog') || [];
+                    
+                    // 组合所有文章 (blog文档 + 静态文章)
+                    this.allPosts = [
+                        ...this.blogPosts.map(doc => ({
+                            type: 'blog',
+                            title: doc.title,
+                            date: doc.date,
+                            excerpt: doc.description,
+                            tags: doc.tags,
+                            id: doc.id,
+                            downloadUrl: doc.downloadUrl,
+                            category: 'blog',
+                            readTime: this.calculateReadTime(doc.description)
+                        })),
+                        // 静态文章示例
+                        {
+                            type: 'static',
+                            title: 'Frontend Performance Guide',
+                            date: '2025-08-11',
+                            excerpt: '前端性能优化实战指南，包含各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用...',
+                            tags: ['技术', '前端', '性能优化'],
+                            category: 'tech',
+                            readTime: '6分钟阅读',
+                            url: 'articles/frontend-performance-guide.html',
+                            views: 1875,
+                            comments: 22,
+                            likes: 78
+                        },
+                        {
+                            type: 'static',
+                            title: 'React Hooks Deep Dive',
+                            date: '2025-08-11',
+                            excerpt: 'React Hooks深度解析：从入门到精通，探讨Hooks的工作原理、最佳实践以及常见的使用场景...',
+                            tags: ['技术', 'React', 'JavaScript'],
+                            category: 'tech',
+                            readTime: '4分钟阅读',
+                            url: 'articles/react-hooks-deep-dive.html',
+                            views: 527,
+                            comments: 39,
+                            likes: 11
+                        }
+                    ];
+                    
+                    // 按日期排序
+                    this.allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    
+                    // 计算总页数
+                    this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
+                    
+                    // 更新统计信息
+                    this.updateStats(data);
+                    
+                } catch (error) {
+                    console.error('加载博客文章失败:', error);
+                    this.allPosts = [];
+                }
+            }
+            
+            calculateReadTime(text) {
+                const wordsPerMinute = 200;
+                const wordCount = text.length;
+                const minutes = Math.ceil(wordCount / wordsPerMinute);
+                return `${minutes}分钟阅读`;
+            }
+            
+            updateStats(data) {
+                try {
+                    const blogCount = data.documents.filter(doc => doc.category === 'blog').length;
+                    const academicCount = data.documents.filter(doc => doc.category === 'academic').length;
+                    const totalPosts = this.allPosts.length;
+                    
+                    document.getElementById('blogCount').textContent = blogCount;
+                    document.getElementById('academicCount').textContent = academicCount;
+                    document.getElementById('totalPosts').textContent = totalPosts;
+                } catch (error) {
+                    console.error('更新统计信息失败:', error);
+                }
+            }
+            
+            setupPagination() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                
+                prevBtn.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.renderCurrentPage();
+                        this.updatePagination();
+                    }
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.renderCurrentPage();
+                        this.updatePagination();
+                    }
+                });
+            }
+            
+            renderCurrentPage() {
+                const startIndex = (this.currentPage - 1) * this.postsPerPage;
+                const endIndex = startIndex + this.postsPerPage;
+                const currentPosts = this.allPosts.slice(startIndex, endIndex);
+                
+                const blogPostsContainer = document.querySelector('.blog-posts');
+                
+                if (currentPosts.length === 0) {
+                    blogPostsContainer.innerHTML = '<p>暂无博客文章</p>';
+                    return;
+                }
+                
+                const postsHtml = currentPosts.map(post => this.renderPost(post)).join('');
+                blogPostsContainer.innerHTML = postsHtml;
+                blogPostsContainer.style.display = 'block';
+                
+                this.updatePagination();
+                
+                // 如果有多于一页的内容，显示分页器
+                const pagination = document.getElementById('blogPagination');
+                if (this.totalPages > 1) {
+                    pagination.style.display = 'block';
+                } else {
+                    pagination.style.display = 'none';
+                }
+            }
+            
+            renderPost(post) {
+                if (post.type === 'blog') {
+                    return `
+                        <article class="blog-post" data-category="${post.category}">
+                            <div class="post-image">
+                                <img src="https://via.placeholder.com/600x300/7C3AED/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
+                                <div class="post-category">博客</div>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="post-date">${this.formatDate(post.date)}</span>
+                                    <span class="post-read-time">${post.readTime}</span>
+                                </div>
+                                <h2><span class="post-title">${post.title}</span></h2>
+                                <p class="post-excerpt">${post.excerpt}</p>
+                                <div class="post-tags">
+                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                </div>
+                                <div class="post-actions">
+                                    <a href="documents.html#${post.id}" class="read-more">在文档系统中查看</a>
+                                    <div class="post-stats">
+                                        <span>📖 博客文章</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                } else {
+                    return `
+                        <article class="blog-post" data-category="${post.category}">
+                            <div class="post-image">
+                                <img src="https://via.placeholder.com/600x300/4F46E5/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
+                                <div class="post-category">技术</div>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="post-date">${this.formatDate(post.date)}</span>
+                                    <span class="post-read-time">${post.readTime}</span>
+                                </div>
+                                <h2><a href="${post.url}" class="post-title">${post.title}</a></h2>
+                                <p class="post-excerpt">${post.excerpt}</p>
+                                <div class="post-tags">
+                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                </div>
+                                <div class="post-actions">
+                                    <a href="${post.url}" class="read-more">阅读全文</a>
+                                    <div class="post-stats">
+                                        <span>👁️ ${post.views}</span>
+                                        <span>💬 ${post.comments}</span>
+                                        <span>❤️ ${post.likes}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                }
+            }
+            
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+            
+            updatePagination() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const pageNumbers = document.getElementById('pageNumbers');
+                
+                // 更新上一页/下一页按钮状态
+                prevBtn.disabled = this.currentPage === 1;
+                nextBtn.disabled = this.currentPage === this.totalPages;
+                
+                // 生成页码
+                pageNumbers.innerHTML = this.generatePageNumbers();
+            }
+            
+            generatePageNumbers() {
+                let html = '';
+                const current = this.currentPage;
+                const total = this.totalPages;
+                
+                // 如果总页数少于等于7页，显示所有页码
+                if (total <= 7) {
+                    for (let i = 1; i <= total; i++) {
+                        html += `<button class="pagination-number ${i === current ? 'active' : ''}" onclick="blogManager.goToPage(${i})">${i}</button>`;
+                    }
+                } else {
+                    // 复杂分页逻辑
+                    // 始终显示第1页
+                    html += `<button class="pagination-number ${current === 1 ? 'active' : ''}" onclick="blogManager.goToPage(1)">1</button>`;
+                    
+                    if (current > 3) {
+                        html += '<span class="pagination-ellipsis">...</span>';
+                    }
+                    
+                    // 显示当前页周围的页码
+                    let start = Math.max(2, current - 1);
+                    let end = Math.min(total - 1, current + 1);
+                    
+                    if (current <= 3) {
+                        end = Math.min(5, total - 1);
+                    }
+                    if (current >= total - 2) {
+                        start = Math.max(total - 4, 2);
+                    }
+                    
+                    for (let i = start; i <= end; i++) {
+                        html += `<button class="pagination-number ${i === current ? 'active' : ''}" onclick="blogManager.goToPage(${i})">${i}</button>`;
+                    }
+                    
+                    if (current < total - 2) {
+                        html += '<span class="pagination-ellipsis">...</span>';
+                    }
+                    
+                    // 始终显示最后一页
+                    if (total > 1) {
+                        html += `<button class="pagination-number ${current === total ? 'active' : ''}" onclick="blogManager.goToPage(${total})">${total}</button>`;
+                    }
+                }
+                
+                return html;
+            }
+            
+            goToPage(page) {
+                if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+                    this.currentPage = page;
+                    this.renderCurrentPage();
+                    this.updatePagination();
+                    
+                    // 滚动到博客内容顶部
+                    document.querySelector('.blog-content').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }
+        }
+        
+        // 全局变量，供分页按钮调用
+        let blogManager;
+        
+        // 初始化博客管理器
+        document.addEventListener('DOMContentLoaded', () => {
+            blogManager = new BlogManager();
+        });
+    </script>
 </body>
 </html>

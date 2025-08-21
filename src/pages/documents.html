@@ -8,6 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Markdown解析器 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         .documents-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -207,6 +212,19 @@
             margin-right: 0.5rem;
         }
         
+        .btn-markdown {
+            background: #7C3AED !important;
+        }
+        
+        .btn-markdown:hover {
+            background: #6D28D9 !important;
+        }
+        
+        .btn-markdown::before {
+            content: "📖";
+            margin-right: 0.5rem;
+        }
+        
         .empty-category {
             text-align: center;
             color: #666;
@@ -275,6 +293,153 @@
             color: #666;
         }
         
+        /* 模态窗口样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            max-height: calc(80vh - 120px);
+            overflow-y: auto;
+        }
+        
+        /* Markdown内容样式 */
+        .markdown-content {
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3,
+        .markdown-content h4,
+        .markdown-content h5,
+        .markdown-content h6 {
+            color: #4F46E5;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-content h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid #4F46E5;
+            padding-bottom: 0.5rem;
+        }
+        
+        .markdown-content h2 {
+            font-size: 1.5rem;
+            border-bottom: 1px solid #e1e5e9;
+            padding-bottom: 0.3rem;
+        }
+        
+        .markdown-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-content code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        .markdown-content pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid #4F46E5;
+        }
+        
+        .markdown-content blockquote {
+            border-left: 4px solid #4F46E5;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            background: rgba(79, 70, 229, 0.05);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .markdown-content ul, .markdown-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .markdown-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* MathJax数学公式样式 */
+        .MathJax {
+            font-size: 1.1em !important;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
             .documents-hero h1 {
                 font-size: 2rem;
@@ -291,6 +456,20 @@
             
             .document-actions {
                 flex-direction: column;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .modal-header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -354,6 +533,21 @@
             <!-- 文档内容将通过 JavaScript 动态加载 -->
         </div>
     </section>
+
+    <!-- 模态窗口 -->
+    <div id="markdownModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">文档预览</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="markdownContent" class="markdown-content">
+                    加载中...
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -563,6 +757,8 @@
                         <div class="document-actions">
                             <a href="${doc.downloadUrl}" class="btn-download" download>下载</a>
                             ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">预览</a>` : ''}
+                            ${doc.category === 'blog' && doc.filename.endsWith('.md') ? 
+                                `<button class="btn-preview btn-markdown" onclick="previewMarkdown('${doc.id}', '${doc.title}', '../../${doc.downloadUrl}')">在线查看</button>` : ''}
                         </div>
                     </div>
                 `;
@@ -581,6 +777,86 @@
         // 初始化文档管理器
         document.addEventListener('DOMContentLoaded', () => {
             new DocumentsManager();
+        });
+        
+        // MathJax配置
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+        
+        // 预览Markdown函数
+        async function previewMarkdown(docId, title, markdownUrl) {
+            const modal = document.getElementById('markdownModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const markdownContent = document.getElementById('markdownContent');
+            
+            // 显示模态窗口
+            modal.style.display = 'block';
+            modalTitle.textContent = title;
+            markdownContent.innerHTML = '加载中...';
+            
+            try {
+                // 获取markdown内容
+                const response = await fetch(markdownUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdownText = await response.text();
+                
+                // 配置marked选项
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true
+                });
+                
+                // 解析markdown
+                const htmlContent = marked.parse(markdownText);
+                markdownContent.innerHTML = htmlContent;
+                
+                // 重新渲染MathJax
+                if (window.MathJax) {
+                    MathJax.typesetPromise([markdownContent]).catch((err) => console.log(err));
+                }
+                
+            } catch (error) {
+                console.error('加载markdown文件失败:', error);
+                markdownContent.innerHTML = `
+                    <div style="text-align: center; color: #dc3545; padding: 2rem;">
+                        <p>😞 加载文档失败</p>
+                        <p>请检查网络连接或稍后重试</p>
+                        <p style="font-size: 0.9rem; color: #666;">错误信息: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 关闭模态窗口
+        function closeModal() {
+            const modal = document.getElementById('markdownModal');
+            modal.style.display = 'none';
+        }
+        
+        // 点击模态窗口外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('markdownModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // ESC键关闭模态窗口
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
         });
     </script>
 </body>
