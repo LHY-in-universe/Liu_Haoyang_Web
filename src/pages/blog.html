@@ -681,21 +681,6 @@
                             </ul>
                         </div>
 
-                        <div class="sidebar-widget">
-                            <h3>标签云</h3>
-                            <div class="tag-cloud">
-                                <a href="#" class="cloud-tag">React</a>
-                                <a href="#" class="cloud-tag">JavaScript</a>
-                                <a href="#" class="cloud-tag">CSS</a>
-                                <a href="#" class="cloud-tag">前端开发</a>
-                                <a href="#" class="cloud-tag">性能优化</a>
-                                <a href="#" class="cloud-tag">Git</a>
-                                <a href="#" class="cloud-tag">职业发展</a>
-                                <a href="#" class="cloud-tag">教程</a>
-                                <a href="#" class="cloud-tag">思考</a>
-                                <a href="#" class="cloud-tag">工作流</a>
-                            </div>
-                        </div>
 
                         <div class="sidebar-widget">
                             <h3>归档</h3>
@@ -857,55 +842,12 @@
                     document.getElementById('academicCount').textContent = academicCount;
                     document.getElementById('totalPosts').textContent = totalPosts;
                     
-                    // 创建所有标签的集合（自动化标签系统）
-                    this.allTags = new Set();
-                    data.documents.forEach(doc => {
-                        if (doc.tags) {
-                            doc.tags.forEach(tag => this.allTags.add(tag));
-                        }
-                    });
-                    
-                    // 更新侧边栏标签云
-                    this.updateTagCloud();
+                    // 移除标签相关功能以提升性能
                 } catch (error) {
                     console.error('更新统计信息失败:', error);
                 }
             }
             
-            updateTagCloud() {
-                const tagCloudContainer = document.querySelector('.tag-cloud');
-                if (tagCloudContainer && this.allTags) {
-                    const tagArray = Array.from(this.allTags);
-                    const tagHtml = tagArray.map(tag => 
-                        `<a href="#" class="cloud-tag" onclick="blogManager.filterByTag('${tag}')">${tag}</a>`
-                    ).join('');
-                    tagCloudContainer.innerHTML = tagHtml;
-                }
-            }
-            
-            filterByTag(tag) {
-                // 简单的标签筛选功能
-                const filteredPosts = this.allPosts.filter(post => 
-                    post.tags && post.tags.includes(tag)
-                );
-                
-                if (filteredPosts.length > 0) {
-                    // 临时显示筛选结果
-                    this.currentPage = 1;
-                    const tempAllPosts = this.allPosts;
-                    this.allPosts = filteredPosts;
-                    this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
-                    this.renderCurrentPage();
-                    
-                    // 5秒后恢复显示所有文章
-                    setTimeout(() => {
-                        this.allPosts = tempAllPosts;
-                        this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
-                        this.currentPage = 1;
-                        this.renderCurrentPage();
-                    }, 5000);
-                }
-            }
             
             setupPagination() {
                 const prevBtn = document.getElementById('prevBtn');
@@ -970,7 +912,7 @@
                             <h2><span class="post-title">${post.title}</span></h2>
                             <p class="post-excerpt">${post.excerpt}</p>
                             <div class="post-tags">
-                                ${post.tags.map(tag => `<span class="tag" onclick="blogManager.filterByTag('${tag}')" style="cursor: pointer;">${tag}</span>`).join('')}
+                                ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
                             <div class="post-actions">
                                 <button class="read-more" onclick="previewMarkdown('${post.id}', '${post.title}', '../../${post.downloadUrl}')" style="background: #7C3AED; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-right: 0.5rem;">📖 阅读全文</button>
