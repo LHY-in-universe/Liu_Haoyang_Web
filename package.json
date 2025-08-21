@@ -18,6 +18,7 @@
     "image-move": "node tools/image-manager.js move",
     "image-help": "node tools/image-manager.js help",
     "image-optimize": "node tools/image-manager.js optimize",
+    "image-structure": "node tools/image-manager.js structure",
     "doc-add": "node tools/document-manager.js add",
     "doc-list": "node tools/document-manager.js list",
     "doc-remove": "node tools/document-manager.js remove",

@@ -36,7 +36,8 @@ class ImageManager {
             path.join(CONFIG.imagesDir, 'common', 'avatars'),
             path.join(CONFIG.imagesDir, 'common', 'icons'),
             path.join(CONFIG.imagesDir, 'common', 'logos'),
-            path.join(CONFIG.imagesDir, 'common', 'backgrounds')
+            path.join(CONFIG.imagesDir, 'common', 'backgrounds'),
+            path.join(CONFIG.imagesDir, 'common', 'personal')
         ];
 
         dirs.forEach(dir => {
@@ -52,7 +53,7 @@ class ImageManager {
         const images = {
             posts: {},
             articles: { covers: [], thumbnails: [], banners: [] },
-            common: { avatars: [], icons: [], logos: [], backgrounds: [] },
+            common: { avatars: [], icons: [], logos: [], backgrounds: [], personal: [] },
             orphaned: [] // 孤儿图片（没有被引用的图片）
         };
 
@@ -79,7 +80,7 @@ class ImageManager {
             });
 
             // 扫描通用图片
-            ['avatars', 'icons', 'logos', 'backgrounds'].forEach(type => {
+            ['avatars', 'icons', 'logos', 'backgrounds', 'personal'].forEach(type => {
                 const dirPath = path.join(CONFIG.imagesDir, 'common', type);
                 if (fs.existsSync(dirPath)) {
                     images.common[type] = this.getImagesInDirectory(dirPath);
@@ -564,7 +565,7 @@ class ImageManager {
             });
             
             // 优化common图片
-            ['avatars', 'icons', 'logos', 'backgrounds'].forEach(async (type) => {
+            ['avatars', 'icons', 'logos', 'backgrounds', 'personal'].forEach(async (type) => {
                 const dirPath = path.join(CONFIG.imagesDir, 'common', type);
                 if (fs.existsSync(dirPath)) {
                     console.log(`  📁 common/${type}/`);
@@ -637,10 +638,46 @@ class ImageCLI {
                 this.manager.optimizeImages(optimizeSlug, quality);
                 break;
                 
+            case 'structure':
+                this.showImageStructure();
+                break;
+                
             case 'help':
             default:
                 this.showHelp();
         }
+    }
+
+    showImageStructure() {
+        console.log(`
+📁 图片目录结构状态
+=======================================================
+
+当前图片目录结构:
+public/images/
+├── posts/                    # 博客文章图片 (按文章分组)
+│   └── [article-slug]/       # 每篇文章的图片目录
+├── articles/                 # 文章相关图片
+│   ├── covers/              # 文章封面图
+│   ├── thumbnails/          # 文章缩略图  
+│   └── banners/             # 文章横幅图
+└── common/                  # 通用资源图片
+    ├── avatars/             # 头像图片 ✅ 已集成
+    ├── personal/            # 个人照片 ✅ 已集成 (毕业照等)
+    ├── icons/               # 图标资源
+    ├── logos/               # 网站Logo
+    └── backgrounds/         # 背景图片
+
+已集成的图片类型:
+✅ 头像图片 (avatars/) - 已在index.html和index-en.html中使用
+✅ 毕业照片 (personal/) - 已在resume.html和resume-en.html中使用
+
+图片引用路径:
+- 头像: ../public/images/common/avatars/avatar.jpg
+- 毕业照: ../public/images/common/personal/graduation.jpg
+
+=======================================================
+`);
     }
 
     showHelp() {
@@ -654,9 +691,11 @@ class ImageCLI {
   npm run image-create <article-slug>         # 创建文章图片目录
   npm run image-move <path> <slug> [name]     # 移动图片到文章目录
   npm run image-optimize [slug] [quality]     # 优化图片 (需安装sharp)
+  npm run image-structure                     # 显示图片目录结构状态
 
 示例:
   npm run image-scan
+  npm run image-structure
   npm run image-create react-hooks-guide
   npm run image-move ./my-image.jpg react-hooks-guide hero-image.jpg
   npm run image-cleanup --confirm
@@ -670,12 +709,25 @@ class ImageCLI {
   📁 自动创建和管理文章图片目录
   🔧 图片压缩和优化 (WebP, JPEG, PNG)
   📏 自动调整过大图片尺寸
+  📁 图片目录结构管理
 
 目录结构:
   images/
   ├── posts/          # 文章图片 (按文章分组)
   ├── articles/       # 封面和缩略图
   └── common/         # 通用图片资源
+      ├── avatars/    # 头像图片
+      ├── personal/   # 个人照片 (毕业照等)
+      ├── icons/      # 图标资源
+      ├── logos/      # 网站Logo  
+      └── backgrounds/ # 背景图片
+
+在HTML中使用图片:
+  <!-- 头像 -->
+  <img src="../public/images/common/avatars/avatar.jpg" alt="头像">
+  
+  <!-- 毕业照 -->
+  <img src="../public/images/common/personal/graduation.jpg" alt="毕业照">
 
 在Markdown中使用图片:
   ![图片描述](../images/posts/article-slug/image.jpg "可选标题")

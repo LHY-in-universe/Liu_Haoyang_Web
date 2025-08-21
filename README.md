@@ -1,4 +1,4 @@
-# 🌟 刘浩阳个人网站
+# 🌟 刘浩洋个人网站
 
 > 现代化的个人网站，集成博客系统、作品展示和在线简历
 
@@ -101,41 +101,56 @@ Liu_Haoyang_Web/
 ├── 📁 docs/                    # 📚 项目文档
 │   ├── BLOG-SYSTEM.md          # 博客系统使用指南
 │   ├── IMAGE-MANAGEMENT.md     # 图片管理文档
+│   ├── DOCUMENT-SYSTEM.md      # 文档管理系统指南
 │   ├── DEPLOYMENT.md           # 部署指南
 │   └── DEVELOPMENT.md          # 开发指南
 ├── 📁 src/                     # 🎨 源代码文件
 │   ├── css/                    # 样式文件
 │   │   └── styles.css          # 主样式文件
 │   ├── js/                     # JavaScript文件
-│   │   └── script.js           # 前端交互逻辑
+│   │   ├── script.js           # 前端交互逻辑
+│   │   └── pdf-preview.js      # PDF预览功能
 │   └── pages/                  # 页面文件
-│       ├── index.html          # 主页
+│       ├── index.html          # 中文主页
 │       ├── index-en.html       # 英文主页
 │       ├── blog.html           # 中文博客页面
 │       ├── blog-en.html        # 英文博客页面
+│       ├── documents.html      # 中文文档页面
+│       ├── documents-en.html   # 英文文档页面
 │       ├── resume.html         # 中文简历页面
 │       └── resume-en.html      # 英文简历页面
 ├── 📁 public/                  # 🌐 静态资源
+│   ├── documents/              # 📄 文档管理系统
+│   │   ├── documents.json      # 文档索引配置
+│   │   ├── academic/           # 学术论文
+│   │   ├── presentations/      # 演讲稿
+│   │   └── resume/             # 简历文档
 │   └── images/                 # 🖼️ 图片资源管理
-│       ├── posts/              # 文章图片
+│       ├── posts/              # 博客文章图片
 │       ├── articles/           # 文章封面
 │       └── common/             # 通用图片
 ├── 📁 tools/                   # 🔧 构建工具
 │   ├── build-blog.js           # 博客构建工具
-│   └── image-manager.js        # 图片管理工具
+│   ├── image-manager.js        # 图片管理工具
+│   └── document-manager.js     # 文档管理工具
+├── 📁 templates/               # 📝 HTML模板
+│   ├── article-zh.html         # 中文文章模板
+│   └── article-en.html         # 英文文章模板
 ├── 📁 posts/                   # ✍️ Markdown 文章
 │   ├── posts.json              # 文章索引
-│   └── *.md                    # 文章文件
+│   └── *.md                    # 博客文章文件
 ├── 📁 articles/                # 🌐 生成的 HTML 文章
 ├── 📁 .github/workflows/       # ⚙️ GitHub Actions
 │   └── deploy.yml              # 自动部署配置
 ├── 📄 index.html               # 🏠 网站入口页面
+├── 📄 index-en.html            # 🌐 英文入口页面
 └── 📦 package.json             # 项目配置
 ```
 
 ## 📚 文档
 
 - 📖 [博客系统使用指南](docs/BLOG-SYSTEM.md) - 详细的博客创建和管理教程
+- 📄 [文档管理系统指南](docs/DOCUMENT-SYSTEM.md) - 完整的文档管理系统使用说明
 - 🖼️ [图片管理文档](docs/IMAGE-MANAGEMENT.md) - 完整的图片管理系统使用说明
 - 🚀 [部署指南](docs/DEPLOYMENT.md) - 各种部署平台的配置方法
 - 🛠️ [开发指南](docs/DEVELOPMENT.md) - 项目开发和自定义扩展指南

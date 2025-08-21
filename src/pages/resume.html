@@ -221,6 +221,50 @@
             font-weight: 500;
         }
         
+        /* 个人简介内容布局 */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        /* 毕业照片展示 */
+        .graduation-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .graduation-photo {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .graduation-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .graduation-photo img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+        }
+        
+        .photo-caption {
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
         .download-section {
             text-align: center;
             padding: 2.5rem;
@@ -350,6 +394,15 @@
                 text-align: left;
                 margin-top: 0.3rem;
             }
+            
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .graduation-photo img {
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -406,8 +459,21 @@
                 <!-- 个人简介 -->
                 <div class="resume-section">
                     <h2 class="section-title">个人简介</h2>
-                    <div class="summary-text">
-                        香港中文大学物理系本科应届毕业生，有计算机模拟相关经验，毕业设计为使用C语言对冷原子物理体系进行模拟。熟练使用Python、C、Linux，学习过R、Java的相关课程。自学机器学习与强化学习，理解CNN、RNN、随机森林、Q-learning、蒙特卡洛等算法，可以使用PyTorch包。预计硕士期间与导师进行机器学习与固体物理方面的交叉研究。
+                    <div class="profile-content">
+                        <div class="summary-text">
+                            香港中文大学物理系本科应届毕业生，有计算机模拟相关经验，毕业设计为使用C语言对冷原子物理体系进行模拟。熟练使用Python、C、Linux，学习过R、Java的相关课程。自学机器学习与强化学习，理解CNN、RNN、随机森林、Q-learning、蒙特卡洛等算法，可以使用PyTorch包。预计硕士期间与导师进行机器学习与固体物理方面的交叉研究。
+                        </div>
+                        
+                        <!-- 毕业照片展示 -->
+                        <div class="graduation-gallery">
+                            <div class="graduation-photo">
+                                <img src="../public/images/common/personal/graduation.jpg" 
+                                     alt="毕业照" 
+                                     loading="lazy" 
+                                     onerror="this.style.display='none'">
+                                <div class="photo-caption">香港中文大学毕业典礼</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

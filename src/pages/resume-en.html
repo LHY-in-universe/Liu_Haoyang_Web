@@ -144,6 +144,50 @@
             font-weight: 500;
         }
         
+        /* Personal Summary Content Layout */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        /* Graduation Photo Gallery */
+        .graduation-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .graduation-photo {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .graduation-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .graduation-photo img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+        }
+        
+        .photo-caption {
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
         .download-section {
             text-align: center;
             padding: 2rem;
@@ -204,6 +248,20 @@
             .date-location {
                 text-align: left;
                 margin-top: 0.3rem;
+            }
+            
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .graduation-gallery {
+                order: -1;
+                margin-bottom: 1rem;
+            }
+            
+            .graduation-photo img {
+                max-width: 220px;
             }
         }
     </style>
@@ -287,8 +345,21 @@
                 <!-- Personal Summary -->
                 <div class="resume-section">
                     <h2 class="section-title">Personal Summary</h2>
-                    <div class="summary-text">
-                        Graduate from the Physics Department of The Chinese University of Hong Kong, with experience in computer simulation. Final year project involves using C language to simulate cold atom physics systems. Proficient in Python, C, and Linux, with coursework in R and Java. Self-learned machine learning and reinforcement learning, familiar with CNN, RNN, random forest, Q-learning, Monte Carlo and other algorithms, capable of using PyTorch. Expected to conduct interdisciplinary research in machine learning and solid-state physics with supervisor during master's studies.
+                    <div class="profile-content">
+                        <div class="summary-text">
+                            Graduate from the Physics Department of The Chinese University of Hong Kong, with experience in computer simulation. Final year project involves using C language to simulate cold atom physics systems. Proficient in Python, C, and Linux, with coursework in R and Java. Self-learned machine learning and reinforcement learning, familiar with CNN, RNN, random forest, Q-learning, Monte Carlo and other algorithms, capable of using PyTorch. Expected to conduct interdisciplinary research in machine learning and solid-state physics with supervisor during master's studies.
+                        </div>
+                        
+                        <!-- Graduation Photo Gallery -->
+                        <div class="graduation-gallery">
+                            <div class="graduation-photo">
+                                <img src="../public/images/common/personal/graduation.jpg" 
+                                     alt="Graduation Photo" 
+                                     loading="lazy" 
+                                     onerror="this.style.display='none'">
+                                <div class="photo-caption">CUHK Graduation Ceremony</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

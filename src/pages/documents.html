@@ -888,7 +888,7 @@
                             ${doc.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <div class="document-actions">
-                            <a href="${doc.downloadUrl}" class="btn-download" download>下载</a>
+                            <a href="../../${doc.downloadUrl}" class="btn-download" download>下载</a>
                             ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">预览</a>` : ''}
                             ${doc.category === 'blog' && doc.filename.endsWith('.md') ? 
                                 `<button class="btn-preview btn-markdown" onclick="previewMarkdown('${doc.id}', '${doc.title}', '../../${doc.downloadUrl}')">在线查看</button>` : ''}
