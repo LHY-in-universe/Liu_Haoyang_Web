@@ -17,12 +17,6 @@
       "titleEn": "Academic Papers",
       "description": "研究论文和学术文章",
       "descriptionEn": "Research papers and academic articles"
-    },
-    "blog": {
-      "title": "博客文章",
-      "titleEn": "Blog Articles",
-      "description": "技术博客和个人思考",
-      "descriptionEn": "Technical blogs and personal thoughts"
     }
   },
   "documents": [
@@ -209,66 +203,6 @@
       "downloadUrl": "public/documents/academic/DSMC_re.pdf",
       "previewUrl": null,
       "featured": false
-    },
-    {
-      "id": "berry-phase-theory",
-      "category": "blog",
-      "title": "Berry相位理论研究",
-      "titleEn": "Berry Phase Theory Research",
-      "filename": "2024-12-19-post.md",
-      "path": "public/documents/blog/2024-12-19-post.md",
-      "description": "关于Berry相位的理论研究，包括拓扑绝缘体和拓扑超导体的基础理论，探讨Berry连接和Berry曲率的物理意义",
-      "descriptionEn": "Theoretical research on Berry phase, including fundamental theory of topological insulators and superconductors, exploring the physical significance of Berry connection and Berry curvature",
-      "author": "刘浩洋",
-      "authorEn": "Liu Haoyang",
-      "date": "2024-12-19",
-      "tags": [
-        "Berry相位",
-        "拓扑物理",
-        "量子力学",
-        "凝聚态物理"
-      ],
-      "tagsEn": [
-        "Berry phase",
-        "topological physics",
-        "quantum mechanics",
-        "condensed matter physics"
-      ],
-      "language": "zh",
-      "fileSize": "8.17 KB",
-      "downloadUrl": "public/documents/blog/2024-12-19-post.md",
-      "previewUrl": null,
-      "featured": true
-    },
-    {
-      "id": "odmr-diamond-tracking",
-      "category": "blog",
-      "title": "光学探测磁共振技术研究",
-      "titleEn": "Optically Detected Magnetic Resonance Research",
-      "filename": "2025-02-07-post.md",
-      "path": "public/documents/blog/2025-02-07-post.md",
-      "description": "关于光学探测磁共振(ODMR)技术在钻石粒子运动检测中的应用研究，包括NV中心的量子传感应用和布朗运动分析",
-      "descriptionEn": "Research on Optically Detected Magnetic Resonance (ODMR) technology in diamond particle motion detection, including NV center quantum sensing applications and Brownian motion analysis",
-      "author": "刘浩洋",
-      "authorEn": "Liu Haoyang",
-      "date": "2025-02-07",
-      "tags": [
-        "ODMR",
-        "NV中心",
-        "量子传感",
-        "布朗运动"
-      ],
-      "tagsEn": [
-        "ODMR",
-        "NV center",
-        "quantum sensing",
-        "Brownian motion"
-      ],
-      "language": "zh",
-      "fileSize": "5.26 KB",
-      "downloadUrl": "public/documents/blog/2025-02-07-post.md",
-      "previewUrl": null,
-      "featured": true
     }
   ]
 }
