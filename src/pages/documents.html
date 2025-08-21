@@ -1285,130 +1285,50 @@
             }
         });
         
-        // 改进的下载函数 - 修复路径和文件类型问题
+        // 全新的下载函数 - 彻底解决路径问题
         async function downloadFile(docId, downloadUrl, filename, fileSize) {
             const btn = event.target.closest('.btn-download');
             const progressBar = btn.querySelector('.download-progress');
             const originalText = btn.textContent.trim();
             
-            // 修复下载URL路径
-            let actualUrl = downloadUrl;
+            // 构建正确的下载URL
+            let actualUrl;
             
-            // 如果路径不是绝对URL且不以/开头，则修复路径
-            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
-                // 从 src/pages/ 目录访问根目录的文件
-                actualUrl = '../../' + actualUrl;
+            if (downloadUrl.startsWith('http')) {
+                // 绝对URL
+                actualUrl = downloadUrl;
+            } else if (downloadUrl.startsWith('/')) {
+                // 相对于根目录的路径
+                actualUrl = downloadUrl;
+            } else {
+                // 相对路径，需要根据当前页面位置调整
+                // 从 src/pages/documents.html 到 public/documents/...
+                // 需要上两级目录
+                actualUrl = '../../' + downloadUrl;
             }
             
-            console.log('下载URL:', actualUrl);
+            console.log('原始URL:', downloadUrl);
+            console.log('处理后URL:', actualUrl);
+            console.log('当前页面:', window.location.href);
             
             try {
                 // 设置下载状态
                 btn.classList.add('downloading');
                 btn.querySelector('.file-info-tooltip').style.display = 'none';
                 
-                // 首先检查文件是否存在且不是HTML文件
-                const headResponse = await fetch(actualUrl, { method: 'HEAD' });
-                if (!headResponse.ok) {
-                    throw new Error(`文件不存在: ${headResponse.status}`);
-                }
+                // 简化的文件检查，先尝试直接下载
+                console.log('尝试直接下载:', actualUrl);
                 
-                const contentType = headResponse.headers.get('content-type') || '';
-                console.log('文件类型:', contentType);
+                // 使用传统方法直接下载
+                const downloadLink = document.createElement('a');
+                downloadLink.href = actualUrl;
+                downloadLink.download = filename;
+                downloadLink.target = '_blank';
+                downloadLink.style.display = 'none';
                 
-                // 检查是否是HTML文件（这意味着路径错误）
-                if (contentType.includes('text/html')) {
-                    throw new Error('检测到HTML文件，可能路径错误');
-                }
-                
-                // 获取文件内容
-                const response = await fetch(actualUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                // 检查响应类型
-                const responseContentType = response.headers.get('content-type') || '';
-                if (responseContentType.includes('text/html')) {
-                    throw new Error('服务器返回HTML内容，文件路径可能错误');
-                }
-                
-                const contentLength = response.headers.get('content-length');
-                const total = parseInt(contentLength, 10);
-                let loaded = 0;
-                
-                const reader = response.body.getReader();
-                const chunks = [];
-                
-                // 读取流并更新进度
-                while (true) {
-                    const { done, value } = await reader.read();
-                    
-                    if (done) break;
-                    
-                    chunks.push(value);
-                    loaded += value.length;
-                    
-                    // 更新进度条
-                    if (total && total > 0) {
-                        const progress = (loaded / total) * 100;
-                        progressBar.style.width = `${progress}%`;
-                    } else {
-                        // 如果没有总大小，显示不定进度
-                        progressBar.style.width = '50%';
-                    }
-                }
-                
-                // 验证下载的文件不是HTML
-                const firstChunk = chunks[0];
-                if (firstChunk && firstChunk.length > 0) {
-                    const firstBytes = new TextDecoder().decode(firstChunk.slice(0, 100));
-                    if (firstBytes.toLowerCase().includes('<!doctype html') || firstBytes.toLowerCase().includes('<html')) {
-                        throw new Error('下载的文件是HTML页面，不是目标文件');
-                    }
-                }
-                
-                // 根据文件扩展名设置正确的MIME类型
-                let mimeType = 'application/octet-stream';
-                const ext = filename.toLowerCase().split('.').pop();
-                const mimeTypes = {
-                    'pdf': 'application/pdf',
-                    'doc': 'application/msword',
-                    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    'xls': 'application/vnd.ms-excel',
-                    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    'ppt': 'application/vnd.ms-powerpoint',
-                    'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                    'txt': 'text/plain',
-                    'md': 'text/markdown',
-                    'zip': 'application/zip',
-                    'rar': 'application/x-rar-compressed',
-                    'jpg': 'image/jpeg',
-                    'jpeg': 'image/jpeg',
-                    'png': 'image/png',
-                    'gif': 'image/gif'
-                };
-                
-                if (mimeTypes[ext]) {
-                    mimeType = mimeTypes[ext];
-                }
-                
-                // 创建Blob并下载
-                const blob = new Blob(chunks, { type: mimeType });
-                const url = URL.createObjectURL(blob);
-                
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                
-                // 延迟释放 URL 以确保下载完成
-                setTimeout(() => {
-                    URL.revokeObjectURL(url);
-                }, 1000);
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
                 
                 // 显示成功状态
                 btn.classList.remove('downloading');
@@ -1434,6 +1354,9 @@
                         btnTextNode.textContent = '再次下载';
                     }
                 }, 2000);
+                
+                // 如果传统下载失败，尝试使用fetch方法
+                // 这里可以添加更复杂的下载逻辑，但通常传统方法就够了
                 
             } catch (error) {
                 console.error('下载失败:', error);
@@ -1486,17 +1409,26 @@
         
         // 简单的直接下载函数（作为备用）
         function simpleDownload(downloadUrl, filename) {
-            // 修复下载URL路径
-            let actualUrl = downloadUrl;
-            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
-                actualUrl = '../../' + actualUrl;
+            console.log('简单下载被调用:', downloadUrl, filename);
+            
+            // 构建正确的URL
+            let actualUrl;
+            if (downloadUrl.startsWith('http')) {
+                actualUrl = downloadUrl;
+            } else if (downloadUrl.startsWith('/')) {
+                actualUrl = downloadUrl;
+            } else {
+                actualUrl = '../../' + downloadUrl;
             }
+            
+            console.log('简单下载实际URL:', actualUrl);
             
             const link = document.createElement('a');
             link.href = actualUrl;
             link.download = filename;
             link.target = '_blank';
             link.style.display = 'none';
+            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

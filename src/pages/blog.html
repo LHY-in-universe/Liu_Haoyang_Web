@@ -914,6 +914,34 @@
             
             async loadBlogPosts() {
                 try {
+                    // 先尝试加载博客数据
+                    try {
+                        const postsResponse = await fetch('../../posts/posts.json');
+                        if (postsResponse.ok) {
+                            const postsData = await postsResponse.json();
+                            this.blogPosts = postsData;
+                            this.allPosts = this.blogPosts.map(post => ({
+                                type: 'blog',
+                                title: post.title,
+                                date: post.date,
+                                excerpt: post.excerpt,
+                                tags: post.tags,
+                                id: post.id,
+                                url: post.url,
+                                category: post.category,
+                                author: post.author,
+                                readTime: post.readTime,
+                                views: post.views || 0,
+                                comments: post.comments || 0,
+                                likes: post.likes || 0
+                            }));
+                            return;
+                        }
+                    } catch (postsError) {
+                        console.log('博客数据不存在，尝试从文档中加载...');
+                    }
+                    
+                    // 如果博客数据不存在，从文档数据加载
                     const response = await fetch('../../public/documents/documents.json');
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
