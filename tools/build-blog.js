@@ -138,19 +138,50 @@ const utils = {
         const metadata = {};
 
         // 解析YAML格式的前言
-        frontMatter.split('\n').forEach(line => {
-            const [key, ...valueParts] = line.split(':');
-            if (key && valueParts.length > 0) {
+        const lines = frontMatter.split('\n');
+        let currentKey = null;
+        let currentArray = [];
+        let inArray = false;
+
+        lines.forEach(line => {
+            const trimmed = line.trim();
+            
+            if (trimmed.startsWith('- ')) {
+                // YAML数组项
+                if (currentKey === 'tags' || inArray) {
+                    currentArray.push(trimmed.substring(2).trim());
+                    inArray = true;
+                }
+            } else if (trimmed.includes(':')) {
+                // 完成上一个数组
+                if (inArray && currentKey) {
+                    metadata[currentKey] = currentArray;
+                    currentArray = [];
+                    inArray = false;
+                }
+
+                const [key, ...valueParts] = trimmed.split(':');
+                const keyName = key.trim();
                 const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
                 
-                // 处理数组格式 (如tags)
-                if (value.startsWith('[') && value.endsWith(']')) {
-                    metadata[key.trim()] = value.slice(1, -1).split(',').map(item => item.trim().replace(/^["']|["']$/g, ''));
-                } else {
-                    metadata[key.trim()] = value;
+                if (keyName === 'tags' && value === '') {
+                    // tags后面跟着数组
+                    currentKey = 'tags';
+                    inArray = true;
+                } else if (value.startsWith('[') && value.endsWith(']')) {
+                    // 内联数组格式
+                    metadata[keyName] = value.slice(1, -1).split(',').map(item => item.trim().replace(/^["']|["']$/g, ''));
+                } else if (value) {
+                    metadata[keyName] = value;
+                    currentKey = keyName;
                 }
             }
         });
+
+        // 处理最后一个数组
+        if (inArray && currentKey) {
+            metadata[currentKey] = currentArray;
+        }
 
         return {
             metadata,
@@ -377,16 +408,17 @@ class MarkdownProcessor {
             const loadingAttr = ' loading="lazy"';
             const classAttr = ` class="${imgClass}"`;
             const decoding = ' decoding="async"';
+            const fetchpriority = altLower.includes('priority') ? ' fetchpriority="high"' : '';
             
             // 如果有标题，包装在figure元素中
             if (title) {
                 return `<figure class="${figureClass}">
-    <img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}>
+    <img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}${fetchpriority}>
     <figcaption>${title}</figcaption>
 </figure>`;
             }
             
-            return `<img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}>`;
+            return `<img src="${imageInfo.src}" alt="${alt}"${titleAttr}${loadingAttr}${classAttr}${decoding}${fetchpriority}>`;
         });
 
         // 如果有缺失的图片，提供帮助信息
@@ -711,7 +743,8 @@ class HTMLGenerator {
         let template = this.templates[templateKey];
 
         // 生成标签HTML
-        const tagsHTML = article.tags.map(tag => 
+        const tagsArray = Array.isArray(article.tags) ? article.tags : [];
+        const tagsHTML = tagsArray.map(tag => 
             `<span class="tag">${tag}</span>`
         ).join('');
 
@@ -799,7 +832,8 @@ class BlogListUpdater {
     // 生成文章卡片HTML
     generateArticleCard(article, language) {
         const isEn = language === 'en';
-        const tagsHTML = article.tags.slice(0, 3).map(tag => 
+        const tagsArray = Array.isArray(article.tags) ? article.tags : [];
+        const tagsHTML = tagsArray.slice(0, 3).map(tag => 
             `<span class="tag">${tag}</span>`
         ).join('');
 

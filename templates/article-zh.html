@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - 刘浩洋的博客</title>
+    <link rel="stylesheet" href="../src/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../src/pages/blog.html">博客</a>
+                <a href="../src/pages/documents.html">文档</a>
+                <a href="../src/pages/resume.html">简历</a>
+                <a href="../src/pages/index-en.html">English</a>
+            </nav>
+        </header>
+        
+        <main>
+            <article>
+                <header>
+                    <h1>{{title}}</h1>
+                    <div class="meta">
+                        <time datetime="{{date}}">{{date}}</time>
+                        <span class="category">{{category}}</span>
+                    </div>
+                </header>
+                
+                <div class="content">
+                    {{content}}
+                </div>
+                
+                <footer>
+                    <a href="../src/pages/blog.html" class="back-link">← 返回博客列表</a>
+                </footer>
+            </article>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 刘浩洋. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

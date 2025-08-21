@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "id": "optically-detected-magnetic-resonance",
+    "title": "Optically Detected Magnetic Resonance",
+    "excerpt": "ODMR ======  \u0003 Optically Detected Magnetic Resonance (ODMR) is used to detect the translational and rotational motion of diamond particles. A 594-nm laser is used for the excitation of NV centers, whi...",
+    "date": "2025-02-07",
+    "category": "tech",
+    "tags": [
+      "NV center",
+      "Brownian motion"
+    ],
+    "author": "刘浩洋",
+    "language": "zh",
+    "readTime": 4,
+    "views": 1251,
+    "comments": 42,
+    "likes": 57,
+    "url": "articles/optically-detected-magnetic-resonance.html",
+    "fileName": "optically-detected-magnetic-resonance.html"
+  },
+  {
+    "id": "berry-phase",
+    "title": "Berry Phase",
+    "excerpt": "Topological Insulators and Topological Superconductors: Chapter 2 ====== General Formals Consider a physical system with a general time-varying Hamiltonian $H(\\mathbf{R})$ that depends on time through...",
+    "date": "2024-12-19",
+    "category": "tech",
+    "tags": [
+      "Quantum Mechanics",
+      "Condensed Matter Physics"
+    ],
+    "author": "刘浩洋",
+    "language": "zh",
+    "readTime": 5,
+    "views": 382,
+    "comments": 24,
+    "likes": 36,
+    "url": "articles/berry-phase.html",
+    "fileName": "berry-phase.html"
+  }
+]
