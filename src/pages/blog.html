@@ -8,6 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Markdown解析器 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         .blog-info-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -205,6 +210,206 @@
             transform: translateX(5px);
         }
 
+        /* 模态窗口样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            max-height: calc(90vh - 120px);
+            overflow-y: auto;
+        }
+        
+        /* Markdown内容样式 */
+        .markdown-content {
+            line-height: 1.7;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3,
+        .markdown-content h4,
+        .markdown-content h5,
+        .markdown-content h6 {
+            color: #4F46E5;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .markdown-content h1 {
+            font-size: 2.2rem;
+            border-bottom: 3px solid #4F46E5;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .markdown-content h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e1e5e9;
+            padding-bottom: 0.3rem;
+        }
+        
+        .markdown-content h3 {
+            font-size: 1.4rem;
+        }
+        
+        .markdown-content p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        
+        .markdown-content code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+        
+        .markdown-content pre {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid #4F46E5;
+            margin: 1.5rem 0;
+        }
+        
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+        
+        .markdown-content blockquote {
+            border-left: 4px solid #4F46E5;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+        
+        .markdown-content ul, .markdown-content ol {
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+        }
+        
+        .markdown-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .markdown-content th, .markdown-content td {
+            border: 1px solid #e1e5e9;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        
+        .markdown-content th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        /* MathJax数学公式样式 */
+        .MathJax {
+            font-size: 1.1em !important;
+        }
+        
+        .MathJax_Display {
+            margin: 1.5em 0 !important;
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .loading::before {
+            content: "⏳";
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
             .blog-stats {
                 flex-direction: column;
@@ -218,6 +423,28 @@
             
             .blog-info-card {
                 padding: 2rem 1.5rem;
+            }
+            
+            .modal-content {
+                margin: 5% auto;
+                width: 98%;
+                max-height: 95vh;
+            }
+            
+            .modal-header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            .markdown-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .markdown-content h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -521,6 +748,21 @@
         </section>
     </main>
 
+    <!-- 模态窗口 -->
+    <div id="markdownModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">文章预览</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="markdownContent" class="markdown-content loading">
+                    正在加载文章内容...
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -569,47 +811,19 @@
                     // 筛选blog类型的文档
                     this.blogPosts = data.documents.filter(doc => doc.category === 'blog') || [];
                     
-                    // 组合所有文章 (blog文档 + 静态文章)
-                    this.allPosts = [
-                        ...this.blogPosts.map(doc => ({
-                            type: 'blog',
-                            title: doc.title,
-                            date: doc.date,
-                            excerpt: doc.description,
-                            tags: doc.tags,
-                            id: doc.id,
-                            downloadUrl: doc.downloadUrl,
-                            category: 'blog',
-                            readTime: this.calculateReadTime(doc.description)
-                        })),
-                        // 静态文章示例
-                        {
-                            type: 'static',
-                            title: 'Frontend Performance Guide',
-                            date: '2025-08-11',
-                            excerpt: '前端性能优化实战指南，包含各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用...',
-                            tags: ['技术', '前端', '性能优化'],
-                            category: 'tech',
-                            readTime: '6分钟阅读',
-                            url: 'articles/frontend-performance-guide.html',
-                            views: 1875,
-                            comments: 22,
-                            likes: 78
-                        },
-                        {
-                            type: 'static',
-                            title: 'React Hooks Deep Dive',
-                            date: '2025-08-11',
-                            excerpt: 'React Hooks深度解析：从入门到精通，探讨Hooks的工作原理、最佳实践以及常见的使用场景...',
-                            tags: ['技术', 'React', 'JavaScript'],
-                            category: 'tech',
-                            readTime: '4分钟阅读',
-                            url: 'articles/react-hooks-deep-dive.html',
-                            views: 527,
-                            comments: 39,
-                            likes: 11
-                        }
-                    ];
+                    // 只保留用户的blog文档
+                    this.allPosts = this.blogPosts.map(doc => ({
+                        type: 'blog',
+                        title: doc.title,
+                        date: doc.date,
+                        excerpt: doc.description,
+                        tags: doc.tags,
+                        id: doc.id,
+                        downloadUrl: doc.downloadUrl,
+                        category: 'blog',
+                        readTime: this.calculateReadTime(doc.description),
+                        filename: doc.filename
+                    }));
                     
                     // 按日期排序
                     this.allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -642,8 +856,54 @@
                     document.getElementById('blogCount').textContent = blogCount;
                     document.getElementById('academicCount').textContent = academicCount;
                     document.getElementById('totalPosts').textContent = totalPosts;
+                    
+                    // 创建所有标签的集合（自动化标签系统）
+                    this.allTags = new Set();
+                    data.documents.forEach(doc => {
+                        if (doc.tags) {
+                            doc.tags.forEach(tag => this.allTags.add(tag));
+                        }
+                    });
+                    
+                    // 更新侧边栏标签云
+                    this.updateTagCloud();
                 } catch (error) {
                     console.error('更新统计信息失败:', error);
+                }
+            }
+            
+            updateTagCloud() {
+                const tagCloudContainer = document.querySelector('.tag-cloud');
+                if (tagCloudContainer && this.allTags) {
+                    const tagArray = Array.from(this.allTags);
+                    const tagHtml = tagArray.map(tag => 
+                        `<a href="#" class="cloud-tag" onclick="blogManager.filterByTag('${tag}')">${tag}</a>`
+                    ).join('');
+                    tagCloudContainer.innerHTML = tagHtml;
+                }
+            }
+            
+            filterByTag(tag) {
+                // 简单的标签筛选功能
+                const filteredPosts = this.allPosts.filter(post => 
+                    post.tags && post.tags.includes(tag)
+                );
+                
+                if (filteredPosts.length > 0) {
+                    // 临时显示筛选结果
+                    this.currentPage = 1;
+                    const tempAllPosts = this.allPosts;
+                    this.allPosts = filteredPosts;
+                    this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
+                    this.renderCurrentPage();
+                    
+                    // 5秒后恢复显示所有文章
+                    setTimeout(() => {
+                        this.allPosts = tempAllPosts;
+                        this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
+                        this.currentPage = 1;
+                        this.renderCurrentPage();
+                    }, 5000);
                 }
             }
             
@@ -696,61 +956,33 @@
             }
             
             renderPost(post) {
-                if (post.type === 'blog') {
-                    return `
-                        <article class="blog-post" data-category="${post.category}">
-                            <div class="post-image">
-                                <img src="https://via.placeholder.com/600x300/7C3AED/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
-                                <div class="post-category">博客</div>
+                return `
+                    <article class="blog-post" data-category="${post.category}">
+                        <div class="post-image">
+                            <img src="https://via.placeholder.com/600x300/7C3AED/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
+                            <div class="post-category">博客</div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">${this.formatDate(post.date)}</span>
+                                <span class="post-read-time">${post.readTime}</span>
                             </div>
-                            <div class="post-content">
-                                <div class="post-meta">
-                                    <span class="post-date">${this.formatDate(post.date)}</span>
-                                    <span class="post-read-time">${post.readTime}</span>
-                                </div>
-                                <h2><span class="post-title">${post.title}</span></h2>
-                                <p class="post-excerpt">${post.excerpt}</p>
-                                <div class="post-tags">
-                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                                </div>
-                                <div class="post-actions">
-                                    <a href="documents.html#${post.id}" class="read-more">在文档系统中查看</a>
-                                    <div class="post-stats">
-                                        <span>📖 博客文章</span>
-                                    </div>
-                                </div>
+                            <h2><span class="post-title">${post.title}</span></h2>
+                            <p class="post-excerpt">${post.excerpt}</p>
+                            <div class="post-tags">
+                                ${post.tags.map(tag => `<span class="tag" onclick="blogManager.filterByTag('${tag}')" style="cursor: pointer;">${tag}</span>`).join('')}
                             </div>
-                        </article>
-                    `;
-                } else {
-                    return `
-                        <article class="blog-post" data-category="${post.category}">
-                            <div class="post-image">
-                                <img src="https://via.placeholder.com/600x300/4F46E5/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
-                                <div class="post-category">技术</div>
-                            </div>
-                            <div class="post-content">
-                                <div class="post-meta">
-                                    <span class="post-date">${this.formatDate(post.date)}</span>
-                                    <span class="post-read-time">${post.readTime}</span>
-                                </div>
-                                <h2><a href="${post.url}" class="post-title">${post.title}</a></h2>
-                                <p class="post-excerpt">${post.excerpt}</p>
-                                <div class="post-tags">
-                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                                </div>
-                                <div class="post-actions">
-                                    <a href="${post.url}" class="read-more">阅读全文</a>
-                                    <div class="post-stats">
-                                        <span>👁️ ${post.views}</span>
-                                        <span>💬 ${post.comments}</span>
-                                        <span>❤️ ${post.likes}</span>
-                                    </div>
+                            <div class="post-actions">
+                                <button class="read-more" onclick="previewMarkdown('${post.id}', '${post.title}', '../../${post.downloadUrl}')" style="background: #7C3AED; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-right: 0.5rem;">📖 阅读全文</button>
+                                <a href="documents.html#${post.id}" class="read-more" style="background: #4F46E5;">🔗 文档系统</a>
+                                <div class="post-stats">
+                                    <span>📅 ${this.formatDate(post.date)}</span>
+                                    <span>📝 ${post.filename}</span>
                                 </div>
                             </div>
-                        </article>
-                    `;
-                }
+                        </div>
+                    </article>
+                `;
             }
             
             formatDate(dateString) {
@@ -843,6 +1075,114 @@
         // 初始化博客管理器
         document.addEventListener('DOMContentLoaded', () => {
             blogManager = new BlogManager();
+        });
+        
+        // MathJax配置
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    console.log('MathJax 已准备就绪');
+                }
+            }
+        };
+        
+        // 预览Markdown函数
+        async function previewMarkdown(docId, title, markdownUrl) {
+            const modal = document.getElementById('markdownModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const markdownContent = document.getElementById('markdownContent');
+            
+            // 显示模态窗口
+            modal.style.display = 'block';
+            modalTitle.textContent = title;
+            markdownContent.className = 'markdown-content loading';
+            markdownContent.innerHTML = '正在加载文章内容...';
+            
+            try {
+                // 获取markdown内容
+                const response = await fetch(markdownUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdownText = await response.text();
+                
+                // 配置marked选项
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                    highlight: function(code, lang) {
+                        // 简单的代码高亮
+                        return `<code class="language-${lang || 'text'}">${code}</code>`;
+                    }
+                });
+                
+                // 解析markdown
+                let htmlContent = marked.parse(markdownText);
+                
+                // 处理数学公式 - 确保正确的分隔符
+                htmlContent = htmlContent.replace(/\$\$([\s\S]*?)\$\$/g, '\\[$1\\]');
+                htmlContent = htmlContent.replace(/\$([^$\n]+)\$/g, '\\($1\\)');
+                
+                markdownContent.className = 'markdown-content';
+                markdownContent.innerHTML = htmlContent;
+                
+                // 延迟渲染MathJax以确保DOM已更新
+                setTimeout(() => {
+                    if (window.MathJax && MathJax.typesetPromise) {
+                        MathJax.typesetPromise([markdownContent]).then(() => {
+                            console.log('MathJax 渲染完成');
+                        }).catch((err) => {
+                            console.error('MathJax 渲染错误:', err);
+                        });
+                    }
+                }, 100);
+                
+            } catch (error) {
+                console.error('加载markdown文件失败:', error);
+                markdownContent.className = 'markdown-content';
+                markdownContent.innerHTML = `
+                    <div style="text-align: center; color: #dc3545; padding: 3rem;">
+                        <h3>😞 加载文档失败</h3>
+                        <p>请检查网络连接或稍后重试</p>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">错误信息: ${error.message}</p>
+                        <button onclick="previewMarkdown('${docId}', '${title}', '${markdownUrl}')" 
+                                style="background: #4F46E5; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-top: 1rem;">
+                            🔄 重试
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        // 关闭模态窗口
+        function closeModal() {
+            const modal = document.getElementById('markdownModal');
+            modal.style.display = 'none';
+        }
+        
+        // 点击模态窗口外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('markdownModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // ESC键关闭模态窗口
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
         });
     </script>
 </body>
