@@ -389,10 +389,64 @@
                     await this.loadDocuments();
                     this.setupEventListeners();
                     this.renderDocuments();
+                    this.handleAnchorNavigation();
                 } catch (error) {
                     console.error('加载文档失败:', error);
                     this.showError('加载文档失败，请刷新页面重试。');
                 }
+            }
+            
+            handleAnchorNavigation() {
+                // 处理页面加载时的锚点导航
+                const hash = window.location.hash.slice(1);
+                if (hash) {
+                    this.highlightDocument(hash);
+                }
+                
+                // 监听hash变化
+                window.addEventListener('hashchange', () => {
+                    const newHash = window.location.hash.slice(1);
+                    if (newHash) {
+                        this.highlightDocument(newHash);
+                    }
+                });
+            }
+            
+            highlightDocument(documentId) {
+                // 等待DOM渲染完成
+                setTimeout(() => {
+                    const targetDoc = this.documents.find(doc => doc.id === documentId);
+                    if (targetDoc) {
+                        // 先设置正确的筛选器
+                        this.currentFilter = targetDoc.category;
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.dataset.category === targetDoc.category) {
+                                btn.classList.add('active');
+                            }
+                        });
+                        
+                        // 重新渲染文档
+                        this.renderDocuments();
+                        
+                        // 等待重新渲染完成后滚动到目标文档
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(`[data-id="${documentId}"]`);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                targetElement.style.background = 'linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1))';
+                                targetElement.style.border = '2px solid #4F46E5';
+                                targetElement.style.borderRadius = '10px';
+                                
+                                // 3秒后移除高亮
+                                setTimeout(() => {
+                                    targetElement.style.background = '';
+                                    targetElement.style.border = '';
+                                }, 3000);
+                            }
+                        }, 100);
+                    }
+                }, 100);
             }
             
             async loadDocuments() {
@@ -496,7 +550,7 @@
             
             renderDocument(doc) {
                 return `
-                    <div class="document-item" data-category="${doc.category}">
+                    <div class="document-item" data-category="${doc.category}" data-id="${doc.id}">
                         <h3 class="document-title">${doc.title}</h3>
                         <div class="document-meta">
                             <span class="document-date">${doc.date}</span>
