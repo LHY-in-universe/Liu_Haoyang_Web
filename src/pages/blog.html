@@ -676,7 +676,7 @@
                                         <span class="post-date">2025年8月11日</span>
                                         <span class="post-read-time">6分钟阅读</span>
                                     </div>
-                                    <h2><a href="articles/frontend-performance-guide.html" class="post-title">Frontend Performance Guide</a></h2>
+                                    <h2><a href="articles/frontend-performance-guide.html" class="post-title" target="_blank">Frontend Performance Guide</a></h2>
                                     <p class="post-excerpt">
                                         前端性能优化实战指南 !Performance Optimization 前言 在当今快节奏的数字世界中，网站性能直接影响用户体验和业务成果。本文将分享前端性能优化的各种技巧和最佳实践，帮助你构建更快、更流畅的Web应用。 性能优化的重要性 用户体验影响 - 加载速度：页面加载时间每增加1秒，转化率下降7% - 交互延迟：用户期望在100ms内看到响应 - 流畅度：60FPS的动画让用户感觉更流畅...
                                     </p>
@@ -684,7 +684,7 @@
                                         <span class="tag">技术</span>
                                     </div>
                                     <div class="post-actions">
-                                        <a href="articles/frontend-performance-guide.html" class="read-more">阅读全文</a>
+                                        <a href="articles/frontend-performance-guide.html" class="read-more" target="_blank">阅读全文</a>
                                         <div class="post-stats">
                                             <span>👁️ 1875</span>
                                             <span>💬 22</span>
@@ -704,7 +704,7 @@
                                         <span class="post-date">2025年8月11日</span>
                                         <span class="post-read-time">4分钟阅读</span>
                                     </div>
-                                    <h2><a href="articles/react-hooks-deep-dive.html" class="post-title">React Hooks Deep Dive</a></h2>
+                                    <h2><a href="articles/react-hooks-deep-dive.html" class="post-title" target="_blank">React Hooks Deep Dive</a></h2>
                                     <p class="post-excerpt">
                                         React Hooks深度解析：从入门到精通 !React Hooks 引言 React Hooks 是 React 16.8 引入的一个重要特性，它让我们能够在函数组件中使用状态和其他 React 特性。本文将深入探讨 Hooks 的工作原理、最佳实践以及常见的使用场景。 什么是 React Hooks？ Hooks 是一些特殊的函数，它们让你能够"钩入"React 的特性。最常用的 Hooks...
                                     </p>
@@ -712,7 +712,7 @@
                                         <span class="tag">技术</span>
                                     </div>
                                     <div class="post-actions">
-                                        <a href="articles/react-hooks-deep-dive.html" class="read-more">阅读全文</a>
+                                        <a href="articles/react-hooks-deep-dive.html" class="read-more" target="_blank">阅读全文</a>
                                         <div class="post-stats">
                                             <span>👁️ 527</span>
                                             <span>💬 39</span>
@@ -732,7 +732,7 @@
                                         <span class="post-date">2024年8月11日</span>
                                         <span class="post-read-time">2分钟阅读</span>
                                     </div>
-                                    <h2><a href="articles/how-to-use-the-automated-blog-system.html" class="post-title">如何使用自动化博客系统</a></h2>
+                                    <h2><a href="articles/how-to-use-the-automated-blog-system.html" class="post-title" target="_blank">如何使用自动化博客系统</a></h2>
                                     <p class="post-excerpt">
                                         详细介绍如何使用这个自动化博客系统，从创建Markdown文件到自动生成HTML页面的完整流程。
                                     </p>
@@ -740,7 +740,7 @@
                                         <span class="tag">博客系统</span><span class="tag">Markdown</span><span class="tag">自动化</span>
                                     </div>
                                     <div class="post-actions">
-                                        <a href="articles/how-to-use-the-automated-blog-system.html" class="read-more">阅读全文</a>
+                                        <a href="articles/how-to-use-the-automated-blog-system.html" class="read-more" target="_blank">阅读全文</a>
                                         <div class="post-stats">
                                             <span>👁️ 675</span>
                                             <span>💬 49</span>
@@ -770,11 +770,11 @@
                             <h3>热门文章</h3>
                             <ul class="popular-posts">
                                 <li>
-                                    <a href="articles/optically-detected-magnetic-resonance.html">Optically Detected Magnetic Resonance</a>
+                                    <a href="articles/optically-detected-magnetic-resonance.html" target="_blank">Optically Detected Magnetic Resonance</a>
                                     <span class="post-views">1251 阅读</span>
                                 </li>
                                 <li>
-                                    <a href="articles/berry-phase.html">Berry Phase</a>
+                                    <a href="articles/berry-phase.html" target="_blank">Berry Phase</a>
                                     <span class="post-views">382 阅读</span>
                                 </li>
                             </ul>
@@ -1144,8 +1144,8 @@
                                 ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
                             <div class="post-actions">
-                                <button class="read-more" onclick="previewMarkdown('${post.id}', '${post.title}', '../../${post.downloadUrl}')" style="background: #7C3AED; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-right: 0.5rem;">📖 阅读全文</button>
-                                <a href="documents.html#${post.id}" class="read-more" style="background: #4F46E5;">🔗 文档系统</a>
+                                <button class="read-more" onclick="openArticleInNewWindow('${post.id}', '${post.title}', '${post.url || post.downloadUrl}')" style="background: #7C3AED; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-right: 0.5rem;">📖 在新窗口阅读</button>
+                                <a href="documents.html#${post.id}" class="read-more" style="background: #4F46E5;" target="_blank">🔗 文档系统</a>
                                 <div class="post-stats">
                                     <span>📅 ${this.formatDate(post.date)}</span>
                                     <span>📝 ${post.filename}</span>
@@ -1266,6 +1266,60 @@
                 }
             }
         };
+        
+        // 在新窗口中打开文章
+        function openArticleInNewWindow(postId, title, articleUrl) {
+            console.log('打开文章:', title);
+            console.log('URL:', articleUrl);
+            
+            // 构建正确的URL
+            let actualUrl = articleUrl;
+            
+            // 如果是相对路径，进行路径修正
+            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
+                if (actualUrl.startsWith('articles/')) {
+                    // 直接指向articles目录的文件
+                    actualUrl = '../' + actualUrl;
+                } else if (actualUrl.startsWith('public/')) {
+                    // 指向public目录的文件
+                    actualUrl = '../../' + actualUrl;
+                }
+            }
+            
+            try {
+                // 在新窗口中打开文章
+                const newWindow = window.open(actualUrl, '_blank');
+                
+                if (newWindow) {
+                    // 记录阅读统计
+                    recordArticleView(postId, title);
+                    
+                    // 显示成功通知
+                    showToast(`正在在新窗口中打开 "${title}"`, 'success');
+                } else {
+                    // 弹窗被阻止
+                    showToast('请允许浏览器弹窗，然后重试', 'error');
+                }
+            } catch (error) {
+                console.error('打开文章失败:', error);
+                showToast('打开文章失败', 'error');
+            }
+        }
+        
+        // 记录文章阅读统计
+        function recordArticleView(postId, title) {
+            try {
+                const views = JSON.parse(localStorage.getItem('article_views') || '{}');
+                views[postId] = {
+                    count: (views[postId]?.count || 0) + 1,
+                    lastView: Date.now(),
+                    title: title
+                };
+                localStorage.setItem('article_views', JSON.stringify(views));
+            } catch (e) {
+                // 忽略统计错误
+            }
+        }
         
         // 预览Markdown函数
         async function previewMarkdown(docId, title, markdownUrl) {

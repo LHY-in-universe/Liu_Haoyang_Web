@@ -112,15 +112,20 @@
         }
         
         .document-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: background 0.2s ease;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e1e5e9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .document-item:hover {
-            background: #e9ecef;
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            border-color: #667eea;
         }
         
         .document-item:last-child {
@@ -128,10 +133,11 @@
         }
         
         .document-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
         
         .document-meta {
@@ -192,8 +198,8 @@
             flex-wrap: wrap;
         }
         
-        .btn-download {
-            background: linear-gradient(135deg, #28a745, #20c997);
+        .btn-preview-doc {
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
             padding: 0.75rem 1.5rem;
             border: none;
@@ -206,69 +212,90 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
             cursor: pointer;
             min-width: 120px;
             justify-content: center;
         }
         
-        .btn-download:hover {
-            background: linear-gradient(135deg, #218838, #1abc9c);
+        .btn-preview-doc:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
         }
         
-        .btn-download:active {
+        .btn-preview-doc:active {
             transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
         }
         
-        .btn-download::before {
-            content: "📥";
+        .btn-preview-doc::before {
+            content: "👁️";
             margin-right: 0.5rem;
             font-size: 1.1em;
             transition: transform 0.3s ease;
         }
         
-        .btn-download:hover::before {
-            transform: translateY(-2px);
+        .btn-preview-doc:hover::before {
+            transform: scale(1.1);
         }
         
-        /* 下载按钮加载状态 */
-        .btn-download.downloading {
+        /* 预览按钮加载状态 */
+        .btn-preview-doc.loading {
             background: linear-gradient(135deg, #6c757d, #5a6268);
             cursor: not-allowed;
             pointer-events: none;
         }
         
-        .btn-download.downloading::before {
+        .btn-preview-doc.loading::before {
             content: "⏳";
             animation: pulse 1.5s infinite;
         }
         
-        .btn-download.success {
-            background: linear-gradient(135deg, #17a2b8, #138496);
+        .btn-preview-doc.opened {
+            background: linear-gradient(135deg, #28a745, #20c997);
         }
         
-        .btn-download.success::before {
+        .btn-preview-doc.opened::before {
             content: "✅";
-        }
-        
-        /* 下载进度条 */
-        .download-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 0 0 12px 12px;
-            width: 0%;
-            transition: width 0.3s ease;
         }
         
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
+        }
+        
+        /* 预览按钮特效 */
+        @keyframes viewPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .btn-preview-doc.viewed {
+            animation: viewPulse 2s ease-in-out;
+        }
+        
+        /* 文档项目的微动效 */
+        .document-item {
+            position: relative;
+        }
+        
+        .document-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 15px 15px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .document-item:hover::before {
+            opacity: 1;
         }
         
         /* 文件信息提示 */
@@ -301,32 +328,33 @@
             border-top-color: rgba(0, 0, 0, 0.9);
         }
         
-        .btn-download:hover .file-info-tooltip {
+        .btn-preview-doc:hover .file-info-tooltip {
             opacity: 1;
             visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
         }
         
-        /* 已下载指示器 */
-        .downloaded-indicator {
+        /* 已查看指示器 */
+        .viewed-indicator {
             font-size: 0.8em;
             margin-left: 0.5rem;
             opacity: 0.8;
         }
         
-        .download-count {
+        .view-count {
             display: flex;
             align-items: center;
             font-size: 0.85em;
-            color: #28a745;
+            color: #007bff;
             font-weight: 500;
         }
         
-        .btn-download.has-downloaded {
+        .btn-preview-doc.viewed {
             background: linear-gradient(135deg, #17a2b8, #138496);
             box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
         }
         
-        .btn-download.has-downloaded:hover {
+        .btn-preview-doc.viewed:hover {
             background: linear-gradient(135deg, #138496, #117a8b);
             box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
         }
@@ -1081,45 +1109,53 @@
             }
             
             renderDocument(doc) {
-                // 获取下载统计
-                const downloadStats = this.getDownloadStats(doc.id, doc.filename);
-                const downloadCount = downloadStats?.count || 0;
-                const hasBeenDownloaded = downloadCount > 0;
+                // 获取查看统计
+                const viewStats = this.getViewStats(doc.id, doc.filename);
+                const viewCount = viewStats?.count || 0;
+                const hasBeenViewed = viewCount > 0;
                 
                 return `
                     <div class="document-item" data-category="${doc.category}" data-id="${doc.id}">
                         <h3 class="document-title">
                             ${doc.title}
-                            ${hasBeenDownloaded ? '<span class="downloaded-indicator" title="已下载">✅</span>' : ''}
+                            ${hasBeenViewed ? '<span class="viewed-indicator" title="已查看">👁️</span>' : ''}
                         </h3>
                         <div class="document-meta">
                             <span class="document-date">${doc.date}</span>
                             <span class="document-size">${doc.fileSize}</span>
-                            ${downloadCount > 0 ? `<span class="download-count" title="下载次数">📈 ${downloadCount}</span>` : ''}
+                            ${viewCount > 0 ? `<span class="view-count" title="查看次数">📈 ${viewCount}</span>` : ''}
                         </div>
                         <p class="document-description">${doc.description}</p>
                         <div class="document-tags">
                             ${doc.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <div class="document-actions">
-                            <button class="btn-download ${hasBeenDownloaded ? 'has-downloaded' : ''}" 
-                                    onclick="downloadFile('${doc.id}', '${doc.downloadUrl}', '${doc.filename}', '${doc.fileSize}')"
-                                    oncontextmenu="event.preventDefault(); simpleDownload('${doc.downloadUrl}', '${doc.filename}'); return false;"
-                                    title="左键高级下载，右键简单下载">
-                                ${hasBeenDownloaded ? '再次下载' : '下载'}
+                            <button class="btn-preview-doc ${hasBeenViewed ? 'viewed' : ''}" 
+                                    onclick="previewDocument('${doc.id}', '${doc.downloadUrl}', '${doc.filename}', '${doc.title}')"
+                                    title="在新窗口中预览文档">
+                                ${hasBeenViewed ? '再次查看' : '预览文档'}
                                 <div class="file-info-tooltip">
                                     ${doc.filename} (${doc.fileSize})
-                                    ${downloadCount > 0 ? `<br>已下载 ${downloadCount} 次` : ''}
-                                    <br><small>右键点击使用简单下载</small>
+                                    ${viewCount > 0 ? `<br>已查看 ${viewCount} 次` : ''}
+                                    <br><small>点击在新窗口中打开</small>
                                 </div>
-                                <div class="download-progress"></div>
                             </button>
-                            ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">预览</a>` : ''}
                             ${doc.category === 'blog' && doc.filename.endsWith('.md') ? 
                                 `<button class="btn-preview btn-markdown" onclick="previewMarkdown('${doc.id}', '${doc.title}', '../../${doc.downloadUrl}')">在线查看</button>` : ''}
                         </div>
                     </div>
                 `;
+            }
+            
+            // 获取查看统计
+            getViewStats(docId, filename) {
+                try {
+                    const views = JSON.parse(localStorage.getItem('view_stats') || '{}');
+                    const key = `${docId}_${filename}`;
+                    return views[key];
+                } catch (e) {
+                    return null;
+                }
             }
             
             // 获取下载统计
@@ -1285,156 +1321,103 @@
             }
         });
         
-        // 全新的下载函数 - 彻底解决路径问题
-        async function downloadFile(docId, downloadUrl, filename, fileSize) {
-            const btn = event.target.closest('.btn-download');
-            const progressBar = btn.querySelector('.download-progress');
+        // 文档预览函数 - 在新窗口中打开文档
+        function previewDocument(docId, downloadUrl, filename, title) {
+            const btn = event.target.closest('.btn-preview-doc');
             const originalText = btn.textContent.trim();
             
-            // 构建正确的下载URL
+            // 构建正确的文档URL
             let actualUrl;
             
             if (downloadUrl.startsWith('http')) {
-                // 绝对URL
                 actualUrl = downloadUrl;
             } else if (downloadUrl.startsWith('/')) {
-                // 相对于根目录的路径
                 actualUrl = downloadUrl;
             } else {
-                // 相对路径，需要根据当前页面位置调整
-                // 从 src/pages/documents.html 到 public/documents/...
-                // 需要上两级目录
                 actualUrl = '../../' + downloadUrl;
             }
             
-            console.log('原始URL:', downloadUrl);
-            console.log('处理后URL:', actualUrl);
-            console.log('当前页面:', window.location.href);
+            console.log('预览文档:', title);
+            console.log('文档URL:', actualUrl);
             
             try {
-                // 设置下载状态
-                btn.classList.add('downloading');
+                // 设置加载状态
+                btn.classList.add('loading');
                 btn.querySelector('.file-info-tooltip').style.display = 'none';
                 
-                // 简化的文件检查，先尝试直接下载
-                console.log('尝试直接下载:', actualUrl);
+                // 在新窗口中打开文档
+                const newWindow = window.open(actualUrl, '_blank');
                 
-                // 使用传统方法直接下载
-                const downloadLink = document.createElement('a');
-                downloadLink.href = actualUrl;
-                downloadLink.download = filename;
-                downloadLink.target = '_blank';
-                downloadLink.style.display = 'none';
-                
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                
-                // 显示成功状态
-                btn.classList.remove('downloading');
-                btn.classList.add('success');
-                progressBar.style.width = '100%';
-                
-                // 记录下载统计
-                recordDownload(docId, filename);
-                
-                // 显示成功通知
-                showToast(`文件 "${filename}" 下载成功！`, 'success');
-                
-                // 2秒后恢复原始状态并更新按钮显示
-                setTimeout(() => {
-                    btn.classList.remove('success');
-                    btn.classList.add('has-downloaded');
-                    progressBar.style.width = '0%';
-                    btn.querySelector('.file-info-tooltip').style.display = 'block';
+                if (newWindow) {
+                    // 成功打开
+                    btn.classList.remove('loading');
+                    btn.classList.add('opened');
                     
-                    // 更新按钮文本
-                    const btnTextNode = btn.childNodes[0];
-                    if (btnTextNode && btnTextNode.nodeType === Node.TEXT_NODE) {
-                        btnTextNode.textContent = '再次下载';
-                    }
-                }, 2000);
-                
-                // 如果传统下载失败，尝试使用fetch方法
-                // 这里可以添加更复杂的下载逻辑，但通常传统方法就够了
+                    // 记录查看统计
+                    recordView(docId, filename);
+                    
+                    // 显示成功通知
+                    showToast(`正在在新窗口中打开 "${title}"`, 'success');
+                    
+                    // 2秒后恢复状态
+                    setTimeout(() => {
+                        btn.classList.remove('opened');
+                        btn.classList.add('viewed');
+                        btn.querySelector('.file-info-tooltip').style.display = 'block';
+                        
+                        // 更新按钮文本
+                        const btnTextNode = btn.childNodes[0];
+                        if (btnTextNode && btnTextNode.nodeType === Node.TEXT_NODE) {
+                            btnTextNode.textContent = '再次查看';
+                        }
+                    }, 2000);
+                    
+                } else {
+                    // 弹窗被阻止
+                    throw new Error('弹窗被浏览器阻止');
+                }
                 
             } catch (error) {
-                console.error('下载失败:', error);
+                console.error('预览失败:', error);
                 
                 // 显示错误状态
-                btn.classList.remove('downloading');
+                btn.classList.remove('loading');
                 btn.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
-                btn.innerHTML = '<span style="margin-right: 0.5rem;">❌</span>下载失败';
+                btn.innerHTML = '<span style="margin-right: 0.5rem;">❌</span>预览失败';
                 
-                // 更详细的错误信息
-                let errorMessage = '下载失败';
-                if (error.message.includes('HTML')) {
-                    errorMessage = '文件路径错误，请联系管理员';
-                } else if (error.message.includes('不存在')) {
-                    errorMessage = '文件不存在';
+                // 显示错误提示
+                if (error.message.includes('弹窗')) {
+                    showToast('请允许浏览器弹窗，然后重试', 'error');
                 } else {
-                    errorMessage = '网络错误，请稍后重试';
+                    showToast('预览失败，请检查文件是否存在', 'error');
                 }
                 
                 // 3秒后恢复原始状态
                 setTimeout(() => {
                     btn.style.background = '';
-                    const isDownloaded = btn.classList.contains('has-downloaded');
-                    btn.innerHTML = (isDownloaded ? '再次下载' : originalText) + '<div class="file-info-tooltip">' + filename + ' (' + fileSize + ')</div><div class="download-progress"></div>';
+                    const isViewed = btn.classList.contains('viewed');
+                    btn.innerHTML = (isViewed ? '再次查看' : originalText) + '<div class="file-info-tooltip">' + filename + ' (' + title + ')</div>';
                     btn.querySelector('.file-info-tooltip').style.display = 'block';
                 }, 3000);
-                
-                // 显示错误提示
-                showToast(errorMessage + ' - 尝试传统下载方式', 'error');
-                
-                // 尝试传统下载方式作为备用
-                setTimeout(() => {
-                    try {
-                        const fallbackLink = document.createElement('a');
-                        fallbackLink.href = actualUrl;
-                        fallbackLink.download = filename;
-                        fallbackLink.target = '_blank';
-                        fallbackLink.style.display = 'none';
-                        document.body.appendChild(fallbackLink);
-                        fallbackLink.click();
-                        document.body.removeChild(fallbackLink);
-                        
-                        showToast('正在尝试传统下载方式...', 'info');
-                    } catch (fallbackError) {
-                        console.error('备用下载也失败:', fallbackError);
-                    }
-                }, 1000);
             }
         }
         
-        // 简单的直接下载函数（作为备用）
-        function simpleDownload(downloadUrl, filename) {
-            console.log('简单下载被调用:', downloadUrl, filename);
-            
-            // 构建正确的URL
-            let actualUrl;
-            if (downloadUrl.startsWith('http')) {
-                actualUrl = downloadUrl;
-            } else if (downloadUrl.startsWith('/')) {
-                actualUrl = downloadUrl;
-            } else {
-                actualUrl = '../../' + downloadUrl;
+        // 记录查看统计
+        function recordView(docId, filename) {
+            try {
+                const views = JSON.parse(localStorage.getItem('view_stats') || '{}');
+                const key = `${docId}_${filename}`;
+                views[key] = {
+                    count: (views[key]?.count || 0) + 1,
+                    lastView: Date.now(),
+                    filename: filename
+                };
+                localStorage.setItem('view_stats', JSON.stringify(views));
+            } catch (e) {
+                // 忽略统计错误
             }
-            
-            console.log('简单下载实际URL:', actualUrl);
-            
-            const link = document.createElement('a');
-            link.href = actualUrl;
-            link.download = filename;
-            link.target = '_blank';
-            link.style.display = 'none';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showToast(`正在下载 "${filename}"...`, 'info');
         }
+        
         
         // 初始化时添加一些调试信息
         document.addEventListener('DOMContentLoaded', function() {
@@ -1451,21 +1434,6 @@
             console.log('下载系统已初始化 - 使用 debugDownload("docId") 调试');
         });
         
-        // 记录下载统计
-        function recordDownload(docId, filename) {
-            try {
-                const downloads = JSON.parse(localStorage.getItem('download_stats') || '{}');
-                const key = `${docId}_${filename}`;
-                downloads[key] = {
-                    count: (downloads[key]?.count || 0) + 1,
-                    lastDownload: Date.now(),
-                    filename: filename
-                };
-                localStorage.setItem('download_stats', JSON.stringify(downloads));
-            } catch (e) {
-                // 忽略统计错误
-            }
-        }
         
         // Toast通知函数
         function showToast(message, type = 'info') {
