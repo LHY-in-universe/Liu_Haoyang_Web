@@ -1270,7 +1270,9 @@
         // 在新窗口中打开文章
         function openArticleInNewWindow(postId, title, articleUrl) {
             console.log('打开文章:', title);
-            console.log('URL:', articleUrl);
+            console.log('原始URL:', articleUrl);
+            console.log('当前页面路径:', window.location.pathname);
+            console.log('当前页面目录:', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')));
             
             // 构建正确的URL
             let actualUrl = articleUrl;
@@ -1278,8 +1280,8 @@
             // 如果是相对路径，进行路径修正
             if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
                 if (actualUrl.startsWith('articles/')) {
-                    // 直接指向articles目录的文件
-                    actualUrl = '../' + actualUrl;
+                    // 从 src/pages/ 目录访问根目录的 articles/
+                    actualUrl = '../../' + actualUrl;
                 } else if (actualUrl.startsWith('public/')) {
                     // 指向public目录的文件
                     actualUrl = '../../' + actualUrl;

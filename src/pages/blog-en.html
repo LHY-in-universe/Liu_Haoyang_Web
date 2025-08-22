@@ -9,6 +9,162 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Resources will be loaded dynamically when needed -->
+    <style>
+        .blog-info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-info-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: movePattern 20s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        .blog-info-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-info-card p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .skeleton-image {
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .skeleton-post {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .blog-stats {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -22,6 +178,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="blog-en.html" class="nav-link active">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="documents-en.html" class="nav-link">Documents</a>
                 </li>
                 <li class="nav-item">
                     <a href="resume-en.html" class="nav-link">Resume</a>
@@ -59,30 +218,62 @@
 
         <section class="blog-section">
             <div class="container">
+                <!-- Blog Info Card -->
+                <div class="blog-info-card">
+                    <h2>🚀 Welcome to My Tech Space</h2>
+                    <p>Here I share my insights and experiences about physics, technology, and software development. Join me on this learning journey!</p>
+                    
+                    <div class="blog-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="blogCount">--</span>
+                            <span class="stat-label">Blog Posts</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="academicCount">--</span>
+                            <span class="stat-label">Academic Papers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalPosts">--</span>
+                            <span class="stat-label">Total Articles</span>
+                        </div>
+                    </div>
+                    
+                    <a href="documents-en.html" class="cta-button">
+                        <span>📚</span>
+                        <span>Explore All Documents</span>
+                    </a>
+                </div>
+
                 <div class="blog-layout">
                     <div class="blog-content">
-                        <div class="blog-filters">
-                            <button class="filter-btn active" data-category="all">All</button>
-                            <button class="filter-btn" data-category="tech">Tech</button>
-                            <button class="filter-btn" data-category="tutorial">Tutorial</button>
-                            <button class="filter-btn" data-category="life">Life</button>
-                            <button class="filter-btn" data-category="thoughts">Thoughts</button>
-                        </div>
-
-                        <div class="blog-posts">
-
-                        </div>
-
-                        <div class="pagination">
-                            <button class="pagination-btn" disabled>Previous</button>
-                            <div class="pagination-numbers">
-                                <button class="pagination-number active">1</button>
-                                <button class="pagination-number">2</button>
-                                <button class="pagination-number">3</button>
-                                <span class="pagination-ellipsis">...</span>
-                                <button class="pagination-number">8</button>
+                        <!-- Skeleton Loading -->
+                        <div id="skeletonContainer" style="display: none;">
+                            <div class="skeleton-post">
+                                <div class="skeleton skeleton-image"></div>
+                                <div class="skeleton skeleton-text" style="width: 60%;"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text" style="width: 80%;"></div>
                             </div>
-                            <button class="pagination-btn">Next</button>
+                            <div class="skeleton-post">
+                                <div class="skeleton skeleton-image"></div>
+                                <div class="skeleton skeleton-text" style="width: 70%;"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Blog Posts Container -->
+                        <div class="blog-posts" id="blogPosts" style="display: none;">
+                            <!-- Content will be loaded dynamically -->
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination" id="blogPagination" style="display: none;">
+                            <button class="pagination-btn" id="prevBtn">Previous</button>
+                            <div class="pagination-numbers" id="pageNumbers">
+                                <!-- Page numbers will be generated dynamically -->
+                            </div>
+                            <button class="pagination-btn" id="nextBtn">Next</button>
                         </div>
                     </div>
 
@@ -179,5 +370,496 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+        // Progressive Blog Management System (English Version)
+        class BlogManager {
+            constructor() {
+                this.allPosts = [];
+                this.blogPosts = [];
+                this.currentPage = 1;
+                this.postsPerPage = 5;
+                this.totalPages = 1;
+                this.resourcesLoaded = {
+                    marked: false,
+                    mathJax: false
+                };
+                this.init();
+            }
+            
+            async init() {
+                // Show skeleton immediately
+                this.showSkeleton();
+                
+                // Progressive loading
+                try {
+                    // Step 1: Load basic data
+                    await this.loadBlogPosts();
+                    
+                    // Step 2: Render basic content
+                    await this.renderBasicContent();
+                    
+                    // Step 3: Setup pagination
+                    this.setupPagination();
+                    
+                    // Step 4: Lazy load external resources
+                    this.loadExternalResources();
+                    
+                } catch (error) {
+                    console.error('Failed to initialize blog system:', error);
+                    this.showError();
+                }
+            }
+            
+            showSkeleton() {
+                // Skeleton is already in HTML, just ensure it's displayed
+                document.getElementById('skeletonContainer').style.display = 'block';
+                document.getElementById('blogPosts').style.display = 'none';
+            }
+            
+            hideSkeleton() {
+                document.getElementById('skeletonContainer').style.display = 'none';
+                document.getElementById('blogPosts').style.display = 'block';
+            }
+            
+            async loadBlogPosts() {
+                try {
+                    // First try to load blog data
+                    try {
+                        const postsResponse = await fetch('../../posts/posts.json');
+                        if (postsResponse.ok) {
+                            const postsData = await postsResponse.json();
+                            this.blogPosts = postsData;
+                            this.allPosts = this.blogPosts.map(post => ({
+                                type: 'blog',
+                                title: post.title,
+                                date: post.date,
+                                excerpt: post.excerpt,
+                                tags: post.tags,
+                                id: post.id,
+                                url: post.url,
+                                category: post.category,
+                                author: post.author,
+                                readTime: post.readTime,
+                                views: post.views || 0,
+                                comments: post.comments || 0,
+                                likes: post.likes || 0
+                            }));
+                            return;
+                        }
+                    } catch (postsError) {
+                        console.log('Blog data not found, trying to load from documents...');
+                    }
+                    
+                    // If blog data doesn't exist, load from documents data
+                    const response = await fetch('../../public/documents/documents.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    
+                    this.blogPosts = data.documents.filter(doc => doc.category === 'blog') || [];
+                    this.allPosts = this.blogPosts.map(doc => ({
+                        type: 'blog',
+                        title: doc.title,
+                        date: doc.date,
+                        excerpt: doc.description,
+                        tags: doc.tags,
+                        id: doc.id,
+                        downloadUrl: doc.downloadUrl,
+                        category: 'blog',
+                        readTime: this.calculateReadTime(doc.description),
+                        filename: doc.filename
+                    }));
+                    
+                    this.allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    this.totalPages = Math.ceil(this.allPosts.length / this.postsPerPage);
+                    this.updateStats(data);
+                    
+                } catch (error) {
+                    console.error('Failed to load blog posts:', error);
+                    this.allPosts = [];
+                }
+            }
+            
+            async renderBasicContent() {
+                // Progressive rendering: hide skeleton first, show basic content
+                await new Promise(resolve => setTimeout(resolve, 300)); // Brief delay for user to see loading process
+                this.hideSkeleton();
+                this.renderCurrentPage();
+            }
+            
+            loadExternalResources() {
+                // Lazy load marked.js
+                this.loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js')
+                    .then(() => {
+                        this.resourcesLoaded.marked = true;
+                        console.log('Marked.js loaded');
+                    })
+                    .catch(() => {
+                        console.warn('Failed to load Marked.js, preview function may not be available');
+                    });
+                
+                // Lazy load MathJax
+                this.loadMathJax()
+                    .then(() => {
+                        this.resourcesLoaded.mathJax = true;
+                        console.log('MathJax loaded');
+                    })
+                    .catch(() => {
+                        console.warn('Failed to load MathJax, math formulas may not display correctly');
+                    });
+            }
+            
+            loadScript(src) {
+                return new Promise((resolve, reject) => {
+                    if (document.querySelector(`script[src="${src}"]`)) {
+                        resolve();
+                        return;
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+            
+            async loadMathJax() {
+                // MathJax configuration
+                window.MathJax = {
+                    tex: {
+                        inlineMath: [['$', '$'], ['\\(', '\\)']],
+                        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                        processEscapes: true,
+                        processEnvironments: true
+                    },
+                    options: {
+                        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                    },
+                    startup: {
+                        ready: () => {
+                            MathJax.startup.defaultReady();
+                        }
+                    }
+                };
+                
+                // Load MathJax
+                await this.loadScript('https://polyfill.io/v3/polyfill.min.js?features=es6');
+                await this.loadScript('https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js');
+            }
+            
+            showError() {
+                this.hideSkeleton();
+                document.getElementById('blogPosts').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #dc3545;">
+                        <h3>😞 Loading Failed</h3>
+                        <p>Please refresh the page and try again</p>
+                        <button onclick="location.reload()" style="background: #4F46E5; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                            🔄 Refresh Page
+                        </button>
+                    </div>
+                `;
+                document.getElementById('blogPosts').style.display = 'block';
+            }
+            
+            calculateReadTime(text) {
+                const wordsPerMinute = 200;
+                const wordCount = text.length;
+                const minutes = Math.ceil(wordCount / wordsPerMinute);
+                return `${minutes} min read`;
+            }
+            
+            updateStats(data) {
+                try {
+                    const blogCount = data.documents.filter(doc => doc.category === 'blog').length;
+                    const academicCount = data.documents.filter(doc => doc.category === 'academic').length;
+                    const totalPosts = this.allPosts.length;
+                    
+                    document.getElementById('blogCount').textContent = blogCount;
+                    document.getElementById('academicCount').textContent = academicCount;
+                    document.getElementById('totalPosts').textContent = totalPosts;
+                    
+                } catch (error) {
+                    console.error('Failed to update statistics:', error);
+                }
+            }
+            
+            setupPagination() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                
+                prevBtn.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.renderCurrentPage();
+                        this.updatePagination();
+                    }
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.renderCurrentPage();
+                        this.updatePagination();
+                    }
+                });
+            }
+            
+            renderCurrentPage() {
+                const startIndex = (this.currentPage - 1) * this.postsPerPage;
+                const endIndex = startIndex + this.postsPerPage;
+                const currentPosts = this.allPosts.slice(startIndex, endIndex);
+                
+                const blogPostsContainer = document.querySelector('.blog-posts');
+                
+                if (currentPosts.length === 0) {
+                    blogPostsContainer.innerHTML = '<p>No blog posts available</p>';
+                    return;
+                }
+                
+                const postsHtml = currentPosts.map(post => this.renderPost(post)).join('');
+                blogPostsContainer.innerHTML = postsHtml;
+                blogPostsContainer.style.display = 'block';
+                
+                this.updatePagination();
+                
+                // If there's more than one page of content, show pagination
+                const pagination = document.getElementById('blogPagination');
+                if (this.totalPages > 1) {
+                    pagination.style.display = 'block';
+                } else {
+                    pagination.style.display = 'none';
+                }
+            }
+            
+            renderPost(post) {
+                return `
+                    <article class="blog-post" data-category="${post.category}">
+                        <div class="post-image">
+                            <img src="https://via.placeholder.com/600x300/7C3AED/FFFFFF?text=${encodeURIComponent(post.title)}" alt="${post.title}">
+                            <div class="post-category">Blog</div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">${this.formatDate(post.date)}</span>
+                                <span class="post-read-time">${post.readTime}</span>
+                            </div>
+                            <h2><span class="post-title">${post.title}</span></h2>
+                            <p class="post-excerpt">${post.excerpt}</p>
+                            <div class="post-tags">
+                                ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="post-actions">
+                                <button class="read-more" onclick="openArticleInNewWindow('${post.id}', '${post.title}', '${post.url || post.downloadUrl}')" style="background: #7C3AED; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-right: 0.5rem;">📖 Read in New Window</button>
+                                <a href="documents-en.html#${post.id}" class="read-more" style="background: #4F46E5;" target="_blank">🔗 Document System</a>
+                                <div class="post-stats">
+                                    <span>📅 ${this.formatDate(post.date)}</span>
+                                    <span>📝 ${post.filename}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+            
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+            
+            updatePagination() {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const pageNumbers = document.getElementById('pageNumbers');
+                
+                // Update previous/next button states
+                prevBtn.disabled = this.currentPage === 1;
+                nextBtn.disabled = this.currentPage === this.totalPages;
+                
+                // Generate page numbers
+                pageNumbers.innerHTML = this.generatePageNumbers();
+            }
+            
+            generatePageNumbers() {
+                let html = '';
+                const current = this.currentPage;
+                const total = this.totalPages;
+                
+                // If total pages <= 7, show all page numbers
+                if (total <= 7) {
+                    for (let i = 1; i <= total; i++) {
+                        html += `<button class="pagination-number ${i === current ? 'active' : ''}" onclick="blogManager.goToPage(${i})">${i}</button>`;
+                    }
+                } else {
+                    // Complex pagination logic
+                    // Always show page 1
+                    html += `<button class="pagination-number ${current === 1 ? 'active' : ''}" onclick="blogManager.goToPage(1)">1</button>`;
+                    
+                    if (current > 3) {
+                        html += '<span class="pagination-ellipsis">...</span>';
+                    }
+                    
+                    // Show page numbers around current page
+                    let start = Math.max(2, current - 1);
+                    let end = Math.min(total - 1, current + 1);
+                    
+                    if (current <= 3) {
+                        end = Math.min(5, total - 1);
+                    }
+                    if (current >= total - 2) {
+                        start = Math.max(total - 4, 2);
+                    }
+                    
+                    for (let i = start; i <= end; i++) {
+                        html += `<button class="pagination-number ${i === current ? 'active' : ''}" onclick="blogManager.goToPage(${i})">${i}</button>`;
+                    }
+                    
+                    if (current < total - 2) {
+                        html += '<span class="pagination-ellipsis">...</span>';
+                    }
+                    
+                    // Always show last page
+                    if (total > 1) {
+                        html += `<button class="pagination-number ${current === total ? 'active' : ''}" onclick="blogManager.goToPage(${total})">${total}</button>`;
+                    }
+                }
+                
+                return html;
+            }
+            
+            goToPage(page) {
+                if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+                    this.currentPage = page;
+                    this.renderCurrentPage();
+                    this.updatePagination();
+                    
+                    // Scroll to top of blog content
+                    document.querySelector('.blog-content').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }
+        }
+        
+        // Global variable for pagination button calls
+        let blogManager;
+        
+        // Initialize blog manager
+        document.addEventListener('DOMContentLoaded', () => {
+            blogManager = new BlogManager();
+        });
+        
+        // MathJax configuration
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    console.log('MathJax is ready');
+                }
+            }
+        };
+        
+        // Open article in new window
+        function openArticleInNewWindow(postId, title, articleUrl) {
+            console.log('Opening article:', title);
+            console.log('Original URL:', articleUrl);
+            console.log('Current page path:', window.location.pathname);
+            console.log('Current page directory:', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')));
+            
+            // Build correct URL
+            let actualUrl = articleUrl;
+            
+            // If it's a relative path, correct the path
+            if (!actualUrl.startsWith('http') && !actualUrl.startsWith('/')) {
+                if (actualUrl.startsWith('articles/')) {
+                    // Access root directory articles/ from src/pages/ directory
+                    actualUrl = '../../' + actualUrl;
+                } else if (actualUrl.startsWith('public/')) {
+                    // Files pointing to public directory
+                    actualUrl = '../../' + actualUrl;
+                }
+            }
+            
+            try {
+                // Open article in new window
+                const newWindow = window.open(actualUrl, '_blank');
+                
+                if (newWindow) {
+                    // Record reading statistics
+                    recordArticleView(postId, title);
+                    
+                    // Show success notification
+                    showToast(`Opening "${title}" in new window`, 'success');
+                } else {
+                    // Popup blocked
+                    showToast('Please allow browser popups and try again', 'error');
+                }
+            } catch (error) {
+                console.error('Failed to open article:', error);
+                showToast('Failed to open article', 'error');
+            }
+        }
+        
+        // Record article reading statistics
+        function recordArticleView(postId, title) {
+            try {
+                const views = JSON.parse(localStorage.getItem('article_views') || '{}');
+                views[postId] = {
+                    count: (views[postId]?.count || 0) + 1,
+                    lastView: Date.now(),
+                    title: title
+                };
+                localStorage.setItem('article_views', JSON.stringify(views));
+            } catch (e) {
+                // Ignore statistics errors
+            }
+        }
+        
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

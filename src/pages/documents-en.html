@@ -8,6 +8,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/marked/marked.min.js" as="script">
+    <link rel="preload" href="../../public/documents/documents.json" as="fetch" crossorigin>
+    
+    <!-- Markdown parser - deferred loading -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    
+    <!-- MathJax for LaTeX rendering - on demand loading -->
+    <script>
+        // Delayed MathJax loading
+        window.loadMathJax = function() {
+            if (window.MathJax) return Promise.resolve();
+            
+            return new Promise((resolve, reject) => {
+                const polyfillScript = document.createElement('script');
+                polyfillScript.src = 'https://polyfill.io/v3/polyfill.min.js?features=es6';
+                polyfillScript.onload = () => {
+                    const mathJaxScript = document.createElement('script');
+                    mathJaxScript.id = 'MathJax-script';
+                    mathJaxScript.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+                    mathJaxScript.async = true;
+                    mathJaxScript.onload = resolve;
+                    mathJaxScript.onerror = reject;
+                    document.head.appendChild(mathJaxScript);
+                };
+                polyfillScript.onerror = reject;
+                document.head.appendChild(polyfillScript);
+            });
+        };
+    </script>
     <style>
         .documents-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -48,12 +79,13 @@
             border-radius: 15px;
             padding: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
         }
         
         .category-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .category-header {
@@ -81,15 +113,20 @@
         }
         
         .document-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: background 0.3s ease;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e1e5e9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .document-item:hover {
-            background: #e9ecef;
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            border-color: #667eea;
         }
         
         .document-item:last-child {
@@ -97,10 +134,11 @@
         }
         
         .document-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
         
         .document-meta {
@@ -161,27 +199,66 @@
             flex-wrap: wrap;
         }
         
-        .btn-download {
-            background: #28a745;
+        .btn-preview-doc {
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            cursor: pointer;
+            min-width: 120px;
+            justify-content: center;
         }
         
-        .btn-download:hover {
-            background: #218838;
+        .btn-preview-doc:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
         }
         
-        .btn-download::before {
-            content: "⬇️";
+        .btn-preview-doc:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+        }
+        
+        .btn-preview-doc::before {
+            content: "👁️";
             margin-right: 0.5rem;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-preview-doc:hover::before {
+            transform: scale(1.1);
+        }
+        
+        /* Preview button loading states */
+        .btn-preview-doc.loading {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .btn-preview-doc.loading::before {
+            content: "⏳";
+            animation: pulse 1.5s infinite;
+        }
+        
+        .btn-preview-doc.opened {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .btn-preview-doc.opened::before {
+            content: "✅";
         }
         
         .btn-preview {
@@ -204,6 +281,19 @@
         
         .btn-preview::before {
             content: "👁️";
+            margin-right: 0.5rem;
+        }
+        
+        .btn-markdown {
+            background: #7C3AED !important;
+        }
+        
+        .btn-markdown:hover {
+            background: #6D28D9 !important;
+        }
+        
+        .btn-markdown::before {
+            content: "📖";
             margin-right: 0.5rem;
         }
         
@@ -275,6 +365,97 @@
             color: #666;
         }
         
+        /* File info tooltip */
+        .file-info-tooltip {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(31, 41, 55, 0.95));
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            line-height: 1.4;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .file-info-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .btn-preview-doc:hover .file-info-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        /* Viewed indicators */
+        .viewed-indicator {
+            font-size: 0.8em;
+            margin-left: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .view-count {
+            display: flex;
+            align-items: center;
+            font-size: 0.85em;
+            color: #007bff;
+            font-weight: 500;
+        }
+        
+        .btn-preview-doc.viewed {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+        }
+        
+        .btn-preview-doc.viewed:hover {
+            background: linear-gradient(135deg, #138496, #117a8b);
+            box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Document item micro-interactions */
+        .document-item {
+            position: relative;
+        }
+        
+        .document-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 15px 15px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .document-item:hover::before {
+            opacity: 1;
+        }
+        
+        /* Mobile styles */
         @media (max-width: 768px) {
             .documents-hero h1 {
                 font-size: 2rem;
@@ -291,6 +472,22 @@
             
             .document-actions {
                 flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn-preview-doc {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .file-info-tooltip {
+                top: -70px;
+                font-size: 0.75rem;
+                max-width: 200px;
+                white-space: normal;
+                text-align: center;
             }
         }
     </style>
@@ -329,8 +526,8 @@
 
     <section class="documents-hero">
         <div class="container">
-            <h1>Documents & Resources</h1>
-            <p>Here you can find my academic papers, technical documents, presentations, and related materials. Feel free to download and share!</p>
+            <h1>Document Resources</h1>
+            <p>Here you'll find my academic papers, technical documents, presentations and related materials. Feel free to preview and explore!</p>
         </div>
     </section>
 
@@ -341,7 +538,6 @@
                 <button class="filter-btn" data-category="resume">Resume</button>
                 <button class="filter-btn" data-category="academic">Academic Papers</button>
                 <button class="filter-btn" data-category="presentations">Presentations</button>
-                <button class="filter-btn" data-category="blog">Blog Articles</button>
             </div>
             
             <div class="search-box">
@@ -350,8 +546,8 @@
             </div>
         </div>
         
-        <div class="documents-grid" id="documentsGrid">
-            <!-- Content will be dynamically loaded via JavaScript -->
+        <div class="documents-grid" id="documentsGrid" style="display: none;">
+            <!-- Document content will be loaded dynamically -->
         </div>
     </section>
 
@@ -375,7 +571,7 @@
 
     <script src="../js/script.js"></script>
     <script>
-        // Documents Management System (English version)
+        // Document management system
         class DocumentsManager {
             constructor() {
                 this.documents = [];
@@ -389,13 +585,82 @@
                     await this.loadDocuments();
                     this.setupEventListeners();
                     this.renderDocuments();
+                    this.handleAnchorNavigation();
+                    
+                    document.getElementById('documentsGrid').style.display = 'block';
                 } catch (error) {
                     console.error('Failed to load documents:', error);
-                    this.showError('Failed to load documents. Please refresh the page and try again.');
+                    this.showError('Failed to load documents. Please refresh the page.');
                 }
             }
             
+            handleAnchorNavigation() {
+                const hash = window.location.hash.slice(1);
+                if (hash) {
+                    this.highlightDocument(hash);
+                }
+                
+                window.addEventListener('hashchange', () => {
+                    const newHash = window.location.hash.slice(1);
+                    if (newHash) {
+                        this.highlightDocument(newHash);
+                    }
+                });
+            }
+            
+            highlightDocument(documentId) {
+                setTimeout(() => {
+                    const targetDoc = this.documents.find(doc => doc.id === documentId);
+                    if (targetDoc) {
+                        this.currentFilter = targetDoc.category;
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.dataset.category === targetDoc.category) {
+                                btn.classList.add('active');
+                            }
+                        });
+                        
+                        this.renderDocuments();
+                        
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(`[data-id="${documentId}"]`);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                targetElement.style.background = 'linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1))';
+                                targetElement.style.border = '2px solid #4F46E5';
+                                targetElement.style.borderRadius = '10px';
+                                
+                                setTimeout(() => {
+                                    targetElement.style.background = '';
+                                    targetElement.style.border = '';
+                                }, 3000);
+                            }
+                        }, 100);
+                    }
+                }, 100);
+            }
+            
             async loadDocuments() {
+                try {
+                    // Try to load blog data first
+                    const postsResponse = await fetch('../../posts/posts.json');
+                    if (postsResponse.ok) {
+                        const postsData = await postsResponse.json();
+                        this.documents = postsData.map(post => ({
+                            ...post,
+                            downloadUrl: post.url || post.fileName,
+                            filename: post.fileName
+                        }));
+                        this.categories = {
+                            'blog': { title: 'Blog Posts', description: 'Technical articles and insights' }
+                        };
+                        return;
+                    }
+                } catch (postsError) {
+                    console.log('Blog data not found, loading from documents...');
+                }
+                
+                // If blog data doesn't exist, load from documents data
                 const response = await fetch('../../public/documents/documents.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -416,7 +681,7 @@
                     });
                 });
                 
-                // Search input
+                // Search box
                 const searchInput = document.getElementById('searchInput');
                 searchInput.addEventListener('input', (e) => {
                     this.renderDocuments(e.target.value);
@@ -435,9 +700,9 @@
                 if (searchTerm) {
                     const term = searchTerm.toLowerCase();
                     filtered = filtered.filter(doc => 
-                        (doc.titleEn || doc.title).toLowerCase().includes(term) ||
-                        (doc.descriptionEn || doc.description).toLowerCase().includes(term) ||
-                        (doc.tagsEn || doc.tags).some(tag => tag.toLowerCase().includes(term))
+                        doc.title.toLowerCase().includes(term) ||
+                        doc.description.toLowerCase().includes(term) ||
+                        doc.tags.some(tag => tag.toLowerCase().includes(term))
                     );
                 }
                 
@@ -451,13 +716,16 @@
                 if (filtered.length === 0) {
                     grid.innerHTML = `
                         <div class="empty-category">
-                            <p>No documents match the current criteria</p>
+                            <p>No documents found matching your criteria</p>
                         </div>
                     `;
                     return;
                 }
                 
-                // Group documents by category
+                // Use DocumentFragment to optimize DOM operations
+                const fragment = document.createDocumentFragment();
+                
+                // Organize documents by category
                 const grouped = {};
                 filtered.forEach(doc => {
                     if (!grouped[doc.category]) {
@@ -466,22 +734,29 @@
                     grouped[doc.category].push(doc);
                 });
                 
-                let html = '';
                 Object.entries(grouped).forEach(([category, docs]) => {
-                    const categoryInfo = this.categories[category] || { titleEn: category };
-                    html += `
-                        <div class="category-section">
-                            <div class="category-header">
-                                <span class="category-icon">${this.getCategoryIcon(category)}</span>
-                                <h2 class="category-title">${categoryInfo.titleEn}</h2>
-                            </div>
-                            <p class="category-description">${categoryInfo.descriptionEn || ''}</p>
-                            ${docs.map(doc => this.renderDocument(doc)).join('')}
+                    const categoryInfo = this.categories[category] || { title: category };
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category-section';
+                    categoryDiv.innerHTML = `
+                        <div class="category-header">
+                            <span class="category-icon">${this.getCategoryIcon(category)}</span>
+                            <h2 class="category-title">${categoryInfo.title}</h2>
                         </div>
+                        <p class="category-description">${categoryInfo.description || ''}</p>
+                        ${docs.map(doc => this.renderDocument(doc)).join('')}
                     `;
+                    fragment.appendChild(categoryDiv);
                 });
                 
-                grid.innerHTML = html;
+                // Update DOM once
+                grid.innerHTML = '';
+                grid.appendChild(fragment);
+                
+                // Add fade-in animation
+                requestAnimationFrame(() => {
+                    grid.style.opacity = '1';
+                });
             }
             
             getCategoryIcon(category) {
@@ -495,27 +770,53 @@
             }
             
             renderDocument(doc) {
-                const title = doc.titleEn || doc.title;
-                const description = doc.descriptionEn || doc.description;
-                const tags = doc.tagsEn || doc.tags;
+                // Get view statistics
+                const viewStats = this.getViewStats(doc.id, doc.filename);
+                const viewCount = viewStats?.count || 0;
+                const hasBeenViewed = viewCount > 0;
                 
                 return `
-                    <div class="document-item" data-category="${doc.category}">
-                        <h3 class="document-title">${title}</h3>
+                    <div class="document-item" data-category="${doc.category}" data-id="${doc.id}">
+                        <h3 class="document-title">
+                            ${doc.title}
+                            ${hasBeenViewed ? '<span class="viewed-indicator" title="Already viewed">👁️</span>' : ''}
+                        </h3>
                         <div class="document-meta">
                             <span class="document-date">${doc.date}</span>
                             <span class="document-size">${doc.fileSize}</span>
+                            ${viewCount > 0 ? `<span class="view-count" title="View count">📈 ${viewCount}</span>` : ''}
                         </div>
-                        <p class="document-description">${description}</p>
+                        <p class="document-description">${doc.description}</p>
                         <div class="document-tags">
-                            ${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            ${doc.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <div class="document-actions">
-                            <a href="../../${doc.downloadUrl}" class="btn-download" download>Download</a>
-                            ${doc.previewUrl ? `<a href="${doc.previewUrl}" class="btn-preview" target="_blank">Preview</a>` : ''}
+                            <button class="btn-preview-doc ${hasBeenViewed ? 'viewed' : ''}" 
+                                    onclick="previewDocument('${doc.id}', '${doc.downloadUrl}', '${doc.filename}', '${doc.title}')"
+                                    title="Preview document in new window">
+                                ${hasBeenViewed ? 'View Again' : 'Preview Document'}
+                                <div class="file-info-tooltip">
+                                    ${doc.filename} (${doc.fileSize})
+                                    ${viewCount > 0 ? `<br>Viewed ${viewCount} times` : ''}
+                                    <br><small>Click to open in new window</small>
+                                </div>
+                            </button>
+                            ${doc.category === 'blog' && doc.filename.endsWith('.md') ? 
+                                `<button class="btn-preview btn-markdown" onclick="previewMarkdown('${doc.id}', '${doc.title}', '../../${doc.downloadUrl}')">Read Online</button>` : ''}
                         </div>
                     </div>
                 `;
+            }
+            
+            // Get view statistics
+            getViewStats(docId, filename) {
+                try {
+                    const views = JSON.parse(localStorage.getItem('view_stats') || '{}');
+                    const key = `${docId}_${filename}`;
+                    return views[key];
+                } catch (e) {
+                    return null;
+                }
             }
             
             showError(message) {
@@ -530,8 +831,173 @@
         
         // Initialize document manager
         document.addEventListener('DOMContentLoaded', () => {
-            new DocumentsManager();
+            window.documentsManager = new DocumentsManager();
         });
+        
+        // Document preview function - open documents in new window
+        function previewDocument(docId, downloadUrl, filename, title) {
+            const btn = event.target.closest('.btn-preview-doc');
+            const originalText = btn.textContent.trim();
+            
+            // Build correct document URL
+            let actualUrl;
+            
+            if (downloadUrl.startsWith('http')) {
+                actualUrl = downloadUrl;
+            } else if (downloadUrl.startsWith('/')) {
+                actualUrl = downloadUrl;
+            } else {
+                actualUrl = '../../' + downloadUrl;
+            }
+            
+            console.log('Preview document:', title);
+            console.log('Document URL:', actualUrl);
+            
+            try {
+                // Set loading state
+                btn.classList.add('loading');
+                btn.querySelector('.file-info-tooltip').style.display = 'none';
+                
+                // Open document in new window
+                const newWindow = window.open(actualUrl, '_blank');
+                
+                if (newWindow) {
+                    // Successfully opened
+                    btn.classList.remove('loading');
+                    btn.classList.add('opened');
+                    
+                    // Record view statistics
+                    recordView(docId, filename);
+                    
+                    // Show success notification
+                    showToast(`Opening "${title}" in new window`, 'success');
+                    
+                    // Restore state after 2 seconds
+                    setTimeout(() => {
+                        btn.classList.remove('opened');
+                        btn.classList.add('viewed');
+                        btn.querySelector('.file-info-tooltip').style.display = 'block';
+                        
+                        // Update button text
+                        const btnTextNode = btn.childNodes[0];
+                        if (btnTextNode && btnTextNode.nodeType === Node.TEXT_NODE) {
+                            btnTextNode.textContent = 'View Again';
+                        }
+                    }, 2000);
+                    
+                } else {
+                    // Popup blocked
+                    throw new Error('Popup blocked by browser');
+                }
+                
+            } catch (error) {
+                console.error('Preview failed:', error);
+                
+                // Show error state
+                btn.classList.remove('loading');
+                btn.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+                btn.innerHTML = '<span style="margin-right: 0.5rem;">❌</span>Preview Failed';
+                
+                // Show error notification
+                if (error.message.includes('Popup')) {
+                    showToast('Please allow browser popups, then try again', 'error');
+                } else {
+                    showToast('Preview failed, please check if file exists', 'error');
+                }
+                
+                // Restore original state after 3 seconds
+                setTimeout(() => {
+                    btn.style.background = '';
+                    const isViewed = btn.classList.contains('viewed');
+                    btn.innerHTML = (isViewed ? 'View Again' : originalText) + '<div class="file-info-tooltip">' + filename + ' (' + title + ')</div>';
+                    btn.querySelector('.file-info-tooltip').style.display = 'block';
+                }, 3000);
+            }
+        }
+        
+        // Record view statistics
+        function recordView(docId, filename) {
+            try {
+                const views = JSON.parse(localStorage.getItem('view_stats') || '{}');
+                const key = `${docId}_${filename}`;
+                views[key] = {
+                    count: (views[key]?.count || 0) + 1,
+                    lastView: Date.now(),
+                    filename: filename
+                };
+                localStorage.setItem('view_stats', JSON.stringify(views));
+            } catch (e) {
+                // Ignore statistics errors
+            }
+        }
+        
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            // Check if mobile device
+            const isMobile = window.innerWidth <= 768;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <span class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                    <span class="toast-message">${message}</span>
+                </div>
+            `;
+            
+            // Add styles
+            Object.assign(toast.style, {
+                position: 'fixed',
+                top: isMobile ? '20px' : '20px',
+                right: isMobile ? '10px' : '20px',
+                left: isMobile ? '10px' : 'auto',
+                background: type === 'success' ? 'linear-gradient(135deg, #28a745, #20c997)' : 
+                           type === 'error' ? 'linear-gradient(135deg, #dc3545, #c82333)' :
+                           'linear-gradient(135deg, #17a2b8, #138496)',
+                color: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                zIndex: '10000',
+                fontSize: '0.9rem',
+                fontWeight: '500',
+                minWidth: isMobile ? 'auto' : '300px',
+                width: isMobile ? 'auto' : 'auto',
+                transform: isMobile ? 'translateY(-100px)' : 'translateX(400px)',
+                transition: 'transform 0.3s ease',
+                backdropFilter: 'blur(10px)'
+            });
+            
+            document.body.appendChild(toast);
+            
+            // Show animation
+            setTimeout(() => {
+                toast.style.transform = isMobile ? 'translateY(0)' : 'translateX(0)';
+                if (isMobile) toast.classList.add('show');
+            }, 100);
+            
+            // Auto dismiss
+            setTimeout(() => {
+                toast.style.transform = isMobile ? 'translateY(-100px)' : 'translateX(400px)';
+                if (isMobile) toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 4000);
+            
+            // Click to close
+            toast.addEventListener('click', () => {
+                toast.style.transform = isMobile ? 'translateY(-100px)' : 'translateX(400px)';
+                if (isMobile) toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            });
+        }
     </script>
 </body>
 </html>
