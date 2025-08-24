@@ -60,6 +60,64 @@
     --spacing-2xl: 3rem;
 }
 
+/* ============================================
+   DARK MODE THEME
+   ============================================ */
+
+[data-theme="dark"] {
+    /* 文本颜色 - 深色模式 */
+    --text-dark: #F9FAFB;
+    --text-medium: #E5E7EB;
+    --text-light: #D1D5DB;
+    --text-lighter: #9CA3AF;
+    
+    /* 背景颜色 - 深色模式 */
+    --bg-white: #1F2937;
+    --bg-light: #374151;
+    --bg-lighter: #4B5563;
+    --bg-gradient-light: linear-gradient(135deg, var(--bg-light) 0%, #4B5563 100%);
+    
+    /* 边框和阴影 - 深色模式 */
+    --border-color: #4B5563;
+    --border-light: #6B7280;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================
+   DARK MODE SPECIFIC ADJUSTMENTS
+   ============================================ */
+
+[data-theme="dark"] .hero {
+    background: linear-gradient(
+        135deg, 
+        #1F2937 0%, 
+        #374151 50%,
+        #4B5563 100%
+    );
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(31, 41, 55, 0.95);
+}
+
+[data-theme="dark"] .avatar {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    background: var(--bg-lighter);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .modal-content {
+    background: var(--bg-white);
+}
+
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
@@ -1886,6 +1944,60 @@ html {
 }
 
 /* ============================================
+   THEME TOGGLE STYLES
+   ============================================ */
+
+.theme-toggle {
+    position: relative;
+    width: 60px;
+    height: 32px;
+    background: var(--border-color);
+    border-radius: 16px;
+    margin-left: var(--spacing-md);
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--ease-in-out);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.theme-toggle-slider {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--bg-white);
+    border-radius: 50%;
+    transition: all var(--transition-normal) var(--ease-in-out);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    box-shadow: var(--shadow-sm);
+    left: 2px;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .theme-toggle-slider {
+    transform: translateX(28px);
+    background: var(--bg-white);
+}
+
+.theme-toggle-icon {
+    transition: all var(--transition-normal) var(--ease-in-out);
+}
+
+/* ============================================
    LANGUAGE SWITCHER STYLES
    ============================================ */
 
@@ -1964,6 +2076,12 @@ html {
         width: 200px;
         margin: 0 !important;
         margin-bottom: 0.5rem !important;
+    }
+    
+    .theme-toggle {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        order: -2;
     }
     
     .language-switcher {

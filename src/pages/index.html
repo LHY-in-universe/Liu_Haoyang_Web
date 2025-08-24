@@ -3,11 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘浩洋 - 个人网站</title>
+    <title>刘浩洋 - 个人网站 | 技术开发者与学者</title>
+    <meta name="description" content="刘浩洋个人网站 - 专注于前端开发、用户体验设计和学术研究。分享技术文章、学术论文和项目作品。">
+    <meta name="keywords" content="刘浩洋, 前端开发, 用户体验, 学术研究, 个人博客, 技术分享">
+    <meta name="author" content="刘浩洋">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://liuhaoyang.me/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://liuhaoyang.me/">
+    <meta property="og:title" content="刘浩洋 - 个人网站 | 技术开发者与学者">
+    <meta property="og:description" content="刘浩洋个人网站 - 专注于前端开发、用户体验设计和学术研究">
+    <meta property="og:image" content="https://liuhaoyang.me/public/images/common/avatars/avatar.jpg">
+    <meta property="og:site_name" content="刘浩洋个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://liuhaoyang.me/">
+    <meta property="twitter:title" content="刘浩洋 - 个人网站 | 技术开发者与学者">
+    <meta property="twitter:description" content="刘浩洋个人网站 - 专注于前端开发、用户体验设计和学术研究">
+    <meta property="twitter:image" content="https://liuhaoyang.me/public/images/common/avatars/avatar.jpg">
+    
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon and icons -->
+    <link rel="icon" type="image/svg+xml" href="../../public/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="../../public/favicon/apple-touch-icon.svg">
+    <meta name="theme-color" content="#4F46E5">
 </head>
 <body>
     <nav class="navbar">
@@ -29,6 +56,11 @@
                     <a href="resume.html" class="nav-link">简历</a>
                 </li>
             </ul>
+            <div class="theme-toggle" id="themeToggle" title="切换主题">
+                <div class="theme-toggle-slider">
+                    <span class="theme-toggle-icon">🌙</span>
+                </div>
+            </div>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
                 <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
@@ -222,5 +254,82 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+        // ============================================
+        // THEME TOGGLE FUNCTIONALITY
+        // ============================================
+        
+        class ThemeManager {
+            constructor() {
+                this.theme = localStorage.getItem('theme') || 'light';
+                this.themeToggle = document.getElementById('themeToggle');
+                this.themeIcon = document.querySelector('.theme-toggle-icon');
+                
+                this.init();
+            }
+            
+            init() {
+                // 设置初始主题
+                this.setTheme(this.theme);
+                
+                // 绑定点击事件
+                this.themeToggle.addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+                
+                // 监听系统主题变化
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+            
+            setTheme(theme) {
+                this.theme = theme;
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // 更新图标
+                if (theme === 'dark') {
+                    this.themeIcon.textContent = '☀️';
+                    this.themeToggle.setAttribute('title', '切换到浅色主题');
+                } else {
+                    this.themeIcon.textContent = '🌙';
+                    this.themeToggle.setAttribute('title', '切换到深色主题');
+                }
+                
+                // 触发自定义事件
+                window.dispatchEvent(new CustomEvent('themeChanged', { 
+                    detail: { theme } 
+                }));
+            }
+            
+            toggleTheme() {
+                const newTheme = this.theme === 'light' ? 'dark' : 'light';
+                this.setTheme(newTheme);
+                
+                // 添加切换动画效果
+                this.themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            }
+            
+            getTheme() {
+                return this.theme;
+            }
+        }
+        
+        // 初始化主题管理器
+        let themeManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            themeManager = new ThemeManager();
+        });
+        
+        // 导出全局函数供其他脚本使用
+        window.getTheme = () => themeManager?.getTheme() || 'light';
+        window.setTheme = (theme) => themeManager?.setTheme(theme);
+    </script>
 </body>
 </html>

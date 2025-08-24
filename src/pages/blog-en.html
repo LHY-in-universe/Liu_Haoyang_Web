@@ -186,6 +186,11 @@
                     <a href="resume-en.html" class="nav-link">Resume</a>
                 </li>
             </ul>
+            <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <div class="theme-toggle-slider">
+                    <span class="theme-toggle-icon">🌙</span>
+                </div>
+            </div>
             <div class="language-switcher">
                 <button class="lang-btn" data-lang="zh" title="切换到中文">中</button>
                 <button class="lang-btn active" data-lang="en" title="Switch to English">EN</button>
@@ -370,6 +375,83 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+        // ============================================
+        // THEME TOGGLE FUNCTIONALITY (English Version)
+        // ============================================
+        
+        class ThemeManager {
+            constructor() {
+                this.theme = localStorage.getItem('theme') || 'light';
+                this.themeToggle = document.getElementById('themeToggle');
+                this.themeIcon = document.querySelector('.theme-toggle-icon');
+                
+                this.init();
+            }
+            
+            init() {
+                // Set initial theme
+                this.setTheme(this.theme);
+                
+                // Bind click event
+                this.themeToggle.addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+                
+                // Listen to system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+            
+            setTheme(theme) {
+                this.theme = theme;
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // Update icon
+                if (theme === 'dark') {
+                    this.themeIcon.textContent = '☀️';
+                    this.themeToggle.setAttribute('title', 'Switch to light theme');
+                } else {
+                    this.themeIcon.textContent = '🌙';
+                    this.themeToggle.setAttribute('title', 'Switch to dark theme');
+                }
+                
+                // Trigger custom event
+                window.dispatchEvent(new CustomEvent('themeChanged', { 
+                    detail: { theme } 
+                }));
+            }
+            
+            toggleTheme() {
+                const newTheme = this.theme === 'light' ? 'dark' : 'light';
+                this.setTheme(newTheme);
+                
+                // Add toggle animation effect
+                this.themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            }
+            
+            getTheme() {
+                return this.theme;
+            }
+        }
+        
+        // Initialize theme manager
+        let themeManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            themeManager = new ThemeManager();
+        });
+        
+        // Export global functions for other scripts
+        window.getTheme = () => themeManager?.getTheme() || 'light';
+        window.setTheme = (theme) => themeManager?.setTheme(theme);
+    </script>
     <script>
         // Progressive Blog Management System (English Version)
         class BlogManager {

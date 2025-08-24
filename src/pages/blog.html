@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon and icons -->
+    <link rel="icon" type="image/svg+xml" href="../../public/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="../../public/favicon/apple-touch-icon.svg">
+    <meta name="theme-color" content="#4F46E5">
+    
     <!-- 资源将在需要时动态加载 -->
     <style>
         .blog-info-card {
@@ -550,6 +556,11 @@
                     <a href="resume.html" class="nav-link">简历</a>
                 </li>
             </ul>
+            <div class="theme-toggle" id="themeToggle" title="切换主题">
+                <div class="theme-toggle-slider">
+                    <span class="theme-toggle-icon">🌙</span>
+                </div>
+            </div>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="zh" title="切换到中文">中</button>
                 <button class="lang-btn" data-lang="en" title="Switch to English">EN</button>
@@ -861,6 +872,83 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+        // ============================================
+        // THEME TOGGLE FUNCTIONALITY
+        // ============================================
+        
+        class ThemeManager {
+            constructor() {
+                this.theme = localStorage.getItem('theme') || 'light';
+                this.themeToggle = document.getElementById('themeToggle');
+                this.themeIcon = document.querySelector('.theme-toggle-icon');
+                
+                this.init();
+            }
+            
+            init() {
+                // 设置初始主题
+                this.setTheme(this.theme);
+                
+                // 绑定点击事件
+                this.themeToggle.addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+                
+                // 监听系统主题变化
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+            
+            setTheme(theme) {
+                this.theme = theme;
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // 更新图标
+                if (theme === 'dark') {
+                    this.themeIcon.textContent = '☀️';
+                    this.themeToggle.setAttribute('title', '切换到浅色主题');
+                } else {
+                    this.themeIcon.textContent = '🌙';
+                    this.themeToggle.setAttribute('title', '切换到深色主题');
+                }
+                
+                // 触发自定义事件
+                window.dispatchEvent(new CustomEvent('themeChanged', { 
+                    detail: { theme } 
+                }));
+            }
+            
+            toggleTheme() {
+                const newTheme = this.theme === 'light' ? 'dark' : 'light';
+                this.setTheme(newTheme);
+                
+                // 添加切换动画效果
+                this.themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            }
+            
+            getTheme() {
+                return this.theme;
+            }
+        }
+        
+        // 初始化主题管理器
+        let themeManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            themeManager = new ThemeManager();
+        });
+        
+        // 导出全局函数供其他脚本使用
+        window.getTheme = () => themeManager?.getTheme() || 'light';
+        window.setTheme = (theme) => themeManager?.setTheme(theme);
+    </script>
     <script>
         // 渐进式博客管理系统
         class BlogManager {
