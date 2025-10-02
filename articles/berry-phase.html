@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berry Phase - 刘浩洋的博客</title>
+    <link rel="stylesheet" href="../src/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../src/pages/blog.html">博客</a>
+                <a href="../src/pages/documents.html">文档</a>
+                <a href="../src/pages/resume.html">简历</a>
+                <a href="../src/pages/index-en.html">English</a>
+            </nav>
+        </header>
+        
+        <main>
+            <article>
+                <header>
+                    <h1>Berry Phase</h1>
+                    <div class="meta">
+                        <time datetime="2024年 12月 19">2024年 12月 19</time>
+                        <span class="category">{{category}}</span>
+                    </div>
+                </header>
+                
+                <div class="content">
+                    <h1>Topological Insulators and Topological Superconductors: Chapter 2</h1>
+<h2>General Formals</h2>
+<p>Consider a physical system with a general time-varying Hamiltonian $H(\mathbf{R})$ that depends on time through several parameters labeled by a vector $\mathbf{R} = (R_1, R_2, R_3, \ldots)$ where $R_i = R_i(t)$.</p>
+<p>$H(\mathbf{R})|n(\mathbf{R})\rangle = E_n(\mathbf{R})|n(\mathbf{R})\rangle$<br>This equation determines the basis function $|n(\mathbf{R})\rangle$ up to a phase, but we do not know what the phase factor is. Let the phase be $\theta(t)$ for state $|\Psi(t)\rangle = e^{-i\theta(t)}|n(\mathbf{R})\rangle$. The time evolution of the system is given by</p>
+<p>$H(\mathbf{R}(t))|\Psi(t)\rangle = i\hbar \frac{d}{dt}|\Psi(t)\rangle$<br>Then this translates into the differential equation</p>
+<p>$E_n(\mathbf{R}(t))|n(\mathbf{R}(t))\rangle = \hbar \frac{d\theta(t)}{dt}|n(\mathbf{R}(t))\rangle + i\hbar \frac{d}{dt}|n(\mathbf{R}(t))\rangle$<br>Taking the scalar product with $\langle n(\mathbf{R}(t))|$ and assuming the state is normalized $\langle n(\mathbf{R}(t))|n(\mathbf{R}(t))\rangle = 1$, we get</p>
+<p>$E_n(\mathbf{R}(t)) - i\hbar\langle n(\mathbf{R}(t))|\frac{d}{dt}|n(\mathbf{R}(t))\rangle = \hbar\frac{d\theta(t)}{dt}$<br>Then the solution for the phase $\theta(t)$ is</p>
+<p>$\theta(t) = \frac{1}{\hbar}\int_0^t E_n(\mathbf{R}(t&#39;))dt&#39; - i\int_0^t \langle n(\mathbf{R}(t&#39;))|\frac{d}{dt&#39;}|n(\mathbf{R}(t&#39;))\rangle dt&#39;$<br>The first part of the phase is <strong>the conventional dynamical phase</strong>. The negative of the second part is called <strong>the Berry phase</strong>. If we write</p>
+<p>$|\Psi(t)\rangle = \exp\left(\frac{1}{\hbar}\int_0^t E_n(\mathbf{R}(t&#39;))dt&#39;\right) \cdot \exp(i\gamma_n)|n(\mathbf{R}(t))\rangle$<br>With the Berry phase $\gamma_n$</p>
+<p>$\gamma_n = i\int_0^t \langle n(\mathbf{R}(t&#39;))|\frac{d}{dt&#39;}|n(\mathbf{R}(t&#39;))\rangle dt&#39;$<br>The Berry phase comes from the fact that the states at $t$ and $t + dt$ are not identical. Time can be removed explicitly from the equation, the only thing needed being the dependence of the eigenstates on the parameters $R_i$, which are implicitly time dependent.</p>
+<p>$\gamma_n = i\int_0^{t_{\text{end-cycle}}} \langle n(\mathbf{R}(t&#39;))|\nabla_{\mathbf{R}} |n(\mathbf{R}(t&#39;))\rangle \frac{d\mathbf{R}}{dt&#39;}dt&#39; = i\int_C \langle n(\mathbf{R})|\nabla_{\mathbf{R}} |n(\mathbf{R})\rangle d\mathbf{R}$<br>By analogy with electron transport in an electromagnetic field, in the last equation we can now define a vector function called <strong>Berry connection</strong>, or <strong>Berry vector potential</strong>:</p>
+<p>$\mathbf{A}_n(\mathbf{R}) = i \langle n(\mathbf{R})|\frac{\partial}{\partial \mathbf{R}} |n(\mathbf{R})\rangle, \quad \gamma_n = \int_C d\mathbf{R} \cdot \mathbf{A}_n(\mathbf{R})$<br>The Berry vector potential $A_n(\mathbf{R})$ is gauge dependent. Under a gauge transformation $|n(\mathbf{R})\rangle \rightarrow e^{i \zeta(\mathbf{R})}|n(\mathbf{R})\rangle$, with $\zeta(\mathbf{R})$ a smooth, single-valued function, the Berry potential transforms in the usual way:</p>
+<p>$\mathbf{A}_n(\mathbf{R}) \rightarrow \mathbf{A}<em>n(\mathbf{R}) - \frac{\partial}{\partial \mathbf{R}}\zeta(\mathbf{R})$<br>As such, the Berry phase $\gamma_n$ will be changed by $-\int_C \frac{\partial}{\partial \mathbf{R}}\zeta(\mathbf{R}) \cdot d\mathbf{R} = \zeta(\mathbf{R}(0)) - \zeta(\mathbf{R}(T))$ where $T$ is the long time after which the path $C$ is completed. For a closed path, the Berry phase is a gauge-invariant quantity independent of the specific form of how $\mathbf{R}$ varies in time. Because $C$ is a closed path, application of Stokes theorem gives:<br>$\gamma_n = -\text{Im} \int_C \langle n(\mathbf{R})|\nabla</em>{\mathbf{R}}|n(\mathbf{R})\rangle \cdot d\mathbf{R}$</p>
+<p>Using Stokes theorem:</p>
+<p>$\gamma_n = -\text{Im} \int_S d\mathbf{S} \cdot (\nabla \times \langle n(\mathbf{R})|\nabla|n(\mathbf{R})\rangle)$</p>
+<p>$= -\text{Im} \int_S d\mathbf{S} \cdot \langle \nabla n(\mathbf{R})| \times |\nabla n(\mathbf{R})\rangle$<br>Where $\langle \nabla n(\mathbf{R})| \times |\nabla n(\mathbf{R})\rangle$ is the <strong>Berry curvature</strong>.</p>
+<h2>Gauge-Independent Computation of the Berry Phase</h2>
+<p>At each $\mathbf{R}$, we introduce a complete set of eigenstates $\sum_m |m\rangle\langle m| = 1$<br>$<br>\begin{align}<br>\begin{gathered}\varepsilon_{ijk} \langle \nabla_{j} n\left( \mathbf{R} \right) |\nabla_{k} |n\left( \mathbf{R} \right) \rangle\ =\varepsilon_{ijk} \langle \nabla_{j} n\left( \mathbf{R} \right) |n\rangle \langle n|\nabla_{k} n\left( \mathbf{R} \right) \rangle +\sum_{m\neq n} \varepsilon_{ijk} \langle \nabla_{j} n\left( \mathbf{R} \right) |m\rangle \langle m|\nabla_{k} n\left( \mathbf{R} \right) \rangle\end{gathered}<br>\end{align}<br>$<br>At first term, two parts are imaginary, so their product is real, then they have no contribution to the imaginary value that is used to compute the Berry phase. Hence, we get:<br>$<br>\begin{align}<br>\gamma_{n} =-\Im \int_{S} dS_{i}\sum_{m\neq n} \varepsilon_{ijk} \langle \nabla_{j} n\left( \mathbf{R} \right) |m\rangle \langle m|\nabla_{k} n\left( \mathbf{R} \right) \rangle<br>\end{align}<br>$<br>We massage this equation further to remove the derivatives on the eigenstates:<br>$<br>\begin{align}<br>E_{n}\langle m|\nabla n\rangle =\langle m\nabla \left( Hn \right) \rangle =\langle m|\left( \nabla H \right) n\rangle +E_{m}\langle m|\nabla n\rangle<br>\end{align}<br>$<br>Then we use $\langle m|n\rangle=\delta_{mn}$ , get:<br>$<br>\begin{align}<br>\langle m|\nabla n\rangle =\frac{\langle m|\left( \nabla H \right) n\rangle }{E_n-E_m}<br>\end{align}<br>$<br>Finally we could get a gauge independent experssion.<br>$<br>\begin{align}<br>\begin{gathered}\gamma_{n} =-\int_{S} d\mathbf{S} \cdot \mathbf{V}<em>{n}\ =-\int</em>{S} d\mathbf{S} \cdot \Im \sum_{m\neq n} \frac{\langle n\left( \mathbf{R} \right) |\left( \nabla_{\mathbf{R}} H\left( \mathbf{R} \right) \right) |m(\mathbf{R} )\rangle \times \langle m\left( \mathbf{R} \right) |(\nabla_{\mathbf{R}} H(\mathbf{R} ))|n\left( \mathbf{R} \right) \rangle}{\left( E_{m}\left( \mathbf{R} \right) -E_{n}\left( \mathbf{R} \right) \right)^{2}}\end{gathered}<br>\end{align}<br>$<br>This equation shows that the Berry curvature can be thought of as the result of the interaction with the level $|n\rangle$ of the other levels $ |m\rangle $ that have been projected out by the adiabatic interaction. </p>
+<h2>Degeneracies and Level Crossing</h2>
+<p>One of the most important applications of the Berry phase is the classification of degeneracies. </p>
+<p>Consider two states $\pm$, of energies $E_-(\textbf{R}) \leqslant E_+(\textbf{R})$ with a degeneracy $E_-(\textbf{R}^*) = E_+(\textbf{R}^*)$. For $\textbf{R}$ close to the degeneracy point $\textbf{R}^*$, the Hamiltonian can be expanded in $\textbf{R}-\textbf{R}^*$ as $H(\textbf{R})=H(\textbf{R}^*)+(\textbf{R}-\textbf{R}^*)\cdot \nabla H(\textbf{R}^*)$, thereby giving the following for the Berry curvature:<br>$<br>\begin{align}<br>\mathbf{V}<em>{+} (\mathbf{R} )=\Im \frac{\langle +\left( \mathbf{R} \right) |\left( \nabla H\left( \mathbf{R}^{\ast} \right) \right) |-\left( \mathbf{R} \right) \rangle \times \langle -\left( \mathbf{R} \right) |\left( \nabla H\left( \mathbf{R}^{\ast} \right) \right) |+\left( \mathbf{R} \right) \rangle}{\left( E</em>{+}\left( \mathbf{R} \right) -E_{-}\left( \mathbf{R} \right) \right)^{2}}<br>\end{align}<br>$<br> Because of the cross product, $\mathbf{V}<em>{-} \left( \mathbf{R} \right) =-\mathbf{V}</em>{+} \left( \mathbf{R} \right)$, and hence $\gamma_{-} \left( C \right) =-\gamma_{+} \left( C \right)$.</p>
+<p>The generic form of the Hamiltonian of any two level system is:<br>$<br>\begin{align}<br>H=\varepsilon \left( \mathbf{R} \right) I_{2\times 2}+\mathbf{d} \left( \mathbf{R} \right) \cdot \sigma<br>\end{align}<br>$<br>Where $\sigma^i$ are the Pauli matrices and $\textbf{d}$ is a 3-D vector that depends on the coordinates $\textbf{R}$. </p>
+
+                </div>
+                
+                <footer>
+                    <a href="../src/pages/blog.html" class="back-link">← 返回博客列表</a>
+                </footer>
+            </article>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 刘浩洋. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- Main Pages (Chinese) -->
+    <url>
+        <loc>https://liuhaoyang.me/</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/index-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/index.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/blog.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/blog-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/blog.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/documents.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/documents-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/documents.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/resume.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/resume-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/resume.html"/>
+    </url>
+    
+    <!-- English Pages -->
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/index-en.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/index-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/index.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/blog-en.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/blog-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/blog.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/documents-en.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/documents-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/documents.html"/>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/resume-en.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://liuhaoyang.me/src/pages/resume-en.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://liuhaoyang.me/src/pages/resume.html"/>
+    </url>
+    
+    <!-- Special Pages -->
+    <url>
+        <loc>https://liuhaoyang.me/src/pages/zhang-haoyan.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Articles -->
+    <url>
+        <loc>https://liuhaoyang.me/articles/optically-detected-magnetic-resonance.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://liuhaoyang.me/articles/berry-phase.html</loc>
+        <lastmod>2024-12-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+</urlset>

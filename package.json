@@ -1,57 +1,21 @@
 {
-  "name": "liu-haoyang-blog",
-  "version": "1.0.0",
-  "description": "刘浩洋的个人博客网站 - 自动化Markdown到HTML转换系统",
-  "main": "tools/build-blog.js",
+  "name": "vue-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "node tools/build-blog.js build",
-    "new": "node tools/build-blog.js new",
-    "dev": "node tools/build-blog.js build && python -m http.server 8000",
-    "serve": "python -m http.server 8000",
-    "watch": "nodemon --watch posts --ext md --exec \"npm run build\"",
-    "clean": "rm -rf articles/*.html && echo '清理完成'",
-    "help": "node tools/build-blog.js help",
-    "image-scan": "node tools/image-manager.js scan",
-    "image-check": "node tools/image-manager.js check",
-    "image-cleanup": "node tools/image-manager.js cleanup",
-    "image-create": "node tools/image-manager.js create",
-    "image-move": "node tools/image-manager.js move",
-    "image-help": "node tools/image-manager.js help",
-    "image-optimize": "node tools/image-manager.js optimize",
-    "image-structure": "node tools/image-manager.js structure",
-    "doc-add": "node tools/document-manager.js add",
-    "doc-list": "node tools/document-manager.js list",
-    "doc-remove": "node tools/document-manager.js remove",
-    "doc-help": "node tools/document-manager.js help"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "blog",
-    "markdown",
-    "html",
-    "static-site",
-    "github-pages"
-  ],
-  "author": "刘浩洋 <liuhaoyang@example.com>",
-  "license": "MIT",
   "dependencies": {
-    "marked": "^9.1.6",
-    "sharp": "^0.32.6"
+    "marked": "^16.3.0",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.21",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
-  "optionalDependencies": {
-    "sharp": "^0.32.6"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LHY-in-universe/Liu_Haoyang_Web.git"
-  },
-  "homepage": "https://lhy-in-universe.github.io/Liu_Haoyang_Web/",
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "bin": {
-    "build-blog": "./tools/build-blog.js"
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.7"
   }
 }
