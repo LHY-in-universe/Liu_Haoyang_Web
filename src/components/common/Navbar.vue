@@ -29,7 +29,6 @@
       </ul>
 
       <ThemeToggle />
-      <LanguageSwitcher />
 
       <div
         class="nav-toggle"
@@ -48,7 +47,6 @@
 import { ref } from 'vue'
 import { useLanguageStore } from '../../stores/language'
 import ThemeToggle from './ThemeToggle.vue'
-import LanguageSwitcher from './LanguageSwitcher.vue'
 
 const languageStore = useLanguageStore()
 const { t } = languageStore
