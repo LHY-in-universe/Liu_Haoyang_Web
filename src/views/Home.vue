@@ -16,7 +16,11 @@
         </div>
         <div class="hero-image">
           <div class="avatar">
-            <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=LHY" alt="刘浩洋" loading="lazy">
+            <LazyImage
+              src="/images/avatars/avatar-main.jpg"
+              placeholder="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=LHY"
+              alt="刘浩洋"
+            />
           </div>
         </div>
       </div>
@@ -136,6 +140,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import LazyImage from '../components/common/LazyImage.vue'
 
 const projects = ref([
   {

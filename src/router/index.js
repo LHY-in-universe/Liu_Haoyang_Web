@@ -9,7 +9,13 @@ const routes = [
   {
     path: '/blog',
     name: 'Blog',
-    component: () => import('../views/Blog.vue')
+    component: () => import('../views/BlogList.vue')
+  },
+  {
+    path: '/blog/:id',
+    name: 'BlogPost',
+    component: () => import('../components/blog/BlogPost.vue'),
+    props: route => ({ postId: route.params.id })
   },
   {
     path: '/documents',
@@ -31,7 +37,8 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/'
+    name: 'NotFound',
+    component: () => import('../views/ErrorPage.vue')
   }
 ]
 

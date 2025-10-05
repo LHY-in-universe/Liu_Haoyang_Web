@@ -13,15 +13,15 @@
       </div>
     </button>
 
-    <!-- 浮动猫咪容器 -->
-    <div class="floating-cats" ref="floatingCatsContainer"></div>
+    <!-- Canvas 粒子效果容器 -->
+    <canvas ref="particleCanvas" class="particle-canvas"></canvas>
 
     <div class="container">
       <div class="header">
         <h1>
-          <span class="cat-emoji" @click="createHeartTrail">🐱</span>
+          <span class="cat-emoji" @click="handleHeartTrail">🐱</span>
           张昊岩
-          <span class="cat-emoji" @click="createHeartTrail">😸</span>
+          <span class="cat-emoji" @click="handleHeartTrail">😸</span>
         </h1>
         <p class="subtitle">欢迎来到我的可爱小世界 ✨</p>
       </div>
@@ -29,7 +29,7 @@
       <div class="main-content">
         <!-- 个人资料区 -->
         <div class="profile-section">
-          <div class="profile-image" @click="createSparkles">
+          <div class="profile-image" @click="handleSparkles">
             <img
               src="https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=ZHY"
               alt="张昊岩"
@@ -120,23 +120,24 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useParticleEffects } from '../composables/useParticleEffects'
+import { useCanvasParticles } from '../composables/useCanvasParticles'
 import { useZhangGame } from '../composables/useZhangGame'
 
 // Composables
 const {
-  createHeartTrail: createHeartTrailEffect,
-  createSparkles: createSparklesEffect,
-  createCatRain: createCatRainEffect,
-  createRainbow: createRainbowEffect,
-  createFloatingCats,
-  createRandomSparkles
-} = useParticleEffects()
+  initCanvas,
+  createHeartTrail,
+  createSparkles,
+  createCatRain,
+  createFloatingParticle,
+  createRainbow,
+  cleanup: cleanupParticles
+} = useCanvasParticles()
 
 const { gameState, playGame, flipCell, closeGame, getCellClass } = useZhangGame()
 
 // Refs
-const floatingCatsContainer = ref(null)
+const particleCanvas = ref(null)
 const localTheme = ref(localStorage.getItem('zhang-haoyan-theme') || 'light')
 const currentThemeIndex = ref(0)
 const visitorCount = ref(Math.floor(Math.random() * 100) + 1)
@@ -179,12 +180,12 @@ const sounds = {
 const currentQuote = computed(() => quotes[quoteIndex.value])
 
 // Methods
-const createHeartTrail = (event) => {
-  createHeartTrailEffect(event)
+const handleHeartTrail = (event) => {
+  createHeartTrail(event.clientX, event.clientY)
 }
 
-const createSparkles = (event) => {
-  createSparklesEffect(event)
+const handleSparkles = (event) => {
+  createSparkles(event.clientX, event.clientY)
 }
 
 const toggleLocalTheme = () => {
@@ -201,10 +202,11 @@ const handleCatClick = (event, soundType) => {
   const element = event.currentTarget
   element.classList.add('click-animation')
 
-  createHeartTrailEffect({
-    clientX: element.offsetLeft + element.offsetWidth / 2 + element.parentElement.offsetLeft,
-    clientY: element.offsetTop + element.offsetHeight / 2 + element.parentElement.offsetTop + 200
-  })
+  const rect = element.getBoundingClientRect()
+  createHeartTrail(
+    rect.left + rect.width / 2,
+    rect.top + rect.height / 2
+  )
 
   playSound(soundType)
 
@@ -235,7 +237,7 @@ const playSound = (soundType) => {
 }
 
 const startCatRain = () => {
-  createCatRainEffect()
+  createCatRain()
 }
 
 const toggleMusic = () => {
@@ -326,17 +328,18 @@ const changeQuote = () => {
 
 // 定时器
 let floatingInterval = null
-let sparkleInterval = null
 
 // 生命周期
 onMounted(() => {
-  // 启动浮动猫咪
-  if (floatingCatsContainer.value) {
-    floatingInterval = createFloatingCats(floatingCatsContainer.value)
+  // 初始化 Canvas 粒子系统
+  if (particleCanvas.value) {
+    initCanvas(particleCanvas.value)
   }
 
-  // 启动随机闪光
-  sparkleInterval = createRandomSparkles()
+  // 启动浮动粒子
+  floatingInterval = setInterval(() => {
+    createFloatingParticle()
+  }, 3000)
 
   // 心情指数动画
   setTimeout(() => {
@@ -350,12 +353,13 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  // 清理定时器
+  // 清理定时器和 Canvas
   if (floatingInterval) clearInterval(floatingInterval)
-  if (sparkleInterval) clearInterval(sparkleInterval)
+  cleanupParticles()
 })
 </script>
 
 <style scoped>
 @import '../styles/zhang-haoyan.css';
+@import '../styles/particle-canvas.css';
 </style>

@@ -4,7 +4,13 @@ import { reactive } from 'vue'
  * 找猫咪小游戏 Composable
  */
 export function useZhangGame() {
-  const gameState = reactive({
+  const gameState = reactive<{
+    cells: string[]
+    catPositions: number[]
+    found: number[]
+    attempts: number
+    isOpen: boolean
+  }>({
     cells: [],
     catPositions: [],
     found: [],
@@ -19,7 +25,7 @@ export function useZhangGame() {
     gameState.attempts = 0
 
     // 随机放置3只猫咪
-    const catPositions = []
+    const catPositions: number[] = []
     while (catPositions.length < 3) {
       const pos = Math.floor(Math.random() * 9)
       if (!catPositions.includes(pos)) {
@@ -34,7 +40,7 @@ export function useZhangGame() {
     gameState.isOpen = true
   }
 
-  const flipCell = (index) => {
+  const flipCell = (index: number) => {
     if (gameState.found.includes(index)) return
 
     gameState.attempts++
@@ -62,7 +68,7 @@ export function useZhangGame() {
     gameState.isOpen = false
   }
 
-  const getCellClass = (index) => {
+  const getCellClass = (index: number): string => {
     if (gameState.found.includes(index)) {
       return 'found'
     }

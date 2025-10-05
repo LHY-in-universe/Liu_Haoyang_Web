@@ -122,7 +122,26 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
+    background: var(--bg-light);
     overflow-x: hidden;
+}
+
+/* ============================================
+   VIEW TRANSITION API 配置
+   ============================================ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 2;
 }
 
 .container {
