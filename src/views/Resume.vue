@@ -671,9 +671,9 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
   }
 }
 
-/* Dark Mode */
+/* Dark Mode - Unified Background */
 [data-theme='dark'] .resume {
-  background: #111827;
+  background: #1f2937;
 }
 
 [data-theme='dark'] .section-title {
@@ -682,7 +682,7 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 [data-theme='dark'] .card {
   background: #1f2937;
-  border-color: #374151;
+  border-color: #1f2937;
   border-radius: 24px !important;
 }
 
@@ -712,12 +712,12 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 }
 
 [data-theme='dark'] .skill-tag.secondary {
-  background: #374151;
+  background: #1f2937;
   color: #a78bfa;
-  border-color: #4b5563;
+  border-color: #1f2937;
 }
 
 [data-theme='dark'] .timeline-marker {
-  border-color: #111827;
+  border-color: #1f2937;
 }
 </style>
