@@ -32,19 +32,43 @@ import { ref } from 'vue'
 const documents = ref([
   {
     id: 1,
-    title: 'Berry相位理论研究',
-    description: '关于Berry相位的理论研究文档',
+    title: 'DSMC 研究论文',
+    description: 'Direct Simulation Monte Carlo 方法研究',
     date: '2024-12-19',
-    category: 'academic',
-    url: '#'
+    category: '学术论文',
+    url: '/Liu_Haoyang_Web/documents/academic/DSMC.pdf'
   },
   {
     id: 2,
-    title: '光学探测磁共振技术',
-    description: 'ODMR技术应用研究',
-    date: '2025-02-07',
-    category: 'academic',
-    url: '#'
+    title: 'DSMC 修订版',
+    description: 'DSMC 研究论文修订版本',
+    date: '2024-12-20',
+    category: '学术论文',
+    url: '/Liu_Haoyang_Web/documents/academic/DSMC_re.pdf'
+  },
+  {
+    id: 3,
+    title: 'MLQM 研究',
+    description: '机器学习与量子力学交叉研究',
+    date: '2024-10-20',
+    category: '学术论文',
+    url: '/Liu_Haoyang_Web/documents/academic/MLQM.pdf'
+  },
+  {
+    id: 4,
+    title: 'PhD Review',
+    description: '博士研究综述文档',
+    date: '2024-11-10',
+    category: '学术论文',
+    url: '/Liu_Haoyang_Web/documents/academic/phdreview.pdf'
+  },
+  {
+    id: 5,
+    title: 'QMC 研究',
+    description: '量子蒙特卡洛方法研究',
+    date: '2024-11-15',
+    category: '学术论文',
+    url: '/Liu_Haoyang_Web/documents/academic/QMC.pdf'
   }
 ])
 </script>
@@ -74,14 +98,17 @@ const documents = ref([
 .document-card {
   background: white;
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
 }
 
 .document-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+  border-color: #4f46e5;
 }
 
 .document-icon {
@@ -107,12 +134,12 @@ const documents = ref([
 }
 
 .btn-primary {
-  background: #4F46E5;
+  background: #4f46e5;
   color: white;
 }
 
 .btn-primary:hover {
-  background: #4338CA;
+  background: #4338ca;
 }
 
 .container {
@@ -121,8 +148,13 @@ const documents = ref([
   padding: 0 2rem;
 }
 
-[data-theme="dark"] .document-card {
+[data-theme='dark'] .document-card {
   background: #1f2937;
   color: #e5e7eb;
+  border-color: #374151;
+}
+
+[data-theme='dark'] .document-card:hover {
+  border-color: #7c3aed;
 }
 </style>

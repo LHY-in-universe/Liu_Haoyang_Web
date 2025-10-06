@@ -24,6 +24,7 @@
    - Source 选择: `GitHub Actions`
 
 2. **推送代码触发部署**
+
    ```bash
    git add .
    git commit -m "feat: 添加博客系统优化和 GitHub Pages 部署配置"
@@ -43,6 +44,7 @@
 文件位置: `.github/workflows/deploy.yml`
 
 工作流会自动执行：
+
 - ✅ 安装依赖
 - ✅ TypeScript 类型检查
 - ✅ 构建项目
@@ -62,6 +64,7 @@ npm run deploy
 ```
 
 这个命令会：
+
 1. 运行 TypeScript 类型检查
 2. 构建生产版本
 3. 部署 `dist` 目录到 `gh-pages` 分支
@@ -69,6 +72,7 @@ npm run deploy
 #### 首次部署配置：
 
 如果选择手动部署，需要配置 GitHub Pages：
+
 - Settings → Pages
 - Source: Deploy from a branch
 - Branch: `gh-pages` / `root`
@@ -106,9 +110,10 @@ npm run preview
 ### 1. Base URL 配置
 
 `vite.config.js`:
+
 ```javascript
 export default defineConfig({
-  base: '/Liu_Haoyang_Web/',  // 必须与仓库名一致
+  base: '/Liu_Haoyang_Web/' // 必须与仓库名一致
   // ...
 })
 ```
@@ -116,12 +121,14 @@ export default defineConfig({
 ### 2. 404 页面处理
 
 `public/404.html` - 处理 Vue Router 客户端路由
+
 - 所有 404 请求重定向到首页
 - Vue Router 接管路由处理
 
 ### 3. GitHub Actions 权限
 
 工作流需要以下权限：
+
 ```yaml
 permissions:
   contents: read
@@ -134,11 +141,13 @@ permissions:
 部署成功后，检查以下功能：
 
 ### 基础功能
+
 - [ ] 首页正常加载
 - [ ] 导航栏所有链接工作
 - [ ] 页面路由切换正常
 
 ### 博客功能
+
 - [ ] 博客列表页显示正常
 - [ ] Markdown 文章打开正常
 - [ ] 代码高亮正确显示
@@ -148,6 +157,7 @@ permissions:
 - [ ] Toast 通知正常弹出
 
 ### 样式和交互
+
 - [ ] 所有 CSS 样式正确加载
 - [ ] 图片资源正确显示
 - [ ] 深色模式切换正常
@@ -155,6 +165,7 @@ permissions:
 - [ ] 动画效果流畅
 
 ### SEO 和元数据
+
 - [ ] 页面标题正确
 - [ ] Meta 描述显示
 - [ ] Open Graph 标签存在
@@ -166,6 +177,7 @@ permissions:
 **症状**: 刷新页面或直接访问子路由显示 404
 
 **解决**:
+
 - 确认 `public/404.html` 存在
 - 检查 `index.html` 中的路由修复代码
 - 清除浏览器缓存
@@ -175,6 +187,7 @@ permissions:
 **症状**: CSS、JS 或图片 404
 
 **解决**:
+
 - 检查 `vite.config.js` 中 `base` 配置
 - 确认与仓库名一致: `/Liu_Haoyang_Web/`
 - 重新构建并部署
@@ -184,6 +197,7 @@ permissions:
 **症状**: 部署工作流失败
 
 **解决**:
+
 1. 检查 Actions 日志中的错误信息
 2. 确认 GitHub Pages 设置为 "GitHub Actions"
 3. 检查仓库权限设置
@@ -194,6 +208,7 @@ permissions:
 **症状**: 构建时 TypeScript 报错
 
 **解决**:
+
 ```bash
 # 本地运行类型检查
 npm run type-check
@@ -249,6 +264,7 @@ npm run deploy
 如果有自己的域名：
 
 1. **添加 CNAME 文件**
+
    ```bash
    echo "your-domain.com" > public/CNAME
    ```
@@ -265,20 +281,24 @@ npm run deploy
 ### 添加 Google Analytics
 
 在 `index.html` 中添加：
+
 ```html
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  window.dataLayer = window.dataLayer || []
+  function gtag() {
+    dataLayer.push(arguments)
+  }
+  gtag('js', new Date())
+  gtag('config', 'G-XXXXXXXXXX')
 </script>
 ```
 
 ## 📝 部署历史
 
 查看部署历史：
+
 - GitHub 仓库 → Actions 标签页
 - 每次部署都有完整日志
 

@@ -10,7 +10,7 @@
 - ✅ **粗体** 和 *斜体*
 - ✅ 代码块和行内代码
 - ✅ 表格
-- ✅ 链接和图片
+- ✅ 链接
 
 ### 2. 代码高亮
 
@@ -67,19 +67,101 @@ print(f"结果是: {result}")
 }
 ```
 
-## 数学公式（需要额外配置）
+## 数学公式
 
-行内公式：$E = mc^2$
+### 行内公式
 
-块级公式：
+爱因斯坦质能方程：$E = mc^2$，薛定谔方程：$i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi$
+
+### 块级公式
+
+高斯积分：
 
 $$
 \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
 $$
 
-## 图片支持
+### 麦克斯韦方程组
 
-![示例图片](https://via.placeholder.com/600x300)
+$$
+\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0} \tag{1}
+$$
+
+$$
+\nabla \cdot \mathbf{B} = 0 \tag{2}
+$$
+
+$$
+\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t} \tag{3}
+$$
+
+$$
+\nabla \times \mathbf{B} = \mu_0\mathbf{J} + \mu_0\epsilon_0\frac{\partial \mathbf{E}}{\partial t} \tag{4}
+$$
+
+### 复杂矩阵方程
+
+薛定谔方程的矩阵形式：
+
+$$
+\begin{pmatrix}
+H_{11} & H_{12} & \cdots & H_{1n} \\
+H_{21} & H_{22} & \cdots & H_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+H_{n1} & H_{n2} & \cdots & H_{nn}
+\end{pmatrix}
+\begin{pmatrix}
+\psi_1 \\
+\psi_2 \\
+\vdots \\
+\psi_n
+\end{pmatrix}
+= E
+\begin{pmatrix}
+\psi_1 \\
+\psi_2 \\
+\vdots \\
+\psi_n
+\end{pmatrix}
+$$
+
+### 多行公式推导
+
+贝叶斯定理推导：
+
+$$
+\begin{aligned}
+P(A|B) &= \frac{P(B|A)P(A)}{P(B)} \\
+&= \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\neg A)P(\neg A)} \\
+&= \frac{P(B|A)P(A)}{\sum_{i}P(B|A_i)P(A_i)}
+\end{aligned}
+$$
+
+### 量子力学中的算符
+
+海森堡不确定性原理：
+
+$$
+\Delta x \cdot \Delta p \geq \frac{\hbar}{2} \tag{5}
+$$
+
+其中动量算符定义为：
+
+$$
+\hat{p} = -i\hbar\frac{\partial}{\partial x}
+$$
+
+### 傅里叶变换
+
+$$
+\mathcal{F}\{f(t)\} = F(\omega) = \int_{-\infty}^{\infty} f(t)e^{-i\omega t}dt
+$$
+
+逆变换：
+
+$$
+\mathcal{F}^{-1}\{F(\omega)\} = f(t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} F(\omega)e^{i\omega t}d\omega
+$$
 
 ## 链接
 

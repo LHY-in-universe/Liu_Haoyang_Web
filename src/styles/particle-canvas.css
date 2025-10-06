@@ -12,7 +12,13 @@
 
 /* 保留彩虹效果的 CSS 动画 */
 @keyframes rainbowShine {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

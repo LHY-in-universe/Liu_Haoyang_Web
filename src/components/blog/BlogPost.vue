@@ -2,22 +2,14 @@
   <div class="blog-post-page">
     <div class="post-header">
       <div class="container">
-        <button @click="goBack" class="back-button">
-          ← 返回博客列表
-        </button>
-        
+        <button @click="goBack" class="back-button">← 返回博客列表</button>
+
         <h1 class="post-title">{{ post.title }}</h1>
-        
+
         <div class="post-meta">
-          <span class="meta-item">
-            📅 {{ post.date }}
-          </span>
-          <span class="meta-item">
-            ⏱️ {{ post.readTime }} 分钟阅读
-          </span>
-          <span class="meta-item">
-            👤 {{ post.author }}
-          </span>
+          <span class="meta-item"> 📅 {{ post.date }} </span>
+          <span class="meta-item"> ⏱️ {{ post.readTime }} 分钟阅读 </span>
+          <span class="meta-item"> 👤 {{ post.author }} </span>
         </div>
 
         <div class="post-tags">
@@ -39,11 +31,7 @@
           />
 
           <!-- PDF 内容 -->
-          <PdfViewer
-            v-else-if="post.type === 'pdf'"
-            :pdf-url="post.content"
-            :title="post.title"
-          />
+          <PdfViewer v-else-if="post.type === 'pdf'" :pdf-url="post.content" :title="post.title" />
 
           <!-- 默认 HTML 内容 -->
           <div v-else class="html-content" v-html="post.content"></div>
@@ -54,28 +42,16 @@
           <div class="post-share">
             <h3>分享这篇文章</h3>
             <div class="share-buttons">
-              <button @click="shareToTwitter" class="share-btn">
-                🐦 Twitter
-              </button>
-              <button @click="copyLink" class="share-btn">
-                🔗 复制链接
-              </button>
+              <button @click="shareToTwitter" class="share-btn">🐦 Twitter</button>
+              <button @click="copyLink" class="share-btn">🔗 复制链接</button>
             </div>
           </div>
 
           <div class="post-navigation">
-            <router-link
-              v-if="prevPost"
-              :to="`/blog/${prevPost.id}`"
-              class="nav-link prev"
-            >
+            <router-link v-if="prevPost" :to="`/blog/${prevPost.id}`" class="nav-link prev">
               ← {{ prevPost.title }}
             </router-link>
-            <router-link
-              v-if="nextPost"
-              :to="`/blog/${nextPost.id}`"
-              class="nav-link next"
-            >
+            <router-link v-if="nextPost" :to="`/blog/${nextPost.id}`" class="nav-link next">
               {{ nextPost.title }} →
             </router-link>
           </div>
@@ -109,11 +85,11 @@ const props = defineProps({
 const allPosts = ref(blogPosts)
 
 const post = computed(() => {
-  return allPosts.value.find(p => p.id === props.postId) || {}
+  return allPosts.value.find((p) => p.id === props.postId) || {}
 })
 
 const currentIndex = computed(() => {
-  return allPosts.value.findIndex(p => p.id === props.postId)
+  return allPosts.value.findIndex((p) => p.id === props.postId)
 })
 
 const prevPost = computed(() => {
@@ -133,7 +109,9 @@ function goBack() {
 function shareToTwitter() {
   const url = window.location.href
   const text = post.value.title
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`)
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+  )
 }
 
 async function copyLink() {
@@ -148,7 +126,7 @@ async function copyLink() {
 
 // 动态设置 SEO meta 标签
 useHead({
-  title: computed(() => post.value.title ? `${post.value.title} | 刘浩洋的博客` : '刘浩洋的博客'),
+  title: computed(() => (post.value.title ? `${post.value.title} | 刘浩洋的博客` : '刘浩洋的博客')),
   meta: computed(() => [
     {
       name: 'description',
@@ -371,9 +349,7 @@ onMounted(() => {
   }
 }
 
-[data-theme="dark"] .post-content-wrapper {
+[data-theme='dark'] .post-content-wrapper {
   background: var(--bg-white);
 }
 </style>
-
-

@@ -101,7 +101,7 @@ export function useCanvasParticles() {
     ctx.value.clearRect(0, 0, canvas.value.width, canvas.value.height)
 
     // 更新和绘制所有粒子
-    particles.value = particles.value.filter(particle => {
+    particles.value = particles.value.filter((particle) => {
       const alive = particle.update()
       if (alive) {
         particle.draw(ctx.value)
@@ -119,17 +119,14 @@ export function useCanvasParticles() {
     for (let i = 0; i < 5; i++) {
       setTimeout(() => {
         const emoji = hearts[Math.floor(Math.random() * hearts.length)]
-        particles.value.push(new Particle(
-          x + (Math.random() - 0.5) * 40,
-          y + (Math.random() - 0.5) * 40,
-          'heart',
-          {
+        particles.value.push(
+          new Particle(x + (Math.random() - 0.5) * 40, y + (Math.random() - 0.5) * 40, 'heart', {
             emoji,
             life: 2000,
             vx: (Math.random() - 0.5) * 2,
             vy: -Math.random() * 2 - 1
-          }
-        ))
+          })
+        )
       }, i * 100)
     }
   }
@@ -140,17 +137,14 @@ export function useCanvasParticles() {
     for (let i = 0; i < 8; i++) {
       setTimeout(() => {
         const emoji = sparkles[Math.floor(Math.random() * sparkles.length)]
-        particles.value.push(new Particle(
-          x + (Math.random() - 0.5) * 60,
-          y + (Math.random() - 0.5) * 60,
-          'sparkle',
-          {
+        particles.value.push(
+          new Particle(x + (Math.random() - 0.5) * 60, y + (Math.random() - 0.5) * 60, 'sparkle', {
             emoji,
             life: 1500,
             vx: (Math.random() - 0.5) * 3,
             vy: (Math.random() - 0.5) * 3
-          }
-        ))
+          })
+        )
       }, i * 80)
     }
   }
@@ -162,17 +156,14 @@ export function useCanvasParticles() {
       setTimeout(() => {
         const emoji = catEmojis[Math.floor(Math.random() * catEmojis.length)]
         const x = Math.random() * (canvas.value?.width || window.innerWidth)
-        particles.value.push(new Particle(
-          x,
-          -50,
-          'cat',
-          {
+        particles.value.push(
+          new Particle(x, -50, 'cat', {
             emoji,
             life: 3000,
             vx: 0,
             vy: 2 + Math.random() * 2
-          }
-        ))
+          })
+        )
       }, i * 100)
     }
   }
@@ -185,18 +176,15 @@ export function useCanvasParticles() {
     const emoji = emojis[Math.floor(Math.random() * emojis.length)]
     const x = Math.random() * canvas.value.width
 
-    particles.value.push(new Particle(
-      x,
-      canvas.value.height + 50,
-      'floating',
-      {
+    particles.value.push(
+      new Particle(x, canvas.value.height + 50, 'floating', {
         emoji,
         life: 12000,
         vx: (Math.random() - 0.5) * 0.5,
         vy: -1 - Math.random() * 0.5,
         scale: 0.8 + Math.random() * 0.4
-      }
-    ))
+      })
+    )
   }
 
   // 彩虹特效（使用渐变背景）

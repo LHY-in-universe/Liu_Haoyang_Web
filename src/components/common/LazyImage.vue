@@ -152,12 +152,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    90deg,
-    #f3f4f6 25%,
-    #e5e7eb 50%,
-    #f3f4f6 75%
-  );
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -245,21 +240,16 @@ onUnmounted(() => {
 }
 
 /* 深色模式 */
-[data-theme="dark"] .placeholder {
-  background: linear-gradient(
-    90deg,
-    #374151 25%,
-    #4b5563 50%,
-    #374151 75%
-  );
+[data-theme='dark'] .placeholder {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
 }
 
-[data-theme="dark"] .error-placeholder {
+[data-theme='dark'] .error-placeholder {
   background: var(--bg-white, #1f2937);
   color: var(--text-light, #d1d5db);
 }
 
-[data-theme="dark"] .error-placeholder:hover {
+[data-theme='dark'] .error-placeholder:hover {
   background: var(--bg-light, #374151);
 }
 </style>

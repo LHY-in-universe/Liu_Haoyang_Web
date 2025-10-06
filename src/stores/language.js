@@ -17,7 +17,7 @@ export const useLanguageStore = defineStore('language', () => {
       download: '下载',
       sendMessage: '发送消息',
       subscribe: '订阅',
-      readMore: '阅读更多',
+      readMore: '阅读更多'
     }
 
     return translations[key] || key

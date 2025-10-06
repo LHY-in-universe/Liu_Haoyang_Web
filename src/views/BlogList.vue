@@ -5,9 +5,7 @@
         <div class="page-header-content">
           <h1>📝 我的博客</h1>
           <p>分享技术见解、学习心得和学术研究</p>
-          <div class="breadcrumb">
-            <router-link to="/">首页</router-link> / <span>博客</span>
-          </div>
+          <div class="breadcrumb"><router-link to="/">首页</router-link> / <span>博客</span></div>
         </div>
       </div>
     </section>
@@ -49,7 +47,7 @@
                 <div class="post-type-badge" :class="`type-${post.type}`">
                   {{ post.type === 'markdown' ? '📝 Markdown' : '📄 PDF' }}
                 </div>
-                
+
                 <div class="post-header">
                   <h2 class="post-title">{{ post.title }}</h2>
                   <div class="post-meta">
@@ -141,12 +139,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { 
-  blogPosts, 
-  getAllCategories, 
+import {
+  blogPosts,
+  getAllCategories,
   getAllTags,
   searchPosts,
-  getPostsByCategory 
+  getPostsByCategory
 } from '@/config/blog-posts'
 
 const router = useRouter()
@@ -164,16 +162,17 @@ const filteredPosts = computed(() => {
 
   // 分类筛选
   if (selectedCategory.value !== '全部') {
-    posts = posts.filter(post => post.category === selectedCategory.value)
+    posts = posts.filter((post) => post.category === selectedCategory.value)
   }
 
   // 搜索筛选（在分类筛选结果基础上进行）
   if (searchKeyword.value.trim()) {
     const keyword = searchKeyword.value.toLowerCase()
-    posts = posts.filter(post =>
-      post.title.toLowerCase().includes(keyword) ||
-      post.excerpt.toLowerCase().includes(keyword) ||
-      post.tags.some(tag => tag.toLowerCase().includes(keyword))
+    posts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(keyword) ||
+        post.excerpt.toLowerCase().includes(keyword) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(keyword))
     )
   }
 
@@ -289,17 +288,17 @@ function goToPost(id) {
 .post-card {
   background: var(--bg-white);
   padding: 2rem;
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow);
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   position: relative;
-  border: 2px solid transparent;
+  border: 1px solid #e5e7eb;
 }
 
 .post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
   border-color: var(--primary-color);
 }
 
@@ -510,20 +509,18 @@ function goToPost(id) {
 }
 
 /* 深色模式 */
-[data-theme="dark"] .search-input {
+[data-theme='dark'] .search-input {
   background: var(--bg-white);
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .filter-btn {
+[data-theme='dark'] .filter-btn {
   background: var(--bg-white);
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .post-card,
-[data-theme="dark"] .sidebar-widget {
+[data-theme='dark'] .post-card,
+[data-theme='dark'] .sidebar-widget {
   background: var(--bg-white);
 }
 </style>
-
-

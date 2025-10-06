@@ -13,15 +13,9 @@
       </div>
 
       <div class="error-actions">
-        <button @click="handleRetry" class="btn btn-primary">
-          🔄 重试
-        </button>
-        <router-link to="/" class="btn btn-secondary">
-          🏠 返回首页
-        </router-link>
-        <button @click="handleReport" class="btn btn-outline">
-          📧 报告问题
-        </button>
+        <button @click="handleRetry" class="btn btn-primary">🔄 重试</button>
+        <router-link to="/" class="btn btn-secondary"> 🏠 返回首页 </router-link>
+        <button @click="handleReport" class="btn btn-outline">📧 报告问题</button>
       </div>
     </div>
   </div>
@@ -129,7 +123,8 @@ ${errorStack.value}
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -207,7 +202,7 @@ ${errorStack.value}
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
 }
 
@@ -259,15 +254,15 @@ ${errorStack.value}
   }
 }
 
-[data-theme="dark"] .error-content {
+[data-theme='dark'] .error-content {
   background: var(--bg-white);
 }
 
-[data-theme="dark"] .error-content h2 {
+[data-theme='dark'] .error-content h2 {
   color: var(--text-dark);
 }
 
-[data-theme="dark"] .error-stack {
+[data-theme='dark'] .error-stack {
   background: var(--bg-lighter);
   color: var(--text-light);
 }

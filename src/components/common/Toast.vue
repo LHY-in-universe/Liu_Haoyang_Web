@@ -194,35 +194,35 @@ function close() {
 }
 
 /* 深色模式 */
-[data-theme="dark"] .toast {
+[data-theme='dark'] .toast {
   background: #1f2937;
 }
 
-[data-theme="dark"] .toast-success {
+[data-theme='dark'] .toast-success {
   background: #064e3b;
 }
 
-[data-theme="dark"] .toast-error {
+[data-theme='dark'] .toast-error {
   background: #7f1d1d;
 }
 
-[data-theme="dark"] .toast-info {
+[data-theme='dark'] .toast-info {
   background: #1e3a8a;
 }
 
-[data-theme="dark"] .toast-warning {
+[data-theme='dark'] .toast-warning {
   background: #78350f;
 }
 
-[data-theme="dark"] .toast-message {
+[data-theme='dark'] .toast-message {
   color: #e5e7eb;
 }
 
-[data-theme="dark"] .toast-close {
+[data-theme='dark'] .toast-close {
   color: #9ca3af;
 }
 
-[data-theme="dark"] .toast-close:hover {
+[data-theme='dark'] .toast-close:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #e5e7eb;
 }

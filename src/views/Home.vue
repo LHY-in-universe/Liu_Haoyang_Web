@@ -5,9 +5,7 @@
       <div class="hero-content">
         <div class="hero-text">
           <h1>你好，我是<span class="highlight">刘浩洋</span></h1>
-          <p class="hero-description">
-            一名热爱技术与创新的开发者，专注于前端开发和用户体验设计
-          </p>
+          <p class="hero-description">一名热爱技术与创新的开发者，专注于前端开发和用户体验设计</p>
           <div class="hero-buttons">
             <a href="#projects" class="btn btn-primary">查看作品</a>
             <router-link to="/blog" class="btn btn-secondary">阅读博客</router-link>
@@ -35,7 +33,9 @@
         </div>
         <div class="about-content">
           <div class="about-text">
-            <p>我是一名充满激情的开发者，致力于创造优秀的数字体验。我相信技术的力量能够改变世界，并通过代码来实现创意和想法。</p>
+            <p>
+              我是一名充满激情的开发者，致力于创造优秀的数字体验。我相信技术的力量能够改变世界，并通过代码来实现创意和想法。
+            </p>
             <div class="skills">
               <h3>技能专长</h3>
               <div class="skill-tags">
@@ -48,9 +48,11 @@
                 <span class="skill-tag">Git</span>
                 <span class="skill-tag">Linux</span>
               </div>
-              <div style="margin-top: 2rem; text-align: center;">
+              <div style="margin-top: 2rem; text-align: center">
                 <router-link to="/resume" class="btn btn-primary">查看简历</router-link>
-                <router-link to="/blog" class="btn btn-outline" style="margin-left: 1rem;">技术博客</router-link>
+                <router-link to="/blog" class="btn btn-outline" style="margin-left: 1rem"
+                  >技术博客</router-link
+                >
               </div>
             </div>
           </div>
@@ -67,9 +69,6 @@
         </div>
         <div class="projects-grid">
           <div class="project-card" v-for="project in projects" :key="project.id">
-            <div class="project-image">
-              <img :src="project.image" :alt="project.title">
-            </div>
             <div class="project-content">
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
@@ -85,56 +84,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <div class="container">
-        <div class="section-header">
-          <h2>联系我</h2>
-          <p>让我们一起创造amazing的东西</p>
-        </div>
-        <div class="contact-content">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-icon">📧</div>
-              <div class="contact-text">
-                <h3>邮箱</h3>
-                <p>lhy200415@icloud.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">🐙</div>
-              <div class="contact-text">
-                <h3>GitHub</h3>
-                <p>github.com/LHY-in-universe</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">💼</div>
-              <div class="contact-text">
-                <h3>LinkedIn</h3>
-                <p>linkedin.com/in/yourprofile</p>
-              </div>
-            </div>
-          </div>
-          <form class="contact-form" @submit.prevent="submitForm">
-            <div class="form-group">
-              <label for="name">姓名</label>
-              <input type="text" id="name" v-model="form.name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">邮箱</label>
-              <input type="email" id="email" v-model="form.email" required>
-            </div>
-            <div class="form-group">
-              <label for="message">消息</label>
-              <textarea id="message" v-model="form.message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">发送消息</button>
-          </form>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -147,36 +96,21 @@ const projects = ref([
     id: 1,
     title: '项目名称 1',
     description: '这是一个示例项目的描述，展示了我在前端开发方面的能力。',
-    image: 'https://via.placeholder.com/400x250/6366F1/FFFFFF?text=Project+1',
     tags: ['React', 'CSS3']
   },
   {
     id: 2,
     title: '项目名称 2',
     description: '另一个展示我技术能力的项目，使用了现代化的开发技术栈。',
-    image: 'https://via.placeholder.com/400x250/8B5CF6/FFFFFF?text=Project+2',
     tags: ['Vue.js', 'JavaScript']
   },
   {
     id: 3,
     title: '项目名称 3',
     description: '一个全栈应用项目，展示了我在后端开发方面的技能。',
-    image: 'https://via.placeholder.com/400x250/10B981/FFFFFF?text=Project+3',
     tags: ['Node.js', 'MongoDB']
   }
 ])
-
-const form = ref({
-  name: '',
-  email: '',
-  message: ''
-})
-
-const submitForm = () => {
-  console.log('Form submitted:', form.value)
-  alert('感谢您的留言！我会尽快回复您。')
-  form.value = { name: '', email: '', message: '' }
-}
 </script>
 
 <style scoped>
@@ -208,7 +142,7 @@ const submitForm = () => {
 }
 
 .highlight {
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .hero-description {
@@ -244,11 +178,12 @@ const submitForm = () => {
 
 .section-header h2 {
   font-size: 2.5rem;
-  color: #4F46E5;
+  color: #4f46e5;
   margin-bottom: 0.5rem;
 }
 
-.about, .projects, .contact {
+.about,
+.projects {
   padding: 4rem 2rem;
 }
 
@@ -265,7 +200,7 @@ const submitForm = () => {
 }
 
 .skill-tag {
-  background: #4F46E5;
+  background: #4f46e5;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -280,24 +215,21 @@ const submitForm = () => {
 
 .project-card {
   background: white;
-  border-radius: 15px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
-}
-
-.project-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+  border-color: #4f46e5;
 }
 
 .project-content {
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 .project-tags {
@@ -313,47 +245,6 @@ const submitForm = () => {
   font-size: 0.8rem;
 }
 
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.contact-item {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.contact-icon {
-  font-size: 2rem;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.8rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-family: inherit;
-}
-
 .btn {
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
@@ -366,23 +257,23 @@ const submitForm = () => {
 }
 
 .btn-primary {
-  background: #4F46E5;
+  background: #4f46e5;
   color: white;
 }
 
 .btn-primary:hover {
-  background: #4338CA;
+  background: #4338ca;
 }
 
 .btn-secondary {
   background: white;
-  color: #4F46E5;
+  color: #4f46e5;
 }
 
 .btn-outline {
   background: transparent;
-  border: 2px solid #4F46E5;
-  color: #4F46E5;
+  border: 2px solid #4f46e5;
+  color: #4f46e5;
 }
 
 .btn-sm {
@@ -391,8 +282,7 @@ const submitForm = () => {
 }
 
 @media (max-width: 768px) {
-  .hero-content,
-  .contact-content {
+  .hero-content {
     grid-template-columns: 1fr;
   }
 
@@ -407,19 +297,17 @@ const submitForm = () => {
   }
 }
 
-[data-theme="dark"] .project-card {
+[data-theme='dark'] .project-card {
   background: #1f2937;
   color: #e5e7eb;
+  border-color: #374151;
 }
 
-[data-theme="dark"] .section-header h2 {
-  color: #7C3AED;
+[data-theme='dark'] .project-card:hover {
+  border-color: #7c3aed;
 }
 
-[data-theme="dark"] .form-group input,
-[data-theme="dark"] .form-group textarea {
-  background: #374151;
-  border-color: #4b5563;
-  color: #e5e7eb;
+[data-theme='dark'] .section-header h2 {
+  color: #7c3aed;
 }
 </style>

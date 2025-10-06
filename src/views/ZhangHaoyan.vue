@@ -35,12 +35,12 @@
               alt="张昊岩"
               loading="lazy"
               @error="onImageError"
-            >
+            />
           </div>
           <div class="description">
-            你好呀！我是张昊岩 🌸<br>
-            一个热爱生活、喜欢小猫咪的女孩子 💕<br>
-            这里是我的个人小窝，充满了温暖和可爱 🏡<br>
+            你好呀！我是张昊岩 🌸<br />
+            一个热爱生活、喜欢小猫咪的女孩子 💕<br />
+            这里是我的个人小窝，充满了温暖和可爱 🏡<br />
             希望你在这里能感受到快乐和治愈 ✨
           </div>
         </div>
@@ -67,7 +67,15 @@
             <button class="fun-btn" @click="changeTheme">🎨 换个主题</button>
             <button class="fun-btn" @click="showMessage">💌 惊喜消息</button>
             <button class="fun-btn" @click="createRainbow">🌈 彩虹特效</button>
-            <button class="fun-btn" @click="gameState.isOpen = true; playGame()">🎯 小游戏</button>
+            <button
+              class="fun-btn"
+              @click="
+                gameState.isOpen = true
+                playGame()
+              "
+            >
+              🎯 小游戏
+            </button>
           </div>
 
           <!-- 心情指数 -->
@@ -84,7 +92,9 @@
           <div class="visitor-counter">
             <h4>👥 今日访问者</h4>
             <div class="counter-display">{{ visitorCount }}</div>
-            <p>你是第 <span>{{ visitorCount }}</span> 位小可爱!</p>
+            <p>
+              你是第 <span>{{ visitorCount }}</span> 位小可爱!
+            </p>
           </div>
 
           <!-- 每日一句 -->
@@ -150,12 +160,12 @@ const themes = ['default', 'theme-dark', 'theme-ocean', 'theme-sunset']
 const themeNames = ['粉色梦幻', '深夜模式', '海洋清新', '日落温暖']
 
 const quotes = [
-  "生活就像猫咪一样，需要用心去感受每一个温暖的瞬间 🐱💕",
-  "每个人心中都有一只小猫咪，等待着被温柔对待 🌸",
-  "世界再大，也要保持一颗纯真可爱的心 ✨",
-  "开心的时候像猫咪一样打滚，难过的时候像猫咪一样晒太阳 ☀️",
-  "愿你永远都是那个会为小美好而感动的人 💖",
-  "生活需要一些粉色的浪漫和猫咪般的慵懒 🌈"
+  '生活就像猫咪一样，需要用心去感受每一个温暖的瞬间 🐱💕',
+  '每个人心中都有一只小猫咪，等待着被温柔对待 🌸',
+  '世界再大，也要保持一颗纯真可爱的心 ✨',
+  '开心的时候像猫咪一样打滚，难过的时候像猫咪一样晒太阳 ☀️',
+  '愿你永远都是那个会为小美好而感动的人 💖',
+  '生活需要一些粉色的浪漫和猫咪般的慵懒 🌈'
 ]
 
 const catEmojis = [
@@ -168,12 +178,12 @@ const catEmojis = [
 ]
 
 const sounds = {
-  'meow1': '喵~',
-  'meow2': '喵喵~',
-  'purr': '呼噜呼噜~',
-  'meow3': '喵呜~',
-  'hiss': '嘶~',
-  'cry': '呜呜~'
+  meow1: '喵~',
+  meow2: '喵喵~',
+  purr: '呼噜呼噜~',
+  meow3: '喵呜~',
+  hiss: '嘶~',
+  cry: '呜呜~'
 }
 
 // Computed
@@ -203,10 +213,7 @@ const handleCatClick = (event, soundType) => {
   element.classList.add('click-animation')
 
   const rect = element.getBoundingClientRect()
-  createHeartTrail(
-    rect.left + rect.width / 2,
-    rect.top + rect.height / 2
-  )
+  createHeartTrail(rect.left + rect.width / 2, rect.top + rect.height / 2)
 
   playSound(soundType)
 
@@ -253,12 +260,12 @@ const changeTheme = () => {
 
 const showMessage = () => {
   const messages = [
-    "你真是太可爱啦! 🥰",
-    "张昊岩今天超级开心! 💕",
-    "感谢你来到我的小窝! 🏡",
-    "你是最棒的访客! ✨",
-    "希望你也像猫咪一样快乐! 😸",
-    "世界因为有你而更美好! 🌸"
+    '你真是太可爱啦! 🥰',
+    '张昊岩今天超级开心! 💕',
+    '感谢你来到我的小窝! 🏡',
+    '你是最棒的访客! ✨',
+    '希望你也像猫咪一样快乐! 😸',
+    '世界因为有你而更美好! 🌸'
   ]
 
   const message = messages[Math.floor(Math.random() * messages.length)]

@@ -3,12 +3,8 @@
     <div class="pdf-toolbar">
       <h3>{{ title || 'PDF 文档' }}</h3>
       <div class="toolbar-actions">
-        <a :href="pdfUrl" download class="btn btn-sm">
-          📥 下载
-        </a>
-        <a :href="pdfUrl" target="_blank" class="btn btn-sm btn-primary">
-          🔗 新窗口打开
-        </a>
+        <a :href="pdfUrl" download class="btn btn-sm"> 📥 下载 </a>
+        <a :href="pdfUrl" target="_blank" class="btn btn-sm btn-primary"> 🔗 新窗口打开 </a>
       </div>
     </div>
 
@@ -19,18 +15,11 @@
 
     <div v-else-if="error" class="error-state">
       <p>❌ {{ error }}</p>
-      <a :href="pdfUrl" target="_blank" class="btn btn-primary">
-        在新窗口中打开
-      </a>
+      <a :href="pdfUrl" target="_blank" class="btn btn-primary"> 在新窗口中打开 </a>
     </div>
 
     <div v-else class="pdf-container">
-      <iframe
-        :src="embedUrl"
-        class="pdf-frame"
-        @load="onLoad"
-        @error="onError"
-      ></iframe>
+      <iframe :src="embedUrl" class="pdf-frame" @load="onLoad" @error="onError"></iframe>
     </div>
   </div>
 </template>
@@ -77,12 +66,12 @@ function onError() {
 onMounted(() => {
   // 检查 PDF 是否存在
   fetch(props.pdfUrl, { method: 'HEAD' })
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error('PDF 文件不存在')
       }
     })
-    .catch(err => {
+    .catch((err) => {
       error.value = err.message
       loading.value = false
     })
@@ -173,7 +162,9 @@ onMounted(() => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error-state {
@@ -212,9 +203,7 @@ onMounted(() => {
   }
 }
 
-[data-theme="dark"] .pdf-viewer {
+[data-theme='dark'] .pdf-viewer {
   background: var(--bg-light);
 }
 </style>
-
-

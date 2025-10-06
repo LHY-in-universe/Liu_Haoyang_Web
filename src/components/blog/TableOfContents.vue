@@ -12,11 +12,7 @@
           <li
             v-for="heading in headings"
             :key="heading.id"
-            :class="[
-              'toc-item',
-              `toc-level-${heading.level}`,
-              { active: activeId === heading.id }
-            ]"
+            :class="['toc-item', `toc-level-${heading.level}`, { active: activeId === heading.id }]"
           >
             <a
               :href="`#${heading.id}`"
@@ -130,12 +126,15 @@ onUnmounted(() => {
 })
 
 // 当内容变化时重新提取标题
-watch(() => props.content, () => {
-  if (observer) {
-    observer.disconnect()
+watch(
+  () => props.content,
+  () => {
+    if (observer) {
+      observer.disconnect()
+    }
+    extractHeadings()
   }
-  extractHeadings()
-})
+)
 </script>
 
 <style scoped>
@@ -283,24 +282,24 @@ watch(() => props.content, () => {
 }
 
 /* 深色模式 */
-[data-theme="dark"] .toc-container {
+[data-theme='dark'] .toc-container {
   background: var(--bg-white);
 }
 
-[data-theme="dark"] .toc-header h3 {
+[data-theme='dark'] .toc-header h3 {
   color: var(--text-dark);
 }
 
-[data-theme="dark"] .toc-toggle {
+[data-theme='dark'] .toc-toggle {
   border-color: var(--border-color);
   color: var(--text-light);
 }
 
-[data-theme="dark"] .toc-toggle:hover {
+[data-theme='dark'] .toc-toggle:hover {
   background: var(--bg-lighter);
 }
 
-[data-theme="dark"] .toc-link {
+[data-theme='dark'] .toc-link {
   color: var(--text-light);
 }
 

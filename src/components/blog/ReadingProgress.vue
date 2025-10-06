@@ -47,7 +47,7 @@ onUnmounted(() => {
 }
 
 /* 深色模式 */
-[data-theme="dark"] .reading-progress-bar {
+[data-theme='dark'] .reading-progress-bar {
   background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
   box-shadow: 0 2px 10px rgba(139, 92, 246, 0.5);
 }

@@ -30,11 +30,7 @@
 
       <ThemeToggle />
 
-      <div
-        class="nav-toggle"
-        :class="{ active: mobileMenuOpen }"
-        @click="toggleMobileMenu"
-      >
+      <div class="nav-toggle" :class="{ active: mobileMenuOpen }" @click="toggleMobileMenu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -87,13 +83,13 @@ const closeMobileMenu = () => {
 .nav-logo a {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #4F46E5;
+  color: #4f46e5;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-logo a:hover {
-  color: #7C3AED;
+  color: #7c3aed;
 }
 
 .nav-menu {
@@ -113,11 +109,11 @@ const closeMobileMenu = () => {
 }
 
 .nav-link:hover {
-  color: #4F46E5;
+  color: #4f46e5;
 }
 
 .nav-link.router-link-active {
-  color: #4F46E5;
+  color: #4f46e5;
 }
 
 .nav-link.router-link-active::after {
@@ -127,7 +123,7 @@ const closeMobileMenu = () => {
   left: 0;
   right: 0;
   height: 2px;
-  background: #4F46E5;
+  background: #4f46e5;
   border-radius: 2px;
 }
 
@@ -182,19 +178,19 @@ const closeMobileMenu = () => {
   }
 }
 
-[data-theme="dark"] .navbar {
+[data-theme='dark'] .navbar {
   background: rgba(31, 41, 55, 0.95);
 }
 
-[data-theme="dark"] .nav-link {
+[data-theme='dark'] .nav-link {
   color: #e5e7eb;
 }
 
-[data-theme="dark"] .bar {
+[data-theme='dark'] .bar {
   background: #e5e7eb;
 }
 
-[data-theme="dark"] .nav-menu {
+[data-theme='dark'] .nav-menu {
   background: #1f2937;
 }
 </style>

@@ -38,10 +38,16 @@ const loading = ref(false)
 const error = ref(null)
 
 // 配置 KaTeX 扩展
-marked.use(markedKatex({
-  throwOnError: false,
-  output: 'html'
-}))
+marked.use(
+  markedKatex({
+    throwOnError: false,
+    output: 'html',
+    displayMode: false,
+    // 支持 LaTeX 环境如 equation, align 等
+    trust: true,
+    strict: false
+  })
+)
 
 // 配置 marked
 marked.setOptions({
@@ -76,10 +82,12 @@ renderer.code = (code, language) => {
 
 // 自定义链接渲染（在新标签页打开外部链接）
 renderer.link = (href, title, text) => {
-  const isExternal = href.startsWith('http')
+  // 确保 href 是字符串
+  const hrefStr = href?.href || href || ''
+  const isExternal = hrefStr.startsWith('http')
   const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''
   const titleAttr = title ? `title="${title}"` : ''
-  return `<a href="${href}" ${target} ${titleAttr}>${text}</a>`
+  return `<a href="${hrefStr}" ${target} ${titleAttr}>${text}</a>`
 }
 
 marked.use({ renderer })
@@ -93,7 +101,7 @@ function escapeHtml(text) {
     '"': '&quot;',
     "'": '&#039;'
   }
-  return text.replace(/[&<>"']/g, m => map[m])
+  return text.replace(/[&<>"']/g, (m) => map[m])
 }
 
 // 加载和渲染 Markdown
@@ -106,7 +114,13 @@ async function loadAndRender() {
 
     if (props.isFilePath) {
       // 从文件加载
-      const response = await fetch(props.source)
+      // 处理 base path：如果路径以 / 开头，添加 base URL
+      const basePath = import.meta.env.BASE_URL || '/'
+      const filePath = props.source.startsWith('/')
+        ? basePath + props.source.slice(1)
+        : props.source
+
+      const response = await fetch(filePath)
       if (!response.ok) {
         throw new Error(`无法加载文件: ${response.statusText}`)
       }
@@ -119,11 +133,61 @@ async function loadAndRender() {
     // 使用 DOMPurify 清理 HTML 以防止 XSS 攻击
     renderedContent.value = DOMPurify.sanitize(rawHtml, {
       // 允许所有常用的 HTML 标签和属性（包括 KaTeX 和 highlight.js 需要的）
-      ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 's', 'a', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                     'ul', 'ol', 'li', 'blockquote', 'code', 'pre', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr',
-                     'span', 'div', 'sup', 'sub', 'annotation', 'semantics', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub',
-                     'mfrac', 'math'],
-      ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'target', 'rel', 'style', 'data-katex', 'xmlns'],
+      ALLOWED_TAGS: [
+        'p',
+        'br',
+        'strong',
+        'em',
+        'u',
+        's',
+        'a',
+        'img',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'ul',
+        'ol',
+        'li',
+        'blockquote',
+        'code',
+        'pre',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'hr',
+        'span',
+        'div',
+        'sup',
+        'sub',
+        'annotation',
+        'semantics',
+        'mrow',
+        'mi',
+        'mo',
+        'mn',
+        'msup',
+        'msub',
+        'mfrac',
+        'math'
+      ],
+      ALLOWED_ATTR: [
+        'href',
+        'src',
+        'alt',
+        'title',
+        'class',
+        'target',
+        'rel',
+        'style',
+        'data-katex',
+        'xmlns'
+      ],
       // 允许外部链接
       ALLOW_UNKNOWN_PROTOCOLS: false
     })
@@ -166,7 +230,9 @@ watch(() => props.source, loadAndRender, { immediate: true })
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error-state {
@@ -206,10 +272,18 @@ watch(() => props.source, loadAndRender, { immediate: true })
   padding-bottom: 0.5rem;
 }
 
-.markdown-content :deep(h3) { font-size: 1.5rem; }
-.markdown-content :deep(h4) { font-size: 1.25rem; }
-.markdown-content :deep(h5) { font-size: 1.1rem; }
-.markdown-content :deep(h6) { font-size: 1rem; }
+.markdown-content :deep(h3) {
+  font-size: 1.5rem;
+}
+.markdown-content :deep(h4) {
+  font-size: 1.25rem;
+}
+.markdown-content :deep(h5) {
+  font-size: 1.1rem;
+}
+.markdown-content :deep(h6) {
+  font-size: 1rem;
+}
 
 /* 段落和列表 */
 .markdown-content :deep(p) {
@@ -337,21 +411,20 @@ watch(() => props.source, loadAndRender, { immediate: true })
 }
 
 /* 深色模式适配 */
-[data-theme="dark"] .markdown-content :deep(code) {
+[data-theme='dark'] .markdown-content :deep(code) {
   background: var(--bg-lighter);
   color: #ff79c6;
 }
 
-[data-theme="dark"] .markdown-content :deep(pre) {
+[data-theme='dark'] .markdown-content :deep(pre) {
   background: var(--bg-lighter);
 }
 
-[data-theme="dark"] .markdown-content :deep(blockquote) {
+[data-theme='dark'] .markdown-content :deep(blockquote) {
   background: var(--bg-lighter);
 }
 
-[data-theme="dark"] .markdown-content :deep(tr:nth-child(even)) {
+[data-theme='dark'] .markdown-content :deep(tr:nth-child(even)) {
   background: var(--bg-lighter);
 }
 </style>
-

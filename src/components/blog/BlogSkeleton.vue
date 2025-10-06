@@ -148,16 +148,16 @@ defineProps({
 }
 
 /* 深色模式 */
-[data-theme="dark"] .skeleton-card {
+[data-theme='dark'] .skeleton-card {
   background: var(--bg-white);
 }
 
-[data-theme="dark"] .skeleton-badge,
-[data-theme="dark"] .skeleton-title,
-[data-theme="dark"] .skeleton-meta-item,
-[data-theme="dark"] .skeleton-line,
-[data-theme="dark"] .skeleton-tag,
-[data-theme="dark"] .skeleton-read-more {
+[data-theme='dark'] .skeleton-badge,
+[data-theme='dark'] .skeleton-title,
+[data-theme='dark'] .skeleton-meta-item,
+[data-theme='dark'] .skeleton-line,
+[data-theme='dark'] .skeleton-tag,
+[data-theme='dark'] .skeleton-read-more {
   background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
   background-size: 200% 100%;
 }

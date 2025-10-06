@@ -25,15 +25,9 @@
       </div>
 
       <div class="error-actions">
-        <router-link to="/" class="btn btn-primary">
-          🏠 返回首页
-        </router-link>
-        <router-link to="/blog" class="btn btn-secondary">
-          📝 浏览博客
-        </router-link>
-        <button @click="goBack" class="btn btn-outline">
-          ← 返回上一页
-        </button>
+        <router-link to="/" class="btn btn-primary"> 🏠 返回首页 </router-link>
+        <router-link to="/blog" class="btn btn-secondary"> 📝 浏览博客 </router-link>
+        <button @click="goBack" class="btn btn-outline">← 返回上一页</button>
       </div>
 
       <div class="quick-links">
@@ -107,7 +101,7 @@ function goBack() {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -134,7 +128,7 @@ function goBack() {
 .number {
   font-size: 8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -148,7 +142,7 @@ function goBack() {
 
 .ghost-body {
   font-size: 6rem;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
 }
 
 .ghost-shadow {
@@ -158,13 +152,14 @@ function goBack() {
   transform: translateX(-50%);
   width: 60px;
   height: 10px;
-  background: radial-gradient(ellipse, rgba(0,0,0,0.2), transparent);
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.2), transparent);
   border-radius: 50%;
   animation: shadowPulse 3s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -173,7 +168,8 @@ function goBack() {
 }
 
 @keyframes shadowPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-50%) scale(1);
     opacity: 0.2;
   }
@@ -253,7 +249,7 @@ function goBack() {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
 }
 
@@ -363,19 +359,19 @@ function goBack() {
   }
 }
 
-[data-theme="dark"] .error-container {
+[data-theme='dark'] .error-container {
   background: var(--bg-white);
 }
 
-[data-theme="dark"] .suggestions {
+[data-theme='dark'] .suggestions {
   background: var(--bg-lighter);
 }
 
-[data-theme="dark"] .quick-link {
+[data-theme='dark'] .quick-link {
   background: var(--bg-lighter);
 }
 
-[data-theme="dark"] .quick-link:hover {
+[data-theme='dark'] .quick-link:hover {
   background: var(--bg-light);
 }
 </style>

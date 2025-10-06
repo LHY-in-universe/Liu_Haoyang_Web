@@ -15,7 +15,7 @@ const routes = [
     path: '/blog/:id',
     name: 'BlogPost',
     component: () => import('../components/blog/BlogPost.vue'),
-    props: route => ({ postId: route.params.id })
+    props: (route) => ({ postId: route.params.id })
   },
   {
     path: '/documents',

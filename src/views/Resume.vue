@@ -1,232 +1,723 @@
 <template>
   <div class="resume">
-    <section class="page-header">
+    <!-- Hero Header -->
+    <section class="hero-header">
       <div class="container">
-        <h1>个人简历</h1>
-        <p>刘浩洋 - 物理学研究者</p>
+        <h1 class="name-title">LIU HAOYANG</h1>
+        <p class="subtitle">刘浩洋 · 物理学研究者</p>
+
+        <!-- Contact Info -->
+        <div class="contact-bar">
+          <a href="tel:+8613305340115" class="contact-item">
+            <span class="icon">📱</span>
+            <span>+86 133 0534 0115</span>
+          </a>
+          <a href="mailto:lhy200415@icloud.com" class="contact-item">
+            <span class="icon">✉️</span>
+            <span>lhy200415@icloud.com</span>
+          </a>
+          <a href="https://github.com/LHY-in-universe" target="_blank" class="contact-item">
+            <span class="icon">💻</span>
+            <span>GitHub</span>
+          </a>
+          <div class="contact-item">
+            <span class="icon">📍</span>
+            <span>深圳，中国</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a :href="resumePdfUrl" download class="btn btn-download">
+            <span class="btn-icon">📥</span>
+            下载简历
+          </a>
+          <a :href="resumePdfUrl" target="_blank" class="btn btn-view">
+            <span class="btn-icon">👁️</span>
+            查看PDF
+          </a>
+        </div>
       </div>
     </section>
 
-    <div class="resume-container">
+    <!-- Main Content -->
+    <div class="resume-content">
       <div class="container">
-        <div class="resume-header">
-          <h1 class="resume-name">刘浩洋</h1>
-        </div>
+        <!-- Summary -->
+        <section class="section">
+          <h2 class="section-title">
+            <span class="title-icon">👤</span>
+            个人简介
+          </h2>
+          <div class="card">
+            <p class="summary-text">
+              香港中文大学物理系本科应届毕业生，有计算机模拟相关经验，毕业设计为使用C语言对冷原子物理体系进行模拟。熟练使用Python、C、Linux，学习过R、Java的相关课程。自学机器学习与强化学习，理解CNN、RNN、随机森林、Q-learning、蒙特卡洛等算法，可以使用PyTorch包。预计硕士期间与导师进行机器学习与固体物理方面的交叉研究。
+            </p>
+          </div>
+        </section>
 
-        <div class="download-section">
-          <h3>📄 完整简历PDF版本</h3>
-          <p>下载完整的PDF简历文件，包含所有详细信息和联系方式</p>
-          <a href="/public/documents/resume/main.pdf" class="btn-download" download>
-            <span class="download-icon">📥</span>
-            下载完整简历
-          </a>
-        </div>
-
-        <div class="resume-section">
-          <h2 class="section-title">个人简介</h2>
-          <p class="summary-text">
-            香港中文大学物理系本科应届毕业生，有计算机模拟相关经验，毕业设计为使用C语言对冷原子物理体系进行模拟。
-            熟练使用Python、C、Linux，学习过R、Java的相关课程。自学机器学习与强化学习，理解CNN、RNN、随机森林、Q-learning、蒙特卡洛等算法，可以使用PyTorch包。
-          </p>
-        </div>
-
-        <div class="resume-section">
-          <h2 class="section-title">教育经历</h2>
-          <div class="education-item">
-            <div class="education-header">
-              <div>
-                <div class="degree">物理学硕士</div>
-                <div class="institution">香港中文大学</div>
+        <!-- Education -->
+        <section class="section">
+          <h2 class="section-title">
+            <span class="title-icon">🎓</span>
+            教育经历
+          </h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="degree-title">物理学硕士</h3>
+                    <p class="institution">香港中文大学 · 香港，中国</p>
+                  </div>
+                  <div class="timeline-date">09/2025 - 目前</div>
+                </div>
+                <ul class="course-list">
+                  <li>预计相关课程：机器学习与人工智能、高等统计力学</li>
+                </ul>
               </div>
-              <div class="date-location">
-                <div>香港, 中国</div>
-                <div>09/2025 - 目前</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="degree-title">物理理学士</h3>
+                    <p class="institution">香港中文大学 · 香港，中国</p>
+                  </div>
+                  <div class="timeline-date">09/2021 - 06/2025</div>
+                </div>
+                <ul class="course-list">
+                  <li>相关课程：高等固体物理、计算物理、高等量子力学</li>
+                </ul>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="education-item">
-            <div class="education-header">
-              <div>
-                <div class="degree">物理理学士</div>
-                <div class="institution">香港中文大学</div>
-              </div>
-              <div class="date-location">
-                <div>香港, 中国</div>
-                <div>09/2021 - 06/2025</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="resume-section">
-          <h2 class="section-title">专业技能</h2>
+        <!-- Skills -->
+        <section class="section">
+          <h2 class="section-title">
+            <span class="title-icon">💻</span>
+            专业技能
+          </h2>
           <div class="skills-grid">
-            <div class="skill-category">
-              <h4>计算机语言</h4>
-              <div class="skill-tags">
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">C</span>
-                <span class="skill-tag">LaTeX</span>
-                <span class="skill-tag">R</span>
-                <span class="skill-tag">Java</span>
+            <div class="skill-card card">
+              <h3 class="skill-category-title">
+                <span class="category-icon">⚡</span>
+                计算机语言
+              </h3>
+              <div class="skill-group">
+                <p class="skill-level">精通</p>
+                <div class="skill-tags">
+                  <span class="skill-tag primary">Python</span>
+                  <span class="skill-tag primary">C</span>
+                  <span class="skill-tag primary">LaTeX</span>
+                  <span class="skill-tag primary">Markdown</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <p class="skill-level">接触</p>
+                <div class="skill-tags">
+                  <span class="skill-tag secondary">R</span>
+                  <span class="skill-tag secondary">Java</span>
+                  <span class="skill-tag secondary">SQL</span>
+                  <span class="skill-tag secondary">HTML</span>
+                  <span class="skill-tag secondary">CSS</span>
+                  <span class="skill-tag secondary">Julia</span>
+                </div>
               </div>
             </div>
-            <div class="skill-category">
-              <h4>系统与软件</h4>
+
+            <div class="skill-card card">
+              <h3 class="skill-category-title">
+                <span class="category-icon">🛠️</span>
+                系统与软件
+              </h3>
               <div class="skill-tags">
-                <span class="skill-tag">Linux</span>
-                <span class="skill-tag">GitHub</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag primary">Linux</span>
+                <span class="skill-tag primary">GitHub</span>
+                <span class="skill-tag primary">Docker</span>
+                <span class="skill-tag primary">Mathematica</span>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="section">
+          <h2 class="section-title">
+            <span class="title-icon">🔬</span>
+            工作经历
+          </h2>
+          <div class="timeline">
+            <!-- Project 1 -->
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="project-title">冷原子物理高斯势井蒸发冷却模拟</h3>
+                    <p class="project-meta">严教授，CUHK</p>
+                  </div>
+                  <div class="timeline-date">05/2024 - 12/2024</div>
+                </div>
+                <ul class="project-details">
+                  <li>使用分子动力学方法MD模拟高斯势井下费米子的蒸发冷却现象，使用Velocity Verlet算法进行速度与位置的更新，以保证体系的能量守恒与相空间稳定性。</li>
+                  <li>使用直接模拟蒙特卡洛方法模拟相同的系统，使用octree算法对空间进行自适应性划分，提高模拟的精确程度。</li>
+                  <li>比较两个方法结果以及实验结果，证实直接模拟蒙特卡洛方法在冷原子模拟中的可行性，为冷原子物理模拟提供一种快速且精确的新算法。</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="project-title">计算物理模拟与物理知识演讲</h3>
+                    <p class="project-meta">严教授，CUHK</p>
+                  </div>
+                  <div class="timeline-date">09/2023 - 01/2024</div>
+                </div>
+                <ul class="project-details">
+                  <li>使用Python以及Jupyter求解拉普拉斯方程，进行傅立叶变换以及亥姆霍兹分解，了解计算机模拟物理体系的方法。</li>
+                  <li>使用有限差分法求解常微分方程以及偏微分方程，并学习如何进行数值求解的相关算法。</li>
+                  <li>学习量子蒙特卡洛算法QMC，如扩散蒙特卡洛DMC以及变分蒙特卡洛VMC。使用QMC求解量子体系最低能量以及对应量子态，结果与理论分析符合。</li>
+                  <li>学习神经网络算法以及张量网络算法在物理体系中的应用，使用MPS对一维固体物理体系进行模拟。</li>
+                  <li>学习拓扑绝缘体相关理论知识，与同学一起进行演讲。如陈数的推导，Z₂绝缘体的分类以及三维拓扑绝缘体的分类。</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="project-title">使用差分动态显微镜观察细菌运动</h3>
+                    <p class="project-meta">吴教授，CUHK</p>
+                  </div>
+                  <div class="timeline-date">06/2023 - 08/2023</div>
+                </div>
+                <ul class="project-details">
+                  <li>制备细菌样本并在暗场显微镜下观察。利用NIS Elements Viewer软件捕捉和保存显微镜视频图像，进行分析。</li>
+                  <li>与同行合作，使用Python和MATLAB对细菌运动图像进行差分动态分析。根据分析结果得出细菌的运动扩散系数以及相关运动特性。</li>
+                  <li>使用LaTeX制作海报，在学校进行宣讲，与教授和同学进行交流与讨论，认识到项目的优化空间。</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content card">
+                <div class="timeline-header">
+                  <div class="timeline-left">
+                    <h3 class="project-title">验证狭义相对论的能量动量方程</h3>
+                    <p class="project-meta">吴教授，CUHK</p>
+                  </div>
+                  <div class="timeline-date">02/2023 - 05/2023</div>
+                </div>
+                <ul class="project-details">
+                  <li>在助教的指导下，利用相关实验设备，在超低温下利用放射性衰变测量β粒子的能量和速度。</li>
+                  <li>使用Mathematica分析收集到的数据，验证阿尔伯特·爱因斯坦狭义相对论的正确性。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+
+const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
+</script>
+
 <style scoped>
+/* Base Styles */
 .resume {
-  padding-top: 70px;
-}
-
-.page-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.resume-container {
-  padding: 3rem 2rem;
-}
-
-.resume-header {
-  text-align: center;
-  padding: 3rem 0;
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(124, 58, 237, 0.05));
-  border-radius: 15px;
-  margin-bottom: 3rem;
-}
-
-.resume-name {
-  font-size: 3rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.download-section {
-  text-align: center;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  margin: 2rem 0;
-  color: white;
-}
-
-.btn-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-  color: white;
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.3s ease;
-}
-
-.btn-download:hover {
-  transform: translateY(-3px) scale(1.05);
-}
-
-.resume-section {
-  margin-bottom: 2.5rem;
-}
-
-.section-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 2rem;
-}
-
-.education-item {
-  margin-bottom: 2rem;
-}
-
-.education-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-}
-
-.degree {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.institution {
-  color: #666;
-  margin-top: 0.3rem;
-}
-
-.date-location {
-  text-align: right;
-  color: #888;
-  font-size: 0.9rem;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.skill-category {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border-left: 4px solid #4F46E5;
-}
-
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.8rem;
-}
-
-.skill-tag {
-  background: #4F46E5;
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  min-height: 100vh;
+  background: #f9fafb;
 }
 
 .container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
-[data-theme="dark"] .skill-category {
-  background: #374151;
+/* Hero Header */
+.hero-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  margin-top: 70px;
+  border-radius: 0 0 32px 32px;
 }
 
-[data-theme="dark"] .degree {
+.name-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+}
+
+/* Contact Bar */
+.contact-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.contact-item .icon {
+  font-size: 1.2rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-download {
+  background: white;
+  color: #667eea;
+}
+
+.btn-download:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+.btn-view {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-view:hover {
+  background: white;
+  color: #667eea;
+  transform: translateY(-3px);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Main Content */
+.resume-content {
+  padding: 4rem 0;
+}
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #4f46e5;
+  border-radius: 2px;
+}
+
+.title-icon {
+  font-size: 2.2rem;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+  transform: translateY(-2px);
+  border-color: #4f46e5;
+}
+
+/* Summary */
+.summary-text {
+  line-height: 1.9;
+  color: #374151;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -2.625rem;
+  top: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: 50%;
+  border: 3px solid #f9fafb;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  z-index: 1;
+}
+
+.timeline-content {
+  margin-left: 1.5rem;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.timeline-left {
+  flex: 1;
+}
+
+.degree-title,
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.institution,
+.project-meta {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.timeline-date {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.course-list,
+.project-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.course-list li,
+.project-details li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.course-list li::before,
+.project-details li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.skill-card {
+  padding: 2rem;
+}
+
+.skill-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.category-icon {
+  font-size: 1.5rem;
+}
+
+.skill-group {
+  margin-bottom: 1.5rem;
+}
+
+.skill-group:last-child {
+  margin-bottom: 0;
+}
+
+.skill-level {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.skill-tag {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.skill-tag.primary {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+}
+
+.skill-tag.secondary {
+  background: #e0e7ff;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .name-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .contact-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-item {
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-marker {
+    left: -2.375rem;
+  }
+
+  .timeline-content {
+    margin-left: 1rem;
+  }
+
+  .timeline-header {
+    flex-direction: column;
+  }
+
+  .timeline-date {
+    align-self: flex-start;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode */
+[data-theme='dark'] .resume {
+  background: #111827;
+}
+
+[data-theme='dark'] .section-title {
   color: #e5e7eb;
+}
+
+[data-theme='dark'] .card {
+  background: #1f2937;
+  border-color: #374151;
+  border-radius: 24px !important;
+}
+
+[data-theme='dark'] .card:hover {
+  border-color: #7c3aed;
+}
+
+[data-theme='dark'] .summary-text,
+[data-theme='dark'] .course-list li,
+[data-theme='dark'] .project-details li {
+  color: #d1d5db;
+}
+
+[data-theme='dark'] .degree-title,
+[data-theme='dark'] .project-title,
+[data-theme='dark'] .skill-category-title {
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .institution,
+[data-theme='dark'] .project-meta {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .skill-level {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .skill-tag.secondary {
+  background: #374151;
+  color: #a78bfa;
+  border-color: #4b5563;
+}
+
+[data-theme='dark'] .timeline-marker {
+  border-color: #111827;
 }
 </style>

@@ -12,8 +12,8 @@ export function useParticleEffects() {
         const heart = document.createElement('div')
         heart.className = 'heart-trail'
         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)]
-        heart.style.left = (event.clientX + Math.random() * 40 - 20) + 'px'
-        heart.style.top = (event.clientY + Math.random() * 40 - 20) + 'px'
+        heart.style.left = event.clientX + Math.random() * 40 - 20 + 'px'
+        heart.style.top = event.clientY + Math.random() * 40 - 20 + 'px'
         document.body.appendChild(heart)
 
         setTimeout(() => {
@@ -31,8 +31,8 @@ export function useParticleEffects() {
         const sparkle = document.createElement('div')
         sparkle.className = 'sparkle'
         sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)]
-        sparkle.style.left = (event.clientX + Math.random() * 60 - 30) + 'px'
-        sparkle.style.top = (event.clientY + Math.random() * 60 - 30) + 'px'
+        sparkle.style.left = event.clientX + Math.random() * 60 - 30 + 'px'
+        sparkle.style.top = event.clientY + Math.random() * 60 - 30 + 'px'
         document.body.appendChild(sparkle)
 
         setTimeout(() => {
@@ -77,7 +77,7 @@ export function useParticleEffects() {
       cat.className = 'floating-cat'
       cat.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)]
       cat.style.left = Math.random() * 100 + 'vw'
-      cat.style.animationDuration = (Math.random() * 10 + 8) + 's'
+      cat.style.animationDuration = Math.random() * 10 + 8 + 's'
       cat.style.animationDelay = Math.random() * 2 + 's'
       container.appendChild(cat)
 
