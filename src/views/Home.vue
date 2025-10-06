@@ -125,6 +125,7 @@ const projects = ref([
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  border-radius: 0 0 32px 32px;
 }
 
 .hero-content {
@@ -247,7 +248,7 @@ const projects = ref([
 
 .btn {
   padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 50px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;

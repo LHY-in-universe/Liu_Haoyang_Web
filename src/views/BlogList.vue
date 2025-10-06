@@ -196,6 +196,7 @@ function goToPost(id) {
   color: white;
   padding: 4rem 2rem;
   text-align: center;
+  border-radius: 0 0 32px 32px;
 }
 
 .page-header h1 {

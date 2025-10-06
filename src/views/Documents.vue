@@ -83,6 +83,7 @@ const documents = ref([
   color: white;
   padding: 4rem 2rem;
   text-align: center;
+  border-radius: 0 0 32px 32px;
 }
 
 .documents-section {
@@ -127,7 +128,7 @@ const documents = ref([
 .btn {
   display: inline-block;
   padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 50px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
