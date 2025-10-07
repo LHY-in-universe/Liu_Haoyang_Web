@@ -24,12 +24,8 @@
   --bg-white: #ffffff;
   --bg-light: #f9fafb;
   --bg-lighter: #f3f4f6;
-  --bg-gradient-primary: linear-gradient(
-    135deg,
-    var(--primary-color) 0%,
-    var(--secondary-color) 100%
-  );
-  --bg-gradient-light: linear-gradient(135deg, var(--bg-light) 0%, #ede9fe 100%);
+  --bg-gradient-primary: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+  --bg-gradient-light: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
 
   /* 边框和阴影 */
   --border-color: #e5e7eb;
@@ -76,13 +72,14 @@
 
   /* 背景颜色 - 深色模式 */
   --bg-white: #1f2937;
-  --bg-light: #1f2937;
-  --bg-lighter: #1f2937;
-  --bg-gradient-light: linear-gradient(135deg, #1f2937 0%, #1f2937 100%);
+  --bg-light: #374151;
+  --bg-lighter: #4b5563;
+  --bg-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-gradient-light: linear-gradient(135deg, #374151 0%, #4b5563 100%);
 
   /* 边框和阴影 - 深色模式 */
-  --border-color: #1f2937;
-  --border-light: #1f2937;
+  --border-color: #4b5563;
+  --border-light: #6b7280;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
@@ -255,7 +252,7 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--bg-light) 0%, #ede9fe 50%, #f3e8ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 50%, #f3f4f6 100%);
   padding-top: 80px;
   position: relative;
   overflow: hidden;
@@ -908,7 +905,7 @@ html {
 }
 
 .page-header {
-  background: linear-gradient(135deg, var(--bg-light) 0%, #ede9fe 100%);
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
   padding: 4rem 0;
   text-align: center;
 }
@@ -2041,25 +2038,7 @@ html {
   }
 }
 
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-dark: #f9fafb;
-    --text-medium: #e5e7eb;
-    --text-light: #d1d5db;
-    --text-lighter: #9ca3af;
-    --bg-white: #1f2937;
-    --bg-light: #374151;
-    --bg-lighter: #4b5563;
-    --border-color: #4b5563;
-    --border-light: #6b7280;
-  }
-
-  .hero::before,
-  .blog-section::before {
-    opacity: 0.3;
-  }
-}
+/* 深色模式支持已移除 - 用户手动切换优先 */
 
 /* ============================================
    LOADING AND ERROR STATES

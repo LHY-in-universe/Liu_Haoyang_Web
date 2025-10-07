@@ -83,13 +83,13 @@ const closeMobileMenu = () => {
 .nav-logo a {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #4f46e5;
+  color: var(--primary-color);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-logo a:hover {
-  color: #7c3aed;
+  color: var(--secondary-color);
 }
 
 .nav-menu {
@@ -101,7 +101,7 @@ const closeMobileMenu = () => {
 }
 
 .nav-link {
-  color: #333;
+  color: var(--text-dark);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -109,11 +109,11 @@ const closeMobileMenu = () => {
 }
 
 .nav-link:hover {
-  color: #4f46e5;
+  color: var(--primary-color);
 }
 
 .nav-link.router-link-active {
-  color: #4f46e5;
+  color: var(--primary-color);
 }
 
 .nav-link.router-link-active::after {
@@ -123,7 +123,7 @@ const closeMobileMenu = () => {
   left: 0;
   right: 0;
   height: 2px;
-  background: #4f46e5;
+  background: var(--primary-color);
   border-radius: 2px;
 }
 
@@ -138,7 +138,7 @@ const closeMobileMenu = () => {
 .bar {
   width: 25px;
   height: 3px;
-  background: #333;
+  background: var(--text-dark);
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -178,19 +178,12 @@ const closeMobileMenu = () => {
   }
 }
 
+/* 深色模式样式 */
 [data-theme='dark'] .navbar {
   background: rgba(31, 41, 55, 0.95);
 }
 
-[data-theme='dark'] .nav-link {
-  color: #e5e7eb;
-}
-
-[data-theme='dark'] .bar {
-  background: #e5e7eb;
-}
-
 [data-theme='dark'] .nav-menu {
-  background: #1f2937;
+  background: var(--bg-white);
 }
 </style>
