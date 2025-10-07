@@ -51,7 +51,7 @@
           </h2>
           <div class="card">
             <p class="summary-text">
-              香港中文大学物理系本科应届毕业生，有计算机模拟相关经验，毕业设计为使用C语言对冷原子物理体系进行模拟。熟练使用Python、C、Linux，学习过R、Java的相关课程。自学机器学习与强化学习，理解CNN、RNN、随机森林、Q-learning、蒙特卡洛等算法，可以使用PyTorch包。预计硕士期间与导师进行机器学习与固体物理方面的交叉研究。
+              香港中文大学物理系硕士研究生，专注于计算物理与机器学习交叉领域研究。具有丰富的物理系统数值模拟经验，熟练使用Python、C、Linux进行科学计算。自学机器学习与强化学习相关算法，可以使用PyTorch等深度学习框架。预计硕士期间进行机器学习与固体物理方面的交叉研究。
             </p>
           </div>
         </section>
@@ -84,13 +84,14 @@
               <div class="timeline-content card">
                 <div class="timeline-header">
                   <div class="timeline-left">
-                    <h3 class="degree-title">物理理学士</h3>
+                    <h3 class="degree-title">理学学士 (物理学)</h3>
                     <p class="institution">香港中文大学 · 香港，中国</p>
                   </div>
                   <div class="timeline-date">09/2021 - 06/2025</div>
                 </div>
                 <ul class="course-list">
-                  <li>相关课程：高等固体物理、计算物理、高等量子力学</li>
+                  <li>核心课程：高等固体物理、计算物理、高等量子力学、统计力学、量子力学</li>
+                  <li>数学与计算：数值分析、偏微分方程、线性代数、复变函数</li>
                 </ul>
               </div>
             </div>
@@ -107,7 +108,7 @@
             <div class="skill-card card">
               <h3 class="skill-category-title">
                 <span class="category-icon">⚡</span>
-                计算机语言
+                编程语言
               </h3>
               <div class="skill-group">
                 <p class="skill-level">精通</p>
@@ -119,13 +120,11 @@
                 </div>
               </div>
               <div class="skill-group">
-                <p class="skill-level">接触</p>
+                <p class="skill-level">熟悉</p>
                 <div class="skill-tags">
                   <span class="skill-tag secondary">R</span>
                   <span class="skill-tag secondary">Java</span>
                   <span class="skill-tag secondary">SQL</span>
-                  <span class="skill-tag secondary">HTML</span>
-                  <span class="skill-tag secondary">CSS</span>
                   <span class="skill-tag secondary">Julia</span>
                 </div>
               </div>
@@ -134,7 +133,7 @@
             <div class="skill-card card">
               <h3 class="skill-category-title">
                 <span class="category-icon">🛠️</span>
-                系统与软件
+                工具与系统
               </h3>
               <div class="skill-tags">
                 <span class="skill-tag primary">Linux</span>
@@ -150,7 +149,7 @@
         <section class="section">
           <h2 class="section-title">
             <span class="title-icon">🔬</span>
-            工作经历
+            科研经历
           </h2>
           <div class="timeline">
             <!-- Project 1 -->
@@ -165,9 +164,9 @@
                   <div class="timeline-date">05/2024 - 12/2024</div>
                 </div>
                 <ul class="project-details">
-                  <li>使用分子动力学方法MD模拟高斯势井下费米子的蒸发冷却现象，使用Velocity Verlet算法进行速度与位置的更新，以保证体系的能量守恒与相空间稳定性。</li>
-                  <li>使用直接模拟蒙特卡洛方法模拟相同的系统，使用octree算法对空间进行自适应性划分，提高模拟的精确程度。</li>
-                  <li>比较两个方法结果以及实验结果，证实直接模拟蒙特卡洛方法在冷原子模拟中的可行性，为冷原子物理模拟提供一种快速且精确的新算法。</li>
+                  <li><strong>研究背景：</strong>针对冷原子物理中蒸发冷却过程的数值模拟难题，开发高效精确的模拟算法</li>
+                  <li><strong>方法开发：</strong>实现基于C语言的分子动力学(MD)模拟程序，采用Velocity Verlet算法确保能量守恒与相空间稳定性；开发直接模拟蒙特卡洛(DSMC)方法，结合octree空间自适应划分算法提升计算效率</li>
+                  <li><strong>研究成果：</strong>系统比对MD、DSMC与实验数据，验证DSMC方法在冷原子模拟中的适用性，为该领域提供了一种兼具速度与精度的新型算法框架</li>
                 </ul>
               </div>
             </div>
@@ -184,11 +183,10 @@
                   <div class="timeline-date">09/2023 - 01/2024</div>
                 </div>
                 <ul class="project-details">
-                  <li>使用Python以及Jupyter求解拉普拉斯方程，进行傅立叶变换以及亥姆霍兹分解，了解计算机模拟物理体系的方法。</li>
-                  <li>使用有限差分法求解常微分方程以及偏微分方程，并学习如何进行数值求解的相关算法。</li>
-                  <li>学习量子蒙特卡洛算法QMC，如扩散蒙特卡洛DMC以及变分蒙特卡洛VMC。使用QMC求解量子体系最低能量以及对应量子态，结果与理论分析符合。</li>
-                  <li>学习神经网络算法以及张量网络算法在物理体系中的应用，使用MPS对一维固体物理体系进行模拟。</li>
-                  <li>学习拓扑绝缘体相关理论知识，与同学一起进行演讲。如陈数的推导，Z₂绝缘体的分类以及三维拓扑绝缘体的分类。</li>
+                  <li><strong>计算方法实践：</strong>使用Python实现拉普拉斯方程数值求解、傅立叶变换及亥姆霍兹分解；掌握有限差分法求解常微分方程与偏微分方程</li>
+                  <li><strong>量子模拟算法：</strong>实现量子蒙特卡洛(QMC)方法，包括扩散蒙特卡洛(DMC)和变分蒙特卡洛(VMC)，成功求解量子体系基态能量与波函数，计算结果与理论预测高度吻合</li>
+                  <li><strong>先进算法应用：</strong>学习并应用神经网络与张量网络算法于物理系统，使用矩阵乘积态(MPS)模拟一维固体物理体系</li>
+                  <li><strong>理论研究：</strong>深入研究拓扑绝缘体理论，包括陈数计算、Z₂拓扑绝缘体分类及三维拓扑相分类，并进行学术报告</li>
                 </ul>
               </div>
             </div>
@@ -205,9 +203,9 @@
                   <div class="timeline-date">06/2023 - 08/2023</div>
                 </div>
                 <ul class="project-details">
-                  <li>制备细菌样本并在暗场显微镜下观察。利用NIS Elements Viewer软件捕捉和保存显微镜视频图像，进行分析。</li>
-                  <li>与同行合作，使用Python和MATLAB对细菌运动图像进行差分动态分析。根据分析结果得出细菌的运动扩散系数以及相关运动特性。</li>
-                  <li>使用LaTeX制作海报，在学校进行宣讲，与教授和同学进行交流与讨论，认识到项目的优化空间。</li>
+                  <li><strong>实验设计：</strong>制备细菌样本并通过暗场显微镜成像，使用NIS Elements Viewer采集高质量视频数据</li>
+                  <li><strong>数据分析：</strong>开发基于Python和MATLAB的差分动态显微镜(DDM)分析程序，定量测量细菌运动的扩散系数和动力学参数</li>
+                  <li><strong>学术交流：</strong>使用LaTeX制作研究海报并进行学术报告，与教授及同行讨论实验结果与改进方案</li>
                 </ul>
               </div>
             </div>
@@ -224,8 +222,8 @@
                   <div class="timeline-date">02/2023 - 05/2023</div>
                 </div>
                 <ul class="project-details">
-                  <li>在助教的指导下，利用相关实验设备，在超低温下利用放射性衰变测量β粒子的能量和速度。</li>
-                  <li>使用Mathematica分析收集到的数据，验证阿尔伯特·爱因斯坦狭义相对论的正确性。</li>
+                  <li><strong>实验测量：</strong>在超低温环境下利用放射性衰变过程，精确测量β粒子的能量-动量关系</li>
+                  <li><strong>数据验证：</strong>使用Mathematica进行数据拟合与统计分析，实验结果成功验证了狭义相对论的能量-动量方程</li>
                 </ul>
               </div>
             </div>
@@ -257,8 +255,8 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 /* Hero Header */
 .hero-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+  color: #1f2937;
   padding: 5rem 2rem 4rem;
   text-align: center;
   margin-top: 70px;
@@ -288,17 +286,17 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
   gap: 1.5rem;
   margin-bottom: 2.5rem;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .contact-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
+  color: #1f2937;
   text-decoration: none;
   font-size: 0.95rem;
   padding: 0.5rem 1rem;
@@ -307,7 +305,7 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 }
 
 .contact-item:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.8);
   transform: translateY(-2px);
 }
 
@@ -355,23 +353,23 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 .btn-download {
   background: white;
-  color: #667eea;
+  color: #4f46e5;
 }
 
 .btn-download:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
 }
 
 .btn-view {
-  background: rgba(255, 255, 255, 0.2);
+  background: #4f46e5;
   color: white;
-  border: 2px solid white;
+  border: 2px solid #4f46e5;
 }
 
 .btn-view:hover {
-  background: white;
-  color: #667eea;
+  background: #3730a3;
+  border-color: #3730a3;
   transform: translateY(-3px);
 }
 
@@ -681,8 +679,8 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 }
 
 [data-theme='dark'] .card {
-  background: #1f2937;
-  border-color: #1f2937;
+  background: #1f2937 !important;
+  border-color: #1f2937 !important;
   border-radius: 24px !important;
 }
 
@@ -719,5 +717,35 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 [data-theme='dark'] .timeline-marker {
   border-color: #1f2937;
+}
+
+/* 深色模式 - Hero Header */
+[data-theme='dark'] .hero-header {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+  color: #f9fafb;
+}
+
+[data-theme='dark'] .contact-bar {
+  background: rgba(31, 41, 55, 0.5);
+  border-color: rgba(75, 85, 99, 0.5);
+}
+
+[data-theme='dark'] .contact-item {
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .contact-item:hover {
+  background: rgba(75, 85, 99, 0.5);
+}
+
+[data-theme='dark'] .btn-download {
+  background: #374151;
+  color: #a78bfa;
+}
+
+[data-theme='dark'] .btn-view {
+  background: #4f46e5;
+  color: white;
+  border-color: #4f46e5;
 }
 </style>
