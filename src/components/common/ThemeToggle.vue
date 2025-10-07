@@ -17,7 +17,13 @@ const isDark = useDark({
   valueDark: 'dark',
   valueLight: 'light',
   storageKey: 'theme', // 使用与 theme.js 相同的 localStorage 键
-  listenToStorageChanges: true // 监听其他标签页的变化
+  listenToStorageChanges: true, // 监听其他标签页的变化
+  initialValue: 'light', // 默认为浅色主题
+  disableTransition: false,
+  onChanged: (dark) => {
+    // 强制应用主题,覆盖系统偏好
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+  }
 })
 
 const toggleDark = useToggle(isDark)

@@ -18,6 +18,14 @@ import Navbar from './components/common/Navbar.vue'
 import Footer from './components/common/Footer.vue'
 import ErrorBoundary from './components/common/ErrorBoundary.vue'
 
+// 主题初始化 - 强制默认为浅色主题,忽略系统偏好
+const savedTheme = localStorage.getItem('theme')
+if (!savedTheme || savedTheme === 'auto') {
+  localStorage.setItem('theme', 'light')
+}
+// 立即应用主题,避免闪烁
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') === 'dark' ? 'dark' : 'light')
+
 // 全局错误处理
 onMounted(() => {
   // 捕获全局未处理的错误
