@@ -92,7 +92,7 @@
    ============================================ */
 
 [data-theme='dark'] .hero {
-  background: #1f2937;
+  background: var(--bg-white);
 }
 
 [data-theme='dark'] .navbar {
@@ -111,6 +111,91 @@
 
 [data-theme='dark'] .modal-content {
   background: var(--bg-white);
+}
+
+/* ============================================
+   GLOBAL CARD STYLES
+   ============================================ */
+
+.card {
+  background: var(--bg-light);
+  padding: 2rem;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal) var(--ease-in-out);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+[data-theme='dark'] .card {
+  background: var(--bg-white);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .card:hover {
+  border-color: var(--secondary-color);
+}
+
+/* ============================================
+   GLOBAL BUTTON STYLES
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition-normal) var(--ease-in-out);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background: var(--bg-gradient-primary);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-dark);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
 }
 
 body {

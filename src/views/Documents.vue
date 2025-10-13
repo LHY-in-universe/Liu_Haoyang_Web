@@ -97,19 +97,7 @@ const documents = ref([
 }
 
 .document-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid #e5e7eb;
-}
-
-.document-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
-  border-color: #4f46e5;
 }
 
 .document-icon {
@@ -121,41 +109,13 @@ const documents = ref([
   display: flex;
   justify-content: space-between;
   margin: 1rem 0;
-  color: #6b7280;
+  color: var(--text-light);
   font-size: 0.9rem;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background: #4f46e5;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #4338ca;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-}
-
-[data-theme='dark'] .document-card {
-  background: #1f2937;
-  color: #e5e7eb;
-  border-color: #374151;
-}
-
-[data-theme='dark'] .document-card:hover {
-  border-color: #7c3aed;
 }
 </style>

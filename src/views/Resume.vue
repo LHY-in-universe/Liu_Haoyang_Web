@@ -244,7 +244,7 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 /* Base Styles */
 .resume {
   min-height: 100vh;
-  background: #f9fafb;
+  background: var(--bg-light);
 }
 
 .container {
@@ -415,19 +415,7 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 /* Card */
 .card {
-  background: white;
-  padding: 2rem;
-  border-radius: 24px !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-  border: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
   overflow: hidden;
-}
-
-.card:hover {
-  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
-  transform: translateY(-2px);
-  border-color: #4f46e5;
 }
 
 /* Summary */
@@ -671,58 +659,45 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 
 /* Dark Mode - Unified Background */
 [data-theme='dark'] .resume {
-  background: #1f2937;
+  background: var(--bg-white);
 }
 
 [data-theme='dark'] .section-title {
-  color: #e5e7eb;
-}
-
-[data-theme='dark'] .card {
-  background: #1f2937 !important;
-  border-color: #1f2937 !important;
-  border-radius: 24px !important;
-}
-
-[data-theme='dark'] .card:hover {
-  border-color: #7c3aed;
+  color: var(--text-medium);
 }
 
 [data-theme='dark'] .summary-text,
 [data-theme='dark'] .course-list li,
 [data-theme='dark'] .project-details li {
-  color: #d1d5db;
+  color: var(--text-light);
 }
 
 [data-theme='dark'] .degree-title,
 [data-theme='dark'] .project-title,
 [data-theme='dark'] .skill-category-title {
-  color: #e5e7eb;
+  color: var(--text-medium);
 }
 
 [data-theme='dark'] .institution,
-[data-theme='dark'] .project-meta {
-  color: #9ca3af;
-}
-
+[data-theme='dark'] .project-meta,
 [data-theme='dark'] .skill-level {
-  color: #9ca3af;
+  color: var(--text-lighter);
 }
 
 [data-theme='dark'] .skill-tag.secondary {
-  background: #1f2937;
-  color: #a78bfa;
-  border-color: #1f2937;
+  background: var(--bg-white);
+  color: var(--secondary-light);
+  border-color: var(--border-color);
 }
 
 [data-theme='dark'] .timeline-marker {
-  border-color: #1f2937;
+  border-color: var(--border-color);
 }
 
 /* 深色模式 - Hero Header */
 [data-theme='dark'] .hero-header {
-  background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
-  color: #f9fafb;
+  background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg-light) 50%, var(--bg-lighter) 100%);
+  color: var(--text-dark);
 }
 
 [data-theme='dark'] .contact-bar {
@@ -731,7 +706,7 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 }
 
 [data-theme='dark'] .contact-item {
-  color: #e5e7eb;
+  color: var(--text-medium);
 }
 
 [data-theme='dark'] .contact-item:hover {
@@ -739,13 +714,13 @@ const resumePdfUrl = ref('/Liu_Haoyang_Web/documents/resume/main.pdf')
 }
 
 [data-theme='dark'] .btn-download {
-  background: #374151;
-  color: #a78bfa;
+  background: var(--bg-light);
+  color: var(--secondary-light);
 }
 
 [data-theme='dark'] .btn-view {
-  background: #4f46e5;
+  background: var(--primary-color);
   color: white;
-  border-color: #4f46e5;
+  border-color: var(--primary-color);
 }
 </style>

@@ -240,46 +240,11 @@ const projects = ref([
 }
 
 .tag {
-  background: #e5e7eb;
+  background: var(--border-color);
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-size: 0.8rem;
-}
-
-.btn {
-  padding: 0.8rem 1.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-}
-
-.btn-primary {
-  background: #4f46e5;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #4338ca;
-}
-
-.btn-secondary {
-  background: white;
-  color: #4f46e5;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
-}
-
-.btn-sm {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  color: var(--text-dark);
 }
 
 @media (max-width: 768px) {
@@ -298,17 +263,7 @@ const projects = ref([
   }
 }
 
-[data-theme='dark'] .project-card {
-  background: #1f2937;
-  color: #e5e7eb;
-  border-color: #374151;
-}
-
-[data-theme='dark'] .project-card:hover {
-  border-color: #7c3aed;
-}
-
 [data-theme='dark'] .section-header h2 {
-  color: #7c3aed;
+  color: var(--secondary-color);
 }
 </style>

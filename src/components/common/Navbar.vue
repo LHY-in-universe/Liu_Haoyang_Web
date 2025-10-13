@@ -149,11 +149,11 @@ const closeMobileMenu = () => {
     left: -100%;
     top: 70px;
     flex-direction: column;
-    background: white;
+    background: var(--bg-white);
     width: 100%;
     text-align: center;
     transition: left 0.3s ease;
-    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-lg);
     padding: 2rem 0;
   }
 
@@ -181,9 +181,5 @@ const closeMobileMenu = () => {
 /* 深色模式样式 */
 [data-theme='dark'] .navbar {
   background: rgba(31, 41, 55, 0.95);
-}
-
-[data-theme='dark'] .nav-menu {
-  background: var(--bg-white);
 }
 </style>
