@@ -1,3 +1,18 @@
+---
+id: example-markdown
+title: Markdown 博客系统使用示例
+date: 2025-02-07
+readTime: 5
+author: 刘昊阳
+category: 教程
+tags:
+  - Vue.js
+  - Markdown
+  - 博客系统
+  - 示例
+excerpt: 这是一个完整的 Markdown 博客系统示例，展示代码高亮、表格、数学公式等丰富功能的使用方法。
+---
+
 # 欢迎来到我的博客
 
 这是一个使用 **Markdown** 编写的示例博客文章。

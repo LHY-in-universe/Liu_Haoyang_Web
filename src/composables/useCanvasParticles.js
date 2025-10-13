@@ -4,7 +4,7 @@
  * 替代 DOM 操作的粒子系统
  */
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 export function useCanvasParticles() {
   const canvas = ref(null)
@@ -29,7 +29,7 @@ export function useCanvasParticles() {
       this.emoji = config.emoji || '✨'
     }
 
-    update(deltaTime) {
+    update() {
       const age = Date.now() - this.createdAt
       const lifeRatio = age / this.life
 

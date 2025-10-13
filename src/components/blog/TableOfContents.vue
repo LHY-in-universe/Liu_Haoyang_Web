@@ -2,7 +2,7 @@
   <div v-if="headings.length > 0" class="toc-container">
     <div class="toc-header">
       <h3>📑 目录</h3>
-      <button @click="isCollapsed = !isCollapsed" class="toc-toggle">
+      <button class="toc-toggle" @click="isCollapsed = !isCollapsed">
         {{ isCollapsed ? '展开' : '收起' }}
       </button>
     </div>

@@ -6,14 +6,14 @@
         <div class="toast-content">
           <p class="toast-message">{{ message }}</p>
         </div>
-        <button @click="close" class="toast-close">✕</button>
+        <button class="toast-close" @click="close">✕</button>
       </div>
     </Transition>
   </Teleport>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   message: {
@@ -56,7 +56,17 @@ onMounted(() => {
   }
 })
 
+onBeforeUnmount(() => {
+  if (timer) {
+    clearTimeout(timer)
+  }
+})
+
 function close() {
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
+  }
   visible.value = false
   setTimeout(() => {
     emit('close')

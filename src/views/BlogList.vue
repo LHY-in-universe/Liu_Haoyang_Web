@@ -139,13 +139,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import {
-  blogPosts,
-  getAllCategories,
-  getAllTags,
-  searchPosts,
-  getPostsByCategory
-} from '@/config/blog-posts'
+import { blogPosts, getAllCategories, getAllTags } from '@/config/blog-posts'
 
 const router = useRouter()
 

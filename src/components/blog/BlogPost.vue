@@ -2,7 +2,7 @@
   <div class="blog-post-page">
     <div class="post-header">
       <div class="container">
-        <button @click="goBack" class="back-button">← 返回博客列表</button>
+        <button class="back-button" @click="goBack">← 返回博客列表</button>
 
         <h1 class="post-title">{{ post.title }}</h1>
 
@@ -42,8 +42,8 @@
           <div class="post-share">
             <h3>分享这篇文章</h3>
             <div class="share-buttons">
-              <button @click="shareToTwitter" class="share-btn">🐦 Twitter</button>
-              <button @click="copyLink" class="share-btn">🔗 复制链接</button>
+              <button class="share-btn" @click="shareToTwitter">🐦 Twitter</button>
+              <button class="share-btn" @click="copyLink">🔗 复制链接</button>
             </div>
           </div>
 
@@ -62,8 +62,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHead } from '@vueuse/head'
 import MarkdownRenderer from './MarkdownRenderer.vue'
 import PdfViewer from './PdfViewer.vue'
@@ -71,7 +71,6 @@ import { blogPosts } from '@/config/blog-posts'
 import { useToast } from '@/composables/useToast'
 
 const router = useRouter()
-const route = useRoute()
 const toast = useToast()
 
 const props = defineProps({

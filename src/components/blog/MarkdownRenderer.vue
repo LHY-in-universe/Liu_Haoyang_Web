@@ -93,16 +93,17 @@ renderer.link = (href, title, text) => {
 marked.use({ renderer })
 
 // HTML 转义函数（保留用于其他用途）
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  }
-  return text.replace(/[&<>"']/g, (m) => map[m])
-}
+// Commented out as currently unused, but may be useful later
+// function escapeHtml(text) {
+//   const map = {
+//     '&': '&amp;',
+//     '<': '&lt;',
+//     '>': '&gt;',
+//     '"': '&quot;',
+//     "'": '&#039;'
+//   }
+//   return text.replace(/[&<>"']/g, (m) => map[m])
+// }
 
 // 加载和渲染 Markdown
 async function loadAndRender() {

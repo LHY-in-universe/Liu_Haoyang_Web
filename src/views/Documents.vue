@@ -10,7 +10,7 @@
     <section class="documents-section">
       <div class="container">
         <div class="documents-grid">
-          <div class="document-card" v-for="doc in documents" :key="doc.id">
+          <div v-for="doc in documents" :key="doc.id" class="document-card">
             <div class="document-icon">📄</div>
             <h3>{{ doc.title }}</h3>
             <p>{{ doc.description }}</p>

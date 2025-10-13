@@ -5,17 +5,17 @@
       <h2>哎呀，出错了！</h2>
       <p class="error-message">{{ errorMessage }}</p>
 
-      <div class="error-details" v-if="showDetails && errorStack">
-        <button @click="toggleDetails" class="details-toggle">
+      <div v-if="showDetails && errorStack" class="error-details">
+        <button class="details-toggle" @click="toggleDetails">
           {{ detailsExpanded ? '隐藏详情' : '查看详情' }}
         </button>
         <pre v-if="detailsExpanded" class="error-stack">{{ errorStack }}</pre>
       </div>
 
       <div class="error-actions">
-        <button @click="handleRetry" class="btn btn-primary">🔄 重试</button>
+        <button class="btn btn-primary" @click="handleRetry">🔄 重试</button>
         <router-link to="/" class="btn btn-secondary"> 🏠 返回首页 </router-link>
-        <button @click="handleReport" class="btn btn-outline">📧 报告问题</button>
+        <button class="btn btn-outline" @click="handleReport">📧 报告问题</button>
       </div>
     </div>
   </div>

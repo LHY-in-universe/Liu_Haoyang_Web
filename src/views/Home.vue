@@ -68,12 +68,12 @@
           <p>我的一些精选项目</p>
         </div>
         <div class="projects-grid">
-          <div class="project-card" v-for="project in projects" :key="project.id">
+          <div v-for="project in projects" :key="project.id" class="project-card">
             <div class="project-content">
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
               <div class="project-tags">
-                <span class="tag" v-for="tag in project.tags" :key="tag">{{ tag }}</span>
+                <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
               <div class="project-links">
                 <a href="#" class="btn btn-sm">演示</a>

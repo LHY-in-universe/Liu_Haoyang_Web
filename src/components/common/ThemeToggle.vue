@@ -1,8 +1,8 @@
 <template>
   <div
     class="theme-toggle"
-    @click="toggleThemeWithAnimation"
     :title="isDark ? '切换到浅色主题' : '切换到深色主题'"
+    @click="toggleThemeWithAnimation"
   >
     <span class="theme-toggle-icon">{{ isDark ? '☀️' : '🌙' }}</span>
   </div>

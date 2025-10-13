@@ -3,7 +3,7 @@
  * ⚠️ 此文件由 scripts/generate-blog-config.js 自动生成
  * 请勿直接编辑，如需修改请编辑 Markdown 文件的 frontmatter
  *
- * 生成时间: 2025/10/13 12:54:36
+ * 生成时间: 2025/10/13 12:54:02
  */
 
 // 文章类型定义
@@ -42,40 +42,30 @@ export const blogPosts: BlogPost[] = [
     "cover": "/images/posts/template-cover.jpg"
   },
   {
-    "id": "welcome-post",
-    "title": "欢迎来到我的个人博客",
+    "id": "example",
+    "title": "example",
     "date": "2025-10-13",
-    "readTime": 8,
+    "readTime": 3,
     "author": "刘昊阳",
-    "category": "公告",
-    "tags": [
-      "博客",
-      "Vue.js",
-      "Web开发",
-      "个人介绍"
-    ],
-    "type": "markdown",
-    "content": "/blog-posts/welcome-post.md",
-    "isFilePath": true,
-    "excerpt": "欢迎来到我的个人网站！这里分享我在技术、学术研究和生活中的思考与经验。本文介绍了博客系统的功能和我的技术兴趣。"
-  },
-  {
-    "id": "example-markdown",
-    "title": "Markdown 博客系统使用示例",
-    "date": "2025-02-07",
-    "readTime": 5,
-    "author": "刘昊阳",
-    "category": "教程",
-    "tags": [
-      "Vue.js",
-      "Markdown",
-      "博客系统",
-      "示例"
-    ],
+    "category": "未分类",
+    "tags": [],
     "type": "markdown",
     "content": "/blog-posts/example.md",
     "isFilePath": true,
-    "excerpt": "这是一个完整的 Markdown 博客系统示例，展示代码高亮、表格、数学公式等丰富功能的使用方法。"
+    "excerpt": "这是一个使用 **Markdown** 编写的示例博客文章。\n\n\n\n\n\n- ✅ 标题和段落\n- ✅ **粗体** 和 *斜体*\n- ✅ 代码块和行内代码\n- ✅ 表格\n- ✅ 链接\n\n\n\n\n\n\n\n\n\n> 这是一个引用块示例。\n> \n> 可以用来突出显示重要信息或引用他人的观点。\n\n\n\n| 功能 | ..."
+  },
+  {
+    "id": "welcome-post",
+    "title": "welcome-post",
+    "date": "2025-10-13",
+    "readTime": 3,
+    "author": "刘昊阳",
+    "category": "未分类",
+    "tags": [],
+    "type": "markdown",
+    "content": "/blog-posts/welcome-post.md",
+    "isFilePath": true,
+    "excerpt": "大家好！欢迎来到我的个人网站。这是我的第一篇正式博客文章。\n\n\n\n这个网站是使用现代化的技术栈构建的：\n\n- **前端框架**: Vue 3 (Composition API)\n- **构建工具**: Vite\n- **样式**: CSS Variables + 响应式设计\n- **博客系统**: ..."
   }
 ]
 

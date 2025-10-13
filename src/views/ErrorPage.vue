@@ -27,7 +27,7 @@
       <div class="error-actions">
         <router-link to="/" class="btn btn-primary"> 🏠 返回首页 </router-link>
         <router-link to="/blog" class="btn btn-secondary"> 📝 浏览博客 </router-link>
-        <button @click="goBack" class="btn btn-outline">← 返回上一页</button>
+        <button class="btn btn-outline" @click="goBack">← 返回上一页</button>
       </div>
 
       <div class="quick-links">

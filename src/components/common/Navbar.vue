@@ -1,28 +1,48 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" role="navigation" aria-label="主导航">
     <div class="nav-container">
       <div class="nav-logo">
-        <router-link to="/">{{ t('name') }}</router-link>
+        <router-link to="/" aria-label="返回首页">{{ t('name') }}</router-link>
       </div>
 
-      <ul class="nav-menu" :class="{ active: mobileMenuOpen }">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link" @click="closeMobileMenu">
+      <ul class="nav-menu" :class="{ active: mobileMenuOpen }" role="menubar">
+        <li class="nav-item" role="none">
+          <router-link
+            to="/"
+            class="nav-link"
+            role="menuitem"
+            @click="closeMobileMenu"
+          >
             {{ t('home') }}
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/blog" class="nav-link" @click="closeMobileMenu">
+        <li class="nav-item" role="none">
+          <router-link
+            to="/blog"
+            class="nav-link"
+            role="menuitem"
+            @click="closeMobileMenu"
+          >
             {{ t('blog') }}
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/documents" class="nav-link" @click="closeMobileMenu">
+        <li class="nav-item" role="none">
+          <router-link
+            to="/documents"
+            class="nav-link"
+            role="menuitem"
+            @click="closeMobileMenu"
+          >
             {{ t('documents') }}
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/resume" class="nav-link" @click="closeMobileMenu">
+        <li class="nav-item" role="none">
+          <router-link
+            to="/resume"
+            class="nav-link"
+            role="menuitem"
+            @click="closeMobileMenu"
+          >
             {{ t('resume') }}
           </router-link>
         </li>
@@ -30,11 +50,17 @@
 
       <ThemeToggle />
 
-      <div class="nav-toggle" :class="{ active: mobileMenuOpen }" @click="toggleMobileMenu">
+      <button
+        class="nav-toggle"
+        :class="{ active: mobileMenuOpen }"
+        :aria-expanded="mobileMenuOpen"
+        aria-label="切换导航菜单"
+        @click="toggleMobileMenu"
+      >
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-      </div>
+      </button>
     </div>
   </nav>
 </template>
@@ -133,6 +159,15 @@ const closeMobileMenu = () => {
   gap: 4px;
   cursor: pointer;
   padding: 0.5rem;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .bar {
