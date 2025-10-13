@@ -69,10 +69,7 @@
             <button class="fun-btn" @click="createRainbow">🌈 彩虹特效</button>
             <button
               class="fun-btn"
-              @click="
-                gameState.isOpen = true
-                playGame()
-              "
+              @click="openGame"
             >
               🎯 小游戏
             </button>
@@ -245,6 +242,11 @@ const playSound = (soundType) => {
 
 const startCatRain = () => {
   createCatRain()
+}
+
+const openGame = () => {
+  gameState.isOpen = true
+  playGame()
 }
 
 const toggleMusic = () => {
